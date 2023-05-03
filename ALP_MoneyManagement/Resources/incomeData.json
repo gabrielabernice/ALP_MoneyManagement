@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "incomeName": "Deposit"
+    },
+    {
+        "id": 2,
+        "incomeName": "Dividends"
+    },
+    {
+        "id": 3,
+        "incomeName": "Salary"
+    },
+    {
+        "id": 4,
+        "incomeName": "Grants"
+    },
+    {
+        "id": 5,
+        "incomeName": "Investments"
+    },
+    {
+        "id": 6,
+        "incomeName": "Coupons"
+    },
+    {
+        "id": 7,
+        "incomeName": "Savings"
+    },
+    {
+        "id": 8,
+        "incomeName": "Refund"
+    },
+    {
+        "id": 9,
+        "incomeName": "Awards"
+    },
+    {
+        "id": 10,
+        "incomeName": "Sales"
+    },
+    {
+        "id": 11,
+        "incomeName": "Rentals"
+    },
+    {
+        "id": 12,
+        "incomeName": "Others"
+    }
+]

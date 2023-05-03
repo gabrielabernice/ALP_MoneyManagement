@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "expensesName": "Insurance"
+  },
+  {
+    "id": 2,
+    "expensesName": "Baby"
+  },
+  {
+    "id": 3,
+    "expensesName": "Shopping"
+  },
+  {
+    "id": 4,
+    "expensesName": "Fruits"
+  },
+  {
+    "id": 5,
+    "expensesName": "Snacks"
+  },
+  {
+    "id": 6,
+    "expensesName": "Electronics"
+  },
+  {
+    "id": 7,
+    "expensesName": "Prizes"
+  },
+  {
+    "id": 8,
+    "expensesName": "Pets"
+  },
+  {
+    "id": 9,
+    "expensesName": "Entertainment"
+  },
+  {
+    "id": 10,
+    "expensesName": "Office"
+  },
+  {
+    "id": 11,
+    "expensesName": "Beauty"
+  },
+  {
+    "id": 12,
+    "expensesName": "Health"
+  },
+  {
+    "id": 13,
+    "expensesName": "Food"
+  },
+  {
+    "id": 14,
+    "expensesName": "Cars"
+  },
+  {
+    "id": 15,
+    "expensesName": "Motors"
+  },
+  {
+    "id": 16,
+    "expensesName": "Sports"
+  },
+  {
+    "id": 17,
+    "expensesName": "Taxes"
+  },
+  {
+    "id": 18,
+    "expensesName": "Clothing"
+  },
+  {
+    "id": 19,
+    "expensesName": "Education"
+  },
+  {
+    "id": 20,
+    "expensesName": "Credit"
+  },
+  {
+    "id": 21,
+    "expensesName": "Cigarettes"
+  },
+  {
+    "id": 22,
+    "expensesName": "Households"
+  },
+  {
+    "id": 23,
+    "expensesName": "Social"
+  },
+  {
+    "id": 24,
+    "expensesName": "Bills"
+  },
+  {
+    "id": 25,
+    "expensesName": "Taxi"
+  },
+  {
+    "id": 26,
+    "expensesName": "Transportation"
+  },
+  {
+    "id": 27,
+    "expensesName": "Transportation"
+  }
+]
