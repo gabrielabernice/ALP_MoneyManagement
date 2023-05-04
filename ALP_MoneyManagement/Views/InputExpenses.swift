@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct InputExpenses: View {
-//    @EnvironmentObject var modelData: ModelData
-//    static let modelData = ModelData()
+    //    @EnvironmentObject var modelData: ModelData
+    //    static let modelData = ModelData()
     
     @State var expenses: [Expenses] = []
     @State var selectedOption: Expenses?
@@ -20,11 +20,18 @@ struct InputExpenses: View {
     @State var date = Date()
     @State var isExpanded = false
     
+    @State var expensesHistory: [History] = []
+    @State var appendExpenses = false
+    
+    @State var index = 0
+    @State var type = "Expenses"
+    
     var body: some View {
         NavigationView{
             VStack {
-                Text("Source of Expenses : \(selectedOption?.expensesName ?? "")")
+                Text("Source of Expenses : \n\(selectedOption?.expensesName ?? "")")
                     .font(.title2)
+                    .multilineTextAlignment(.center)
                 
                 Menu {
                     ForEach(expenses, id: \.self) { expense in
@@ -47,7 +54,7 @@ struct InputExpenses: View {
                     Text("Rp. ")
                         .font(.title2)
                     
-                    TextField("Enter Amount", text: $amount)
+                    TextField("ex : 30000", text: $amount)
                         .padding(.horizontal, 20)
                         .padding(.vertical, 10)
                         .font(.system(size: 16, weight: .bold))
@@ -87,15 +94,27 @@ struct InputExpenses: View {
                     .datePickerStyle(WheelDatePickerStyle())
                 }
                 
-                NavigationLink(destination: MainScreen(savings: "")) {
-                    Text("Save")
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color(red: 0.4, green: 0.6, blue: 1.0))
-                        .cornerRadius(10)
+                Button("Save") {
+                    if check {
+                        expensesHistory.append(History(id: index, name: selectedOption?.expensesName ?? "", amount: Int(amount) ?? 0, date: date, type: type))
+                        
+                        appendExpenses = true
+                        index += 1
+                    }
                 }
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+                .padding()
+                .background(Color(red: 0.4, green: 0.6, blue: 1.0))
+                .cornerRadius(10)
                 .disabled(!check)
+                
+                if appendExpenses{
+                    Text("Data successfully saved!")
+                        .padding()
+                        .multilineTextAlignment(.center)
+                    Text("\(expensesHistory[0].name )")
+                }
             }
             .onAppear {
                 let url = Bundle.main.url(forResource: "expensesData", withExtension: "json")!

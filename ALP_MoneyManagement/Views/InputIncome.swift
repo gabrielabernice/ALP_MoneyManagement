@@ -23,8 +23,9 @@ struct InputIncome: View {
     var body: some View {
         NavigationView{
             VStack {
-                Text("Source of Income : \(selectedOption?.incomeName ?? "")")
+                Text("Source of Income : \n\(selectedOption?.incomeName ?? "")")
                     .font(.title2)
+                    .multilineTextAlignment(.center)
                 
                 Menu {
                     ForEach(income, id: \.self) { incomes in
@@ -87,7 +88,7 @@ struct InputIncome: View {
                     .datePickerStyle(WheelDatePickerStyle())
                 }
                 
-                NavigationLink(destination: MainScreen(savings: "")) {
+                NavigationLink(destination: MainScreen(savings: "S", history: [History(id: 0, name: "Shopping", amount: 30000, date: Calendar.current.date(from: DateComponents(year: 2024, month: 3, day: 7)) ?? Date(), type: "Expenses")])) {
                     Text("Save")
                         .fontWeight(.bold)
                         .foregroundColor(.white)

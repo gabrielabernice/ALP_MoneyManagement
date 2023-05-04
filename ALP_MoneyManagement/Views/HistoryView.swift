@@ -1,0 +1,39 @@
+//
+//  HistoryView.swift
+//  ALP_MoneyManagement
+//
+//  Created by MacBook Pro on 04/05/23.
+//
+
+import SwiftUI
+
+struct HistoryView: View {
+    @State var SavingsHistory: [Savings] = []
+    @State var history: [History] = []
+    
+    var body: some View {
+        VStack {
+            Text("Expenses History")
+                .font(.title)
+            ForEach(history, id: \.self) { expense in
+                Text("\(expense.name) - Rp. \(expense.amount) - \(expense.date, formatter: dateFormatter)")
+            }
+            
+        }
+    }
+}
+
+private let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .long
+    formatter.timeStyle = .none
+    return formatter
+}()
+
+struct HistoryView_Previews: PreviewProvider {
+    static let modelData = ModelData()
+    
+    static var previews: some View {
+        HistoryView()
+    }
+}

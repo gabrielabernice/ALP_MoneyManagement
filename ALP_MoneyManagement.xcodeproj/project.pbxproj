@@ -21,6 +21,8 @@
 		043BD37B2A03443100BDF376 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BD37A2A03443100BDF376 /* MainScreen.swift */; };
 		043BD37D2A03571500BDF376 /* InputExpenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BD37C2A03571500BDF376 /* InputExpenses.swift */; };
 		043BD37F2A035A4B00BDF376 /* InputSavings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BD37E2A035A4B00BDF376 /* InputSavings.swift */; };
+		043BD3812A038A5200BDF376 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BD3802A038A5200BDF376 /* HistoryView.swift */; };
+		043BD38B2A03F9E700BDF376 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BD38A2A03F9E700BDF376 /* History.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		043BD37A2A03443100BDF376 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		043BD37C2A03571500BDF376 /* InputExpenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputExpenses.swift; sourceTree = "<group>"; };
 		043BD37E2A035A4B00BDF376 /* InputSavings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSavings.swift; sourceTree = "<group>"; };
+		043BD3802A038A5200BDF376 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		043BD38A2A03F9E700BDF376 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +108,7 @@
 				043BD3692A02B5EB00BDF376 /* InputIncome.swift */,
 				043BD37C2A03571500BDF376 /* InputExpenses.swift */,
 				043BD37E2A035A4B00BDF376 /* InputSavings.swift */,
+				043BD3802A038A5200BDF376 /* HistoryView.swift */,
 				043BD35D2A02B57E00BDF376 /* ContentView.swift */,
 				043BD37A2A03443100BDF376 /* MainScreen.swift */,
 			);
@@ -117,6 +122,7 @@
 				043BD3742A02BD0100BDF376 /* Expenses.swift */,
 				043BD3782A02C0A200BDF376 /* Savings.swift */,
 				043BD3762A02BD2000BDF376 /* ModelData.swift */,
+				043BD38A2A03F9E700BDF376 /* History.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -195,9 +201,11 @@
 			files = (
 				043BD37B2A03443100BDF376 /* MainScreen.swift in Sources */,
 				043BD37D2A03571500BDF376 /* InputExpenses.swift in Sources */,
+				043BD38B2A03F9E700BDF376 /* History.swift in Sources */,
 				043BD3752A02BD0100BDF376 /* Expenses.swift in Sources */,
 				043BD3792A02C0A200BDF376 /* Savings.swift in Sources */,
 				043BD37F2A035A4B00BDF376 /* InputSavings.swift in Sources */,
+				043BD3812A038A5200BDF376 /* HistoryView.swift in Sources */,
 				043BD36A2A02B5EB00BDF376 /* InputIncome.swift in Sources */,
 				043BD35E2A02B57E00BDF376 /* ContentView.swift in Sources */,
 				043BD3732A02BC6300BDF376 /* Income.swift in Sources */,

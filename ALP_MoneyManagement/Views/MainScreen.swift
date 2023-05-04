@@ -19,6 +19,8 @@ struct MainScreen: View {
     
     var savings: String
     
+    var history: [History]
+    
     var body: some View {
         TabView {
             IncomeView(income: income)
@@ -34,6 +36,11 @@ struct MainScreen: View {
             SavingsView(savings: savings)
                 .tabItem {
                     Label("Savings", systemImage: "creditcard.fill")
+                }
+            
+            IncomeExpensesHistoryView(history: history)
+                .tabItem {
+                    Label("History", systemImage: "clock.arrow.circlepath")
                 }
         }
         
@@ -68,11 +75,19 @@ struct SavingsView: View {
     }
 }
 
+struct IncomeExpensesHistoryView: View {
+    var history: [History]
+    
+    var body: some View {
+        HistoryView()
+    }
+}
+
 struct MainScreen_Previews: PreviewProvider {
     static let modelData = ModelData()
     
     static var previews: some View {
-        MainScreen(savings: "Study Abroad")
+        MainScreen(savings: "S", history: [History(id: 0, name: "Shopping", amount: 30000, date: Calendar.current.date(from: DateComponents(year: 2024, month: 3, day: 7)) ?? Date(), type: "Expenses")])
             .environmentObject(modelData)
     }
 }

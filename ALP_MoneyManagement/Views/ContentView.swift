@@ -32,7 +32,7 @@ struct ContentView: View {
                     .multilineTextAlignment(.center)
                     .padding(.bottom)
                 
-                NavigationLink(destination: MainScreen(savings: "")){
+                NavigationLink(destination: MainScreen(savings: "S", history: [History(id: 0, name: "Shopping", amount: 30000, date: Calendar.current.date(from: DateComponents(year: 2024, month: 3, day: 7)) ?? Date(), type: "Expenses")])){
                     Text("START")
                         .fontWeight(.bold)
                         .foregroundColor(.white)
