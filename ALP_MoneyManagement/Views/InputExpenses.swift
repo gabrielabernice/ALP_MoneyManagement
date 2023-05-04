@@ -1,18 +1,18 @@
 //
-//  InputIncome.swift
+//  InputExpenses.swift
 //  ALP_MoneyManagement
 //
-//  Created by MacBook Pro on 03/05/23.
+//  Created by MacBook Pro on 04/05/23.
 //
 
 import SwiftUI
 
-struct InputIncome: View {
+struct InputExpenses: View {
 //    @EnvironmentObject var modelData: ModelData
 //    static let modelData = ModelData()
     
-    @State var income: [Income] = []
-    @State var selectedOption: Income?
+    @State var expenses: [Expenses] = []
+    @State var selectedOption: Expenses?
     
     @State var amount: String = ""
     @State var check: Bool = false
@@ -23,15 +23,15 @@ struct InputIncome: View {
     var body: some View {
         NavigationView{
             VStack {
-                Text("Source of Income : \(selectedOption?.incomeName ?? "")")
+                Text("Source of Expenses : \(selectedOption?.expensesName ?? "")")
                     .font(.title2)
                 
                 Menu {
-                    ForEach(income, id: \.self) { incomes in
+                    ForEach(expenses, id: \.self) { expense in
                         Button(action: {
-                            selectedOption = incomes
+                            selectedOption = expense
                         }) {
-                            Text(incomes.incomeName)
+                            Text(expense.expensesName)
                         }
                     }
                 } label: {
@@ -47,7 +47,7 @@ struct InputIncome: View {
                     Text("Rp. ")
                         .font(.title2)
                     
-                    TextField("ex : 50000", text: $amount)
+                    TextField("Enter Amount", text: $amount)
                         .padding(.horizontal, 20)
                         .padding(.vertical, 10)
                         .font(.system(size: 16, weight: .bold))
@@ -98,10 +98,10 @@ struct InputIncome: View {
                 .disabled(!check)
             }
             .onAppear {
-                let url = Bundle.main.url(forResource: "incomeData", withExtension: "json")!
+                let url = Bundle.main.url(forResource: "expensesData", withExtension: "json")!
                 let jsonData = try! Data(contentsOf: url)
                 let decoder = JSONDecoder()
-                income = try! decoder.decode([Income].self, from: jsonData)
+                expenses = try! decoder.decode([Expenses].self, from: jsonData)
             }
         }
         .onChange(of: amount) { newValue in
@@ -119,8 +119,8 @@ private let dateFormatter: DateFormatter = {
     return formatter
 }()
 
-struct InputIncome_Previews: PreviewProvider {
+struct InputExpenses_Previews: PreviewProvider {
     static var previews: some View {
-        InputIncome()
+        InputExpenses()
     }
 }

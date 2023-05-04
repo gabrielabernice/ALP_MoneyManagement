@@ -23,17 +23,17 @@ struct MainScreen: View {
         TabView {
             IncomeView(income: income)
                 .tabItem {
-                    Label("Income", systemImage: "fork.knife")
+                    Label("Income", systemImage: "dollarsign.circle.fill")
                 }
             
             ExpensesView(expenses: expenses)
                 .tabItem {
-                    Label("Expenses", systemImage: "wineglass")
+                    Label("Expenses", systemImage: "cart")
                 }
             
             SavingsView(savings: savings)
                 .tabItem {
-                    Label("Savings", systemImage: "wineglass")
+                    Label("Savings", systemImage: "creditcard.fill")
                 }
         }
         
@@ -55,8 +55,7 @@ struct ExpensesView: View {
     
     var body: some View {
         NavigationView {
-            Text("Testing")
-                .navigationTitle("Expenses 💸")
+            InputExpenses()
         }
     }
 }
@@ -65,10 +64,7 @@ struct SavingsView: View {
     var savings: String
     
     var body: some View {
-        NavigationView {
-            Text("Testing")
-                .navigationTitle("Savings 💳")
-        }
+        InputSavings()
     }
 }
 
