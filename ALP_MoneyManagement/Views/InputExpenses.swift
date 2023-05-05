@@ -113,7 +113,7 @@ struct InputExpenses: View {
                     Text("Data successfully saved!")
                         .padding()
                         .multilineTextAlignment(.center)
-                    Text("\(expensesHistory[0].name )")
+//                    Text("\(expensesHistory[0].name )")
                 }
             }
             .onAppear {
