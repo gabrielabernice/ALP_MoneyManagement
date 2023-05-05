@@ -13,7 +13,7 @@ struct HistoryView: View {
     
     var body: some View {
         VStack {
-            Text("Expenses History")
+            Text("History")
                 .font(.title)
             ForEach(history, id: \.self) { expense in
                 Text("\(expense.name) - Rp. \(expense.amount) - \(expense.date, formatter: dateFormatter)")
