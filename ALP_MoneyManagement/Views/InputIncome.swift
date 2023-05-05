@@ -20,6 +20,12 @@ struct InputIncome: View {
     @State var date = Date()
     @State var isExpanded = false
     
+    @State var incomeHistory: [History] = []
+    @State var appendIncome = false
+    
+    @State var index = 0
+    @State var type = "Income"
+    
     var body: some View {
         NavigationView{
             VStack {
@@ -88,15 +94,27 @@ struct InputIncome: View {
                     .datePickerStyle(WheelDatePickerStyle())
                 }
                 
-                NavigationLink(destination: MainScreen(savings: "S", history: [History(id: 0, name: "Shopping", amount: 30000, date: Calendar.current.date(from: DateComponents(year: 2024, month: 3, day: 7)) ?? Date(), type: "Expenses")])) {
-                    Text("Save")
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color(red: 0.4, green: 0.6, blue: 1.0))
-                        .cornerRadius(10)
+                Button("Save") {
+                    if check {
+                        incomeHistory.append(History(id: index, name: selectedOption?.incomeName ?? "", amount: Int(amount) ?? 0, date: date, type: type))
+                        
+                        appendIncome = true
+                        index += 1
+                    }
                 }
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+                .padding()
+                .background(Color(red: 0.4, green: 0.6, blue: 1.0))
+                .cornerRadius(10)
                 .disabled(!check)
+                
+                if appendIncome{
+                    Text("Data successfully saved!")
+                        .padding()
+                        .multilineTextAlignment(.center)
+//                    Text("\(expensesHistory[0].name )")
+                }
             }
             .onAppear {
                 let url = Bundle.main.url(forResource: "incomeData", withExtension: "json")!

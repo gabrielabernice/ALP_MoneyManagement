@@ -18,7 +18,7 @@ struct HistoryView: View {
             ForEach(history, id: \.self) { expense in
                 Text("\(expense.name) - Rp. \(expense.amount) - \(expense.date, formatter: dateFormatter)")
             }
-            Text("This feature is still developing\nPlease wait an App update in the future")
+            Text("This feature is still developing\nPlease wait for an App update in the future")
                 .multilineTextAlignment(.center)
                 .padding(.vertical)
         }
