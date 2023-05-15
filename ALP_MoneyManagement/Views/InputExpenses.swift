@@ -29,7 +29,7 @@ struct InputExpenses: View {
     var body: some View {
         NavigationView{
             VStack {
-                Text("Source of Expenses : \n\(selectedOption?.expensesName ?? "")")
+                Text("Source of Expenses : \n\(selectedOption?.expensesCategory ?? "")")
                     .font(.title2)
                     .multilineTextAlignment(.center)
                 
@@ -38,7 +38,7 @@ struct InputExpenses: View {
                         Button(action: {
                             selectedOption = expense
                         }) {
-                            Text(expense.expensesName)
+                            Text(expense.expensesCategory)
                         }
                     }
                 } label: {
@@ -96,7 +96,7 @@ struct InputExpenses: View {
                 
                 Button("Save") {
                     if check {
-                        expensesHistory.append(History(id: index, name: selectedOption?.expensesName ?? "", amount: Int(amount) ?? 0, date: date, type: type))
+                        expensesHistory.append(History(id: index, name: selectedOption?.expensesCategory ?? "", amount: Int(amount) ?? 0, date: date, type: type))
                         
                         appendExpenses = true
                         index += 1

@@ -1,110 +1,110 @@
 [
   {
     "id": 1,
-    "expensesName": "Insurance"
+    "expensesCategory": "Insurance"
   },
   {
     "id": 2,
-    "expensesName": "Baby"
+    "expensesCategory": "Baby"
   },
   {
     "id": 3,
-    "expensesName": "Shopping"
+    "expensesCategory": "Shopping"
   },
   {
     "id": 4,
-    "expensesName": "Fruits"
+    "expensesCategory": "Fruits"
   },
   {
     "id": 5,
-    "expensesName": "Snacks"
+    "expensesCategory": "Snacks"
   },
   {
     "id": 6,
-    "expensesName": "Electronics"
+    "expensesCategory": "Electronics"
   },
   {
     "id": 7,
-    "expensesName": "Prizes"
+    "expensesCategory": "Prizes"
   },
   {
     "id": 8,
-    "expensesName": "Pets"
+    "expensesCategory": "Pets"
   },
   {
     "id": 9,
-    "expensesName": "Entertainment"
+    "expensesCategory": "Entertainment"
   },
   {
     "id": 10,
-    "expensesName": "Office"
+    "expensesCategory": "Office"
   },
   {
     "id": 11,
-    "expensesName": "Beauty"
+    "expensesCategory": "Beauty"
   },
   {
     "id": 12,
-    "expensesName": "Health"
+    "expensesCategory": "Health"
   },
   {
     "id": 13,
-    "expensesName": "Food"
+    "expensesCategory": "Food"
   },
   {
     "id": 14,
-    "expensesName": "Cars"
+    "expensesCategory": "Cars"
   },
   {
     "id": 15,
-    "expensesName": "Motors"
+    "expensesCategory": "Motors"
   },
   {
     "id": 16,
-    "expensesName": "Sports"
+    "expensesCategory": "Sports"
   },
   {
     "id": 17,
-    "expensesName": "Taxes"
+    "expensesCategory": "Taxes"
   },
   {
     "id": 18,
-    "expensesName": "Clothing"
+    "expensesCategory": "Clothing"
   },
   {
     "id": 19,
-    "expensesName": "Education"
+    "expensesCategory": "Education"
   },
   {
     "id": 20,
-    "expensesName": "Credit"
+    "expensesCategory": "Credit"
   },
   {
     "id": 21,
-    "expensesName": "Cigarettes"
+    "expensesCategory": "Cigarettes"
   },
   {
     "id": 22,
-    "expensesName": "Households"
+    "expensesCategory": "Households"
   },
   {
     "id": 23,
-    "expensesName": "Social"
+    "expensesCategory": "Social"
   },
   {
     "id": 24,
-    "expensesName": "Bills"
+    "expensesCategory": "Bills"
   },
   {
     "id": 25,
-    "expensesName": "Taxi"
+    "expensesCategory": "Taxi"
   },
   {
     "id": 26,
-    "expensesName": "Transportation"
+    "expensesCategory": "Transportation"
   },
   {
     "id": 27,
-    "expensesName": "Others"
+    "expensesCategory": "Others"
   }
 ]

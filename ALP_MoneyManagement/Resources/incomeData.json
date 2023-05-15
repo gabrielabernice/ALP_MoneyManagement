@@ -1,50 +1,50 @@
 [
     {
         "id": 1,
-        "incomeName": "Deposit"
+        "incomeCategory": "Deposit"
     },
     {
         "id": 2,
-        "incomeName": "Dividends"
+        "incomeCategory": "Dividends"
     },
     {
         "id": 3,
-        "incomeName": "Salary"
+        "incomeCategory": "Salary"
     },
     {
         "id": 4,
-        "incomeName": "Grants"
+        "incomeCategory": "Grants"
     },
     {
         "id": 5,
-        "incomeName": "Investments"
+        "incomeCategory": "Investments"
     },
     {
         "id": 6,
-        "incomeName": "Coupons"
+        "incomeCategory": "Coupons"
     },
     {
         "id": 7,
-        "incomeName": "Savings"
+        "incomeCategory": "Savings"
     },
     {
         "id": 8,
-        "incomeName": "Refund"
+        "incomeCategory": "Refund"
     },
     {
         "id": 9,
-        "incomeName": "Awards"
+        "incomeCategory": "Awards"
     },
     {
         "id": 10,
-        "incomeName": "Sales"
+        "incomeCategory": "Sales"
     },
     {
         "id": 11,
-        "incomeName": "Rentals"
+        "incomeCategory": "Rentals"
     },
     {
         "id": 12,
-        "incomeName": "Others"
+        "incomeCategory": "Others"
     }
 ]

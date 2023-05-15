@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HistoryView: View {
-    @State var SavingsHistory: [Savings] = []
+//    @State var SavingsHistory: [Savings] = []
     @State var history: [History] = []
     
     var body: some View {

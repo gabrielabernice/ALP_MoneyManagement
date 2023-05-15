@@ -9,5 +9,5 @@ import Foundation
 
 struct Expenses: Hashable, Codable, Identifiable{
     var id: Int
-    var expensesName: String
+    var expensesCategory: String
 }
