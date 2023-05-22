@@ -22,6 +22,7 @@
 		043BD37F2A035A4B00BDF376 /* InputSavings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BD37E2A035A4B00BDF376 /* InputSavings.swift */; };
 		043BD3812A038A5200BDF376 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BD3802A038A5200BDF376 /* HistoryView.swift */; };
 		043BD38B2A03F9E700BDF376 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BD38A2A03F9E700BDF376 /* History.swift */; };
+		3AA492672A18A70400697CF6 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 3AA492662A18A70400697CF6 /* Charts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		043BD37E2A035A4B00BDF376 /* InputSavings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSavings.swift; sourceTree = "<group>"; };
 		043BD3802A038A5200BDF376 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		043BD38A2A03F9E700BDF376 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		3A537FD82A18CE130072FD76 /* ALP-MoneyManagement-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "ALP-MoneyManagement-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AA492672A18A70400697CF6 /* Charts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,10 +76,11 @@
 		043BD35A2A02B57E00BDF376 /* ALP_MoneyManagement */ = {
 			isa = PBXGroup;
 			children = (
+				043BD35B2A02B57E00BDF376 /* ALP_MoneyManagementApp.swift */,
+				3A537FD82A18CE130072FD76 /* ALP-MoneyManagement-Info.plist */,
 				043BD36C2A02BBC700BDF376 /* Views */,
 				043BD3712A02BC3200BDF376 /* Model */,
 				043BD36B2A02BBB700BDF376 /* Resources */,
-				043BD35B2A02B57E00BDF376 /* ALP_MoneyManagementApp.swift */,
 				043BD35F2A02B58000BDF376 /* Assets.xcassets */,
 				043BD3612A02B58000BDF376 /* Preview Content */,
 			);
@@ -140,6 +144,9 @@
 			dependencies = (
 			);
 			name = ALP_MoneyManagement;
+			packageProductDependencies = (
+				3AA492662A18A70400697CF6 /* Charts */,
+			);
 			productName = ALP_MoneyManagement;
 			productReference = 043BD3582A02B57E00BDF376 /* ALP_MoneyManagement.app */;
 			productType = "com.apple.product-type.application";
@@ -168,6 +175,9 @@
 				Base,
 			);
 			mainGroup = 043BD34F2A02B57E00BDF376;
+			packageReferences = (
+				3AA492652A18A70400697CF6 /* XCRemoteSwiftPackageReference "swiftui-charts" */,
+			);
 			productRefGroup = 043BD3592A02B57E00BDF376 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -338,9 +348,10 @@
 				DEVELOPMENT_TEAM = 2WLKL6VF7R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ALP-MoneyManagement-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LauchScreen.swift;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -367,9 +378,10 @@
 				DEVELOPMENT_TEAM = 2WLKL6VF7R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ALP-MoneyManagement-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LauchScreen.swift;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -407,6 +419,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3AA492652A18A70400697CF6 /* XCRemoteSwiftPackageReference "swiftui-charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/spacenation/swiftui-charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3AA492662A18A70400697CF6 /* Charts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3AA492652A18A70400697CF6 /* XCRemoteSwiftPackageReference "swiftui-charts" */;
+			productName = Charts;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 043BD3502A02B57E00BDF376 /* Project object */;
 }

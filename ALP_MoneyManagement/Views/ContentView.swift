@@ -47,6 +47,54 @@ struct ContentView: View {
     }
 }
 
+//struct ContentView: View {
+//    @State private var selection: Tab = .featured
+//
+//    //to display featured list
+//    enum Tab {
+//        case featured
+//        case list
+//    }
+//
+//    var body: some View {
+//        TabView(selection: $selection) {
+//            CategoryHome()
+//                .tabItem {
+//                    Label("Featured", systemImage: "star")
+//                }
+//                .tag(Tab.featured)
+//
+//            //display landmarklist
+//            LandmarkList()
+//                .tabItem {
+//                    Label("List", systemImage: "list.bullet")
+//                }
+//                .tag(Tab.list)
+//        }
+//    }
+//}
+
+
+//struct LaunchScreen: View {
+//    var body: some View {
+//        VStack{
+//            Image("moneyFest")
+//                .resizable()
+//                .aspectRatio(contentMode: .fit)
+//                .frame(width:150)
+//
+//            Text("Money Fest")
+//                .font(.title)
+//        }
+//    }
+//}
+//
+//struct LaunchScreen_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LaunchScreen()
+//    }
+//}
+
 
 struct ContentView_Previews: PreviewProvider {
     static let modelData = ModelData()
