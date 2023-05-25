@@ -151,4 +151,3 @@ struct InputExpenses: View {
             InputExpenses()
         }
     }
-
