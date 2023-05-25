@@ -84,6 +84,7 @@ struct TransactionView: View {
                 .frame(width: 380, height: 280)
                 
             }
+            .padding(.top, -135)
             .padding(.horizontal)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

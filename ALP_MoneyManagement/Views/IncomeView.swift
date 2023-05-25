@@ -11,28 +11,51 @@ struct AllIncomeView: View {
     @State var incomeHistory: [History] = []
     
     var body: some View {
-        VStack {
-            List {
-                Section(header: Text("")) {
-                    ForEach(incomeHistory) { history in
-                        NavigationLink(destination: EditHistoryView(history: $incomeHistory[getIndex(for: history, in: incomeHistory)])) {
-                            HistoryRow(history: history)
+        NavigationView{
+            VStack {
+                
+                Text("Income History")
+                    .font(.system(size: 25))
+                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal,30)
+                    .padding(.top)
+                    .padding(.bottom, -1)
+                
+                List {
+                    Section() {
+                        ForEach(incomeHistory) { history in
+                            NavigationLink(destination: EditHistoryView(history: $incomeHistory[getIndex(for: history, in: incomeHistory)])) {
+                                HistoryRow(history: history)
+                            }
+                        }
+                        .onDelete { offsets in
+                            deleteHistory(at: offsets, type: "Income")
                         }
                     }
-                    .onDelete { offsets in
-                        deleteHistory(at: offsets, type: "Income")
-                    }
+                    .padding(.top, -15)
+                    .padding(.bottom, -15)
+                    .padding(.horizontal, -3)
                 }
+                .listStyle(.inset)
                 
+                NavigationLink(destination: InputIncome()) {
+                    Text("Add New Income")
+                        .font(.title)
+                        .padding(10)
+                        .padding(.horizontal, 55)
+                        .background(Color(hex: 0x6DA3FF))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        
+                }
             }
-            .listStyle(GroupedListStyle())
-        }
-        .navigationTitle("History")
+            
+            }
+        .navigationTitle("Income")
         .onAppear {
             loadDataFromUserDefaults()
         }
     }
-    
     func deleteHistory(at offsets: IndexSet, type: String) {
         if type == "Income" {
             incomeHistory.remove(atOffsets: offsets)
@@ -63,6 +86,7 @@ struct AllIncomeView: View {
         }
         return index
     }
+    
 }
 
 struct EditIncomeHistoryView: View {
@@ -105,10 +129,10 @@ private let dateFormatter: DateFormatter = {
 
 
 struct IncomeView_Previews: PreviewProvider {
-        static var previews: some View {
-            AllIncomeView(incomeHistory: [
-                History(id: 1, name: "Income 1", amount: 50000, date: Date(), type: "Income"),
-                History(id: 2, name: "Income 2", amount: 75000, date: Date(), type: "Income")
-            ])
-        }
+    static var previews: some View {
+        AllIncomeView(incomeHistory: [
+            History(id: 1, name: "Income 1", amount: 50000, date: Date(), type: "Income"),
+            History(id: 2, name: "Income 2", amount: 75000, date: Date(), type: "Income")
+        ])
+    }
 }
