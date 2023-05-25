@@ -18,61 +18,97 @@ struct InputSavings: View {
     
     var body: some View {
         VStack{
-            Text("Savings Target : ")
-                .font(.title2)
-            
-            HStack{
-                Text("Rp. ")
-                    .font(.title2)
-                
-                TextField("ex : 50000", text: $amount)
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 10)
-                    .font(.system(size: 16, weight: .bold))
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(10)
+            VStack(spacing: 20) {
+                RoundedRectangle(cornerRadius: 10)
+                    .foregroundColor(Color(hex: 0x6DA3FF).opacity(0.2))
                     .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.black.opacity(0.3), lineWidth: 2)
+                        VStack(spacing: 20) {
+                            Text("Add Your Goal")
+                                .font(.title)
+                                .offset(y:15)
+                            Spacer()
+                            
+                            Text("Savings Target ")
+                                .font(.system(size: 18))
+                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                .offset(y:-15)
+                                
+                            
+                            HStack{
+                                Text("Rp. ")
+                                    .font(.system(size: 18, weight: .bold))
+                                
+                                TextField("ex : 50000", text: $amount)
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 10)
+                                    .font(.system(size: 16, weight: .bold))
+                                    .background(Color.gray.opacity(0.1))
+                                    .cornerRadius(10)
+                                
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(Color.black.opacity(0.3), lineWidth: 2)
+                                    )
+                                    .keyboardType(.numberPad)
+                                
+                                    
+                            }
+                            .offset(y:-15)
+                            
+                            if !checkAmount{
+                                Text("Please enter a valid amount\n(only numbers above 0)")
+                                    .foregroundColor(.red)
+                                    .font(.caption)
+                                    .multilineTextAlignment(.center)
+                                    .offset(y:-15)
+                            }
+                            
+                            Text("Your Target Day ")
+                                .font(.system(size: 18))
+                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                            
+                            HStack{
+                                Text("In")
+                                    .font(.title2)
+                                
+                                TextField("ex : 30", text: $days)
+                                    .padding(.horizontal, 24)
+                                    .padding(.vertical, 10)
+                                    .font(.system(size: 16, weight: .bold))
+                                    .background(Color.gray.opacity(0.1))
+                                    .cornerRadius(10)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(Color.black.opacity(0.3), lineWidth: 2)
+                                    )
+                                    .keyboardType(.numberPad)
+                                    .frame(width: 210)
+                                
+                                Text("days")
+                                    .font(.title2)
+                            }
+                            if !checkDays{
+                                Text("Please enter a valid amount\n(only numbers above 0)")
+                                    .foregroundColor(.red)
+                                    .font(.caption)
+                                    .multilineTextAlignment(.center)
+                                    .padding()
+                            }
+                            
+                        }
+                            .padding(20)
+                        
                     )
-                    .keyboardType(.numberPad)
             }
+            .padding(20)
+            .frame(width: 380, height: 500)
+            Spacer()
             
-            if !checkAmount{
-                Text("Please enter a valid amount\n(only numbers above 0)")
-                    .foregroundColor(.red)
-                    .font(.caption)
-                    .multilineTextAlignment(.center)
+            if perDay > 0 {
+                Text("You need to save \nRp. \(perDay) per day")
                     .padding()
-            }
-            
-            HStack{
-                Text("In")
-                    .font(.title2)
-                
-                TextField("ex : 30", text: $days)
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 10)
-                    .font(.system(size: 16, weight: .bold))
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.black.opacity(0.3), lineWidth: 2)
-                    )
-                    .keyboardType(.numberPad)
-                    .frame(width: 100)
-                
-                Text("days")
-                    .font(.title2)
-            }
-            
-            if !checkDays{
-                Text("Please enter a valid amount\n(only numbers above 0)")
-                    .foregroundColor(.red)
-                    .font(.caption)
                     .multilineTextAlignment(.center)
-                    .padding()
+                    .offset(y:-60)
             }
             
             Button("Calculate") {
@@ -87,11 +123,7 @@ struct InputSavings: View {
             .cornerRadius(10)
             .disabled(!checkAmount || !checkDays)
             
-            if perDay > 0 {
-                Text("You need to save \nRp. \(perDay) per day")
-                    .padding()
-                    .multilineTextAlignment(.center)
-            }
+            
         }
         .onChange(of: amount) { newValue in
             checkAmount = ((Int(newValue) ?? 0) >= 1)
