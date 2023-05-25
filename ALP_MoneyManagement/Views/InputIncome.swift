@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct InputIncome: View {
-//    @EnvironmentObject var modelData: ModelData
-//    static let modelData = ModelData()
-    
     @State var income: [Income] = []
     @State var selectedOption: Income?
     
@@ -27,7 +24,7 @@ struct InputIncome: View {
     @State var type = "Income"
     
     var body: some View {
-        NavigationView{
+        NavigationView {
             VStack {
                 Text("Source of Income : \n\(selectedOption?.incomeCategory ?? "")")
                     .font(.title2)
@@ -97,6 +94,11 @@ struct InputIncome: View {
                 Button("Save") {
                     if check {
                         incomeHistory.append(History(id: index, name: selectedOption?.incomeCategory ?? "", amount: Int(amount) ?? 0, date: date, type: type))
+                        // Simpan data ke UserDefaults
+                        let encoder = JSONEncoder()
+                        if let encodedData = try? encoder.encode(incomeHistory) {
+                            UserDefaults.standard.set(encodedData, forKey: "incomeHistory")
+                        }
                         
                         appendIncome = true
                         index += 1
@@ -113,10 +115,16 @@ struct InputIncome: View {
                     Text("Data successfully saved!")
                         .padding()
                         .multilineTextAlignment(.center)
-//                    Text("\(expensesHistory[0].name )")
                 }
             }
             .onAppear {
+                if let data = UserDefaults.standard.data(forKey: "incomeHistory") {
+                    if let decodedData = try? JSONDecoder().decode([History].self, from: data) {
+                        incomeHistory = decodedData
+                        index = incomeHistory.count
+                    }
+                }
+                
                 let url = Bundle.main.url(forResource: "incomeData", withExtension: "json")!
                 let jsonData = try! Data(contentsOf: url)
                 let decoder = JSONDecoder()
@@ -132,11 +140,11 @@ struct InputIncome: View {
 }
 
 private let dateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .long
-    formatter.timeStyle = .none
-    return formatter
-}()
+       let formatter = DateFormatter()
+       formatter.dateStyle = .long
+       formatter.timeStyle = .none
+       return formatter
+   }()
 
 struct InputIncome_Previews: PreviewProvider {
     static var previews: some View {
