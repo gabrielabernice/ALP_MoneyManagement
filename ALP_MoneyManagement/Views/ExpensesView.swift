@@ -9,24 +9,49 @@ import SwiftUI
 
 struct AllExpensesView: View {
     @State var expensesHistory: [History] = []
-
+    
     var body: some View {
-        VStack {
-            List {
-                Section(header: Text("")) {
-                    ForEach(expensesHistory) { history in
-                        NavigationLink(destination: EditHistoryView(history: $expensesHistory[getIndex(for: history, in: expensesHistory)])) {
-                            HistoryRow(history: history)
+        NavigationView{
+            VStack {
+                Text("Expenses History")
+                    .font(.system(size: 25))
+                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal,30)
+                    .padding(.top)
+                    .padding(.bottom, -1)
+                
+                List {
+                    Section() {
+                        ForEach(expensesHistory) { history in
+                            NavigationLink(destination: EditHistoryView(history: $expensesHistory[getIndex(for: history, in: expensesHistory)])) {
+                                HistoryRow(history: history)
+                            }
+                        }
+                        .onDelete { offsets in
+                            deleteHistory(at: offsets, type: "Expenses")
                         }
                     }
-                    .onDelete { offsets in
-                        deleteHistory(at: offsets, type: "Expenses")
-                    }
+                    .padding(.top, -15)
+                    .padding(.bottom, -15)
+                    .padding(.horizontal, -3)
+                    
                 }
+                .listStyle(.inset)
+                
+                NavigationLink(destination: InputExpenses()) {
+                    Text("Add New Expenses")
+                        .font(.title)
+                        .padding(10)
+                        .padding(.horizontal, 45)
+                        .background(Color(hex: 0xF89385))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        
+                }
+                
             }
-            .listStyle(GroupedListStyle())
         }
-        .navigationTitle("History")
+        .navigationTitle("Expenses")
         .onAppear {
             loadDataFromUserDefaults()
         }
