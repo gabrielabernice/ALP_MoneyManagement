@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct InputExpenses: View {
-    //    @EnvironmentObject var modelData: ModelData
-    //    static let modelData = ModelData()
-    
     @State var expenses: [Expenses] = []
     @State var selectedOption: Expenses?
     
@@ -27,9 +24,9 @@ struct InputExpenses: View {
     @State var type = "Expenses"
     
     var body: some View {
-        NavigationView{
+        NavigationView {
             VStack {
-                Text("Source of Expenses : \n\(selectedOption?.expensesCategory ?? "")")
+                Text("Source of Expenses: \n\(selectedOption?.expensesCategory ?? "")")
                     .font(.title2)
                     .multilineTextAlignment(.center)
                 
@@ -47,14 +44,14 @@ struct InputExpenses: View {
                         .padding(.bottom)
                 }
                 
-                Text("Amount : ")
+                Text("Amount:")
                     .font(.title2)
                 
-                HStack{
-                    Text("Rp. ")
+                HStack {
+                    Text("Rp.")
                         .font(.title2)
                     
-                    TextField("ex : 30000", text: $amount)
+                    TextField("ex: 30000", text: $amount)
                         .padding(.horizontal, 20)
                         .padding(.vertical, 10)
                         .font(.system(size: 16, weight: .bold))
@@ -67,7 +64,7 @@ struct InputExpenses: View {
                         .keyboardType(.numberPad)
                 }
                 
-                if !check{
+                if !check {
                     Text("Please enter a valid amount\n(only numbers above 0)")
                         .foregroundColor(.red)
                         .font(.caption)
@@ -97,6 +94,11 @@ struct InputExpenses: View {
                 Button("Save") {
                     if check {
                         expensesHistory.append(History(id: index, name: selectedOption?.expensesCategory ?? "", amount: Int(amount) ?? 0, date: date, type: type))
+                        // Simpan data ke UserDefaults
+                        let encoder = JSONEncoder()
+                        if let encodedData = try? encoder.encode(expensesHistory) {
+                            UserDefaults.standard.set(encodedData, forKey: "expensesHistory")
+                        }
                         
                         appendExpenses = true
                         index += 1
@@ -109,37 +111,44 @@ struct InputExpenses: View {
                 .cornerRadius(10)
                 .disabled(!check)
                 
-                if appendExpenses{
+                if appendExpenses {
                     Text("Data successfully saved!")
                         .padding()
                         .multilineTextAlignment(.center)
-//                    Text("\(expensesHistory[0].name )")
                 }
             }
             .onAppear {
+                if let data = UserDefaults.standard.data(forKey: "expensesHistory") {
+                    if let decodedData = try? JSONDecoder().decode([History].self, from: data) {
+                        expensesHistory = decodedData
+                        index = expensesHistory.count
+                    }
+                }
+                
                 let url = Bundle.main.url(forResource: "expensesData", withExtension: "json")!
                 let jsonData = try! Data(contentsOf: url)
                 let decoder = JSONDecoder()
                 expenses = try! decoder.decode([Expenses].self, from: jsonData)
             }
+            }
+            .onChange(of: amount) { newValue in
+                check = ((Int(newValue) ?? 0) >= 1)
+            }
+            .padding(.horizontal, 30)
+            .bold()
         }
-        .onChange(of: amount) { newValue in
-            check = ((Int(newValue) ?? 0) >= 1)
+    }
+    
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .none
+        return formatter
+    }()
+    
+    struct InputExpenses_Previews: PreviewProvider {
+        static var previews: some View {
+            InputExpenses()
         }
-        .padding(.horizontal, 30)
-        .bold()
     }
-}
 
-private let dateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .long
-    formatter.timeStyle = .none
-    return formatter
-}()
-
-struct InputExpenses_Previews: PreviewProvider {
-    static var previews: some View {
-        InputExpenses()
-    }
-}
