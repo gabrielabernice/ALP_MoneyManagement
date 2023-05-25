@@ -25,6 +25,8 @@
 		04E53B232A1F4948002DB572 /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E53B222A1F4948002DB572 /* TransactionView.swift */; };
 		04E53B252A1F4C03002DB572 /* IncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E53B242A1F4C03002DB572 /* IncomeView.swift */; };
 		04E53B292A1F5030002DB572 /* ExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E53B282A1F5030002DB572 /* ExpensesView.swift */; };
+		04E53B2B2A1FAFEE002DB572 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E53B2A2A1FAFEE002DB572 /* HomeView.swift */; };
+		04E53B2D2A1FBADC002DB572 /* TransactionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E53B2C2A1FBADC002DB572 /* TransactionRow.swift */; };
 		3AA492672A18A70400697CF6 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 3AA492662A18A70400697CF6 /* Charts */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +50,8 @@
 		04E53B222A1F4948002DB572 /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
 		04E53B242A1F4C03002DB572 /* IncomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeView.swift; sourceTree = "<group>"; };
 		04E53B282A1F5030002DB572 /* ExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesView.swift; sourceTree = "<group>"; };
+		04E53B2A2A1FAFEE002DB572 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		04E53B2C2A1FBADC002DB572 /* TransactionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +124,8 @@
 				04E53B222A1F4948002DB572 /* TransactionView.swift */,
 				04E53B242A1F4C03002DB572 /* IncomeView.swift */,
 				04E53B282A1F5030002DB572 /* ExpensesView.swift */,
+				04E53B2A2A1FAFEE002DB572 /* HomeView.swift */,
+				04E53B2C2A1FBADC002DB572 /* TransactionRow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -216,6 +222,7 @@
 				043BD37B2A03443100BDF376 /* MainScreen.swift in Sources */,
 				043BD37D2A03571500BDF376 /* InputExpenses.swift in Sources */,
 				043BD38B2A03F9E700BDF376 /* History.swift in Sources */,
+				04E53B2B2A1FAFEE002DB572 /* HomeView.swift in Sources */,
 				04E53B292A1F5030002DB572 /* ExpensesView.swift in Sources */,
 				043BD3752A02BD0100BDF376 /* Expenses.swift in Sources */,
 				043BD37F2A035A4B00BDF376 /* InputSavings.swift in Sources */,
@@ -225,6 +232,7 @@
 				043BD36A2A02B5EB00BDF376 /* InputIncome.swift in Sources */,
 				043BD35E2A02B57E00BDF376 /* ContentView.swift in Sources */,
 				043BD3732A02BC6300BDF376 /* Income.swift in Sources */,
+				04E53B2D2A1FBADC002DB572 /* TransactionRow.swift in Sources */,
 				043BD35C2A02B57E00BDF376 /* ALP_MoneyManagementApp.swift in Sources */,
 				043BD3772A02BD2000BDF376 /* ModelData.swift in Sources */,
 			);
