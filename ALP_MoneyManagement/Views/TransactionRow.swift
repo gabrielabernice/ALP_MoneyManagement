@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct TransactionRow: View {
-    @State private var showLeftArrow = false
-    @State private var showRightArrow = true
-    @State private var contentOffset: CGFloat = 0
+//    @State private var showLeftArrow = false
+//    @State private var showRightArrow = true
+//    @State private var contentOffset: CGFloat = 0
     
     var body: some View {
         VStack(alignment: .leading) {
             Text("Transaction")
-                .font(.headline)
+                .font(.title2)
                 .padding(.leading, 18)
                 .padding(.top, 10)
-                .padding(.bottom, 35)
+                .padding(.bottom, -10)
             
             ScrollView(.horizontal, showsIndicators: false) {
                 ScrollViewReader { proxy in
@@ -94,67 +94,67 @@ struct TransactionRow: View {
                         .frame(width: 380, height: 280)
                     }
                     .padding(.horizontal)
-                    .onChange(of: contentOffset) { newValue in
-                        updateArrowVisibility(newValue)
+//                    .onChange(of: contentOffset) { newValue in
+//                        updateArrowVisibility(newValue)
                     }
-                        .overlay(arrows)
+//                        .overlay(arrows)
                 }
             }
             .frame(height: 185)
         }
-        .navigationBarTitleDisplayMode(.inline)
+//        .navigationBarTitleDisplayMode(.inline)
     }
     
-    var arrows: some View {
-        HStack {
-           
-            if showLeftArrow {
-                Image(systemName: "chevron.left")
-                    .foregroundColor(.gray)
-                    .onTapGesture {
-                        scrollToPreviousCard()
-                    }
-                    .padding()
-            }
-            
-            Spacer()
-            
-            if showRightArrow {
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.gray)
-                    .onTapGesture {
-                        scrollToNextCard()
-                    }
-                    .padding()
-            }
-            
-            Spacer()
-        }
-    }
-    
-    func updateArrowVisibility(_ offset: CGFloat) {
-        let screenWidth = UIScreen.main.bounds.width
-        let maxContentOffset = screenWidth * CGFloat(2 - 1)
-        
-        showLeftArrow = offset > 0
-        showRightArrow = offset < maxContentOffset
-    }
-
-    func scrollToPreviousCard() {
-        withAnimation {
-            contentOffset -= UIScreen.main.bounds.width
-            updateArrowVisibility(contentOffset)
-        }
-    }
-
-    func scrollToNextCard() {
-        withAnimation {
-            contentOffset += UIScreen.main.bounds.width
-            updateArrowVisibility(contentOffset)
-        }
-    }
-    
-}
+//    var arrows: some View {
+//        HStack {
+//
+//            if showLeftArrow {
+//                Image(systemName: "chevron.left")
+//                    .foregroundColor(.gray)
+//                    .onTapGesture {
+//                        scrollToPreviousCard()
+//                    }
+//                    .padding()
+//            }
+//
+//            Spacer()
+//
+//            if showRightArrow {
+//                Image(systemName: "chevron.right")
+//                    .foregroundColor(.gray)
+//                    .onTapGesture {
+//                        scrollToNextCard()
+//                    }
+//                    .padding()
+//            }
+//
+//            Spacer()
+//        }
+//    }
+//
+//    func updateArrowVisibility(_ offset: CGFloat) {
+//        let screenWidth = UIScreen.main.bounds.width
+//        let maxContentOffset = screenWidth * CGFloat(2 - 1)
+//
+//        showLeftArrow = offset > 0
+//        showRightArrow = offset < maxContentOffset
+//    }
+//
+//    func scrollToPreviousCard() {
+//        withAnimation {
+//            contentOffset -= UIScreen.main.bounds.width
+//            updateArrowVisibility(contentOffset)
+//        }
+//    }
+//
+//    func scrollToNextCard() {
+//        withAnimation {
+//            contentOffset += UIScreen.main.bounds.width
+//            updateArrowVisibility(contentOffset)
+//        }
+//    }
+//
+//}
 
 
 

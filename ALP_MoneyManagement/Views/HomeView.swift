@@ -22,7 +22,7 @@ struct HomeView: View {
     var body: some View {
         NavigationView{
             VStack{
-                HStack(alignment: .top, spacing: -20){
+                HStack(alignment: .top, spacing: -15){
                     RoundedRectangle(cornerRadius: 10)
                         .foregroundColor(Color(hex: 0x6DA3FF).opacity(0.3))
                         .padding()
@@ -36,7 +36,7 @@ struct HomeView: View {
                                 .padding(.leading, -50)
                             
                         )
-                        .frame(width: 208, height: 100)
+                        .frame(width: 220, height: 100)
                     
                     RoundedRectangle(cornerRadius: 10)
                         .foregroundColor(Color(hex: 0x6DA3FF).opacity(0.3))
@@ -50,8 +50,9 @@ struct HomeView: View {
                             }
                                 .padding(.leading, -50)
                         )
-                        .frame(width: 208, height: 100)
+                        .frame(width: 220, height: 100)
                 }
+                .padding(.vertical, 60)
                 
                TransactionRow()
                 
