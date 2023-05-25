@@ -24,7 +24,7 @@ struct InputIncome: View {
     @State var type = "Income"
     
     var body: some View {
-        NavigationView {
+//        NavigationView {
             VStack {
                 Text("Source of Income : \n\(selectedOption?.incomeCategory ?? "")")
                     .font(.title2)
@@ -130,7 +130,7 @@ struct InputIncome: View {
                 let decoder = JSONDecoder()
                 income = try! decoder.decode([Income].self, from: jsonData)
             }
-        }
+//        }
         .onChange(of: amount) { newValue in
             check = ((Int(newValue) ?? 0) >= 1)
         }

@@ -11,7 +11,7 @@ struct AllExpensesView: View {
     @State var expensesHistory: [History] = []
     
     var body: some View {
-        NavigationView{
+//        NavigationView{
             VStack {
                 Text("Expenses History")
                     .font(.system(size: 25))
@@ -49,7 +49,7 @@ struct AllExpensesView: View {
                         
                 }
                 
-            }
+//            }
         }
         .navigationTitle("Expenses")
         .onAppear {

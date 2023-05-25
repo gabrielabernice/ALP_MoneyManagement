@@ -39,7 +39,7 @@ struct MainScreen: View {
                 }
             
         }
-        
+        .navigationBarBackButtonHidden(true)
     }
 }
 

@@ -11,7 +11,7 @@ struct AllIncomeView: View {
     @State var incomeHistory: [History] = []
     
     var body: some View {
-        NavigationView{
+//        NavigationView{
             VStack {
                 
                 Text("Income History")
@@ -50,7 +50,7 @@ struct AllIncomeView: View {
                 }
             }
             
-            }
+//            }
         .navigationTitle("Income")
         .onAppear {
             loadDataFromUserDefaults()

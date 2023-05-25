@@ -24,7 +24,7 @@ struct InputExpenses: View {
     @State var type = "Expenses"
     
     var body: some View {
-        NavigationView {
+//        NavigationView {
             VStack {
                 Text("Source of Expenses: \n\(selectedOption?.expensesCategory ?? "")")
                     .font(.title2)
@@ -129,7 +129,7 @@ struct InputExpenses: View {
                 let jsonData = try! Data(contentsOf: url)
                 let decoder = JSONDecoder()
                 expenses = try! decoder.decode([Expenses].self, from: jsonData)
-            }
+//            }
             }
             .onChange(of: amount) { newValue in
                 check = ((Int(newValue) ?? 0) >= 1)
