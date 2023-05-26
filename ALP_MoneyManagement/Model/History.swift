@@ -9,8 +9,9 @@ import Foundation
 
 struct History: Hashable, Codable, Identifiable{
     var id: Int
-    var name: String
+    var category: String
     var amount: Int
     var date: Date
     var type: String
+    var name: String
 }

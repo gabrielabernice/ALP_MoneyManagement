@@ -32,13 +32,13 @@ struct InputSavings: View {
                                 .font(.system(size: 18))
                                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                                 .offset(y:-15)
-                                
+                            
                             
                             HStack{
-                                Text("Rp. ")
-                                    .font(.system(size: 18, weight: .bold))
+//                                Text("Rp. ")
+//                                    .font(.system(size: 18, weight: .bold))
                                 
-                                TextField("ex : 50000", text: $amount)
+                                TextField("Rp", text: $amount)
                                     .padding(.horizontal, 10)
                                     .padding(.vertical, 10)
                                     .font(.system(size: 16, weight: .bold))
@@ -51,16 +51,18 @@ struct InputSavings: View {
                                     )
                                     .keyboardType(.numberPad)
                                 
-                                    
+                                
                             }
                             .offset(y:-15)
                             
                             if !checkAmount{
-                                Text("Please enter a valid amount\n(only numbers above 0)")
+                                Text("Only numbers above 0")
                                     .foregroundColor(.red)
                                     .font(.caption)
                                     .multilineTextAlignment(.center)
                                     .offset(y:-15)
+                            }else{
+                                Spacer()
                             }
                             
                             Text("Your Target Day ")
@@ -68,11 +70,11 @@ struct InputSavings: View {
                                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                             
                             HStack{
-                                Text("In")
-                                    .font(.title2)
+//                                Text("In")
+//                                    .font(.title2)
                                 
-                                TextField("ex : 30", text: $days)
-                                    .padding(.horizontal, 24)
+                                TextField("Day", text: $days)
+                                    .padding(.horizontal, 10)
                                     .padding(.vertical, 10)
                                     .font(.system(size: 16, weight: .bold))
                                     .background(Color.gray.opacity(0.1))
@@ -82,23 +84,27 @@ struct InputSavings: View {
                                             .stroke(Color.black.opacity(0.3), lineWidth: 2)
                                     )
                                     .keyboardType(.numberPad)
-                                    .frame(width: 210)
                                 
-                                Text("days")
-                                    .font(.title2)
+//                                Text("days")
+//                                    .font(.title2)
                             }
                             if !checkDays{
-                                Text("Please enter a valid amount\n(only numbers above 0)")
+                                Text("Only numbers above 0")
                                     .foregroundColor(.red)
                                     .font(.caption)
                                     .multilineTextAlignment(.center)
                                     .padding()
+                                    .offset(y:-15)
+                            }else{
+                                Spacer()
+                                
                             }
                             
                         }
                             .padding(20)
                         
                     )
+                
             }
             .padding(20)
             .frame(width: 380, height: 500)

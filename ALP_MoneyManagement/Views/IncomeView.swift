@@ -131,8 +131,8 @@ private let dateFormatter: DateFormatter = {
 struct IncomeView_Previews: PreviewProvider {
     static var previews: some View {
         AllIncomeView(incomeHistory: [
-            History(id: 1, name: "Income 1", amount: 50000, date: Date(), type: "Income"),
-            History(id: 2, name: "Income 2", amount: 75000, date: Date(), type: "Income")
+            History(id: 1, category: "Salary", amount: 50000, date: Date(), type: "Income", name: "Income 1"),
+            History(id: 2, category: "Grants", amount: 75000, date: Date(), type: "Income", name:"Income 2")
         ])
     }
 }

@@ -14,7 +14,7 @@ struct TransactionRow: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Transaction")
+            Text("Articles")
                 .font(.title2)
                 .padding(.leading, 18)
                 .padding(.top, 10)
@@ -29,21 +29,23 @@ struct TransactionRow: View {
                                     .foregroundColor(Color(hex: 0x6DA3FF).opacity(0.3))
                                     .padding()
                                     .overlay(
-                                        HStack (spacing:-14){
-                                            Image("incomeLogo")
+                                        HStack(spacing:-38){
+                                            Image("MoneyManagement")
                                                 .resizable()
                                                 .aspectRatio(contentMode: .fit)
-                                                .frame(width: 170, height: 200)
+                                                .frame(width: 200, height: 200)
+                            
                                             
-                                        
                                             VStack(spacing:5){
-                                                Text("In this menu you can input your Income")
+                                                Text("Mastering Budget Management")
                                                     .multilineTextAlignment(.center)
-                                                    .font(.system(size: 20))
+                                                    .font(.system(size: 22))
                                                     .padding(.trailing)
+                                                    .bold()
                                                 
-                                                NavigationLink(destination: AllIncomeView()) {
-                                                    Text("Income")
+                                            
+                                                NavigationLink(destination: Article1()) {
+                                                    Text("Read")
                                                         .font(.title)
                                                         .padding()
                                                         .background(Color(hex: 0x6DA3FF))
@@ -52,6 +54,7 @@ struct TransactionRow: View {
                                                         .padding(.trailing)
                                                 }
                                                 .padding()
+                                                
                                             }
                                         }
                                     )
@@ -61,32 +64,35 @@ struct TransactionRow: View {
                         }
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(Color(hex: 0xF0A79D).opacity(0.3))
+                                .foregroundColor(Color(hex: 0x6DA3FF).opacity(0.3))
                                 .padding()
                                 .overlay(
-                                    HStack (spacing:-14){
-                                        Image("ExpensesLogo")
+                                    HStack(spacing:-20){
+                                        Image("MoneySavings")
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
-                                            .frame(width: 155, height: 200)
-                                        
+                                            .frame(width: 180, height: 200)
+                        
                                         
                                         VStack(spacing:5){
-                                            Text("In this menu you can input your Expenses")
+                                            Text("The Art of Savings Money")
                                                 .multilineTextAlignment(.center)
-                                                .font(.system(size: 20))
+                                                .font(.system(size: 22))
                                                 .padding(.trailing)
+                                                .bold()
                                             
-                                            NavigationLink(destination: AllExpensesView()) {
-                                                Text("Expenses")
+                                        
+                                            NavigationLink(destination: Article2()) {
+                                                Text("Read")
                                                     .font(.title)
                                                     .padding()
-                                                    .background(Color(hex: 0xF89385))
+                                                    .background(Color(hex: 0x6DA3FF))
                                                     .foregroundColor(.white)
                                                     .cornerRadius(10)
                                                     .padding(.trailing)
                                             }
                                             .padding()
+                                            
                                         }
                                     }
                                 )
@@ -94,70 +100,41 @@ struct TransactionRow: View {
                         .frame(width: 380, height: 280)
                     }
                     .padding(.horizontal)
-//                    .onChange(of: contentOffset) { newValue in
-//                        updateArrowVisibility(newValue)
+
                     }
-//                        .overlay(arrows)
                 }
             }
             .frame(height: 185)
         }
-//        .navigationBarTitleDisplayMode(.inline)
     }
     
-//    var arrows: some View {
-//        HStack {
-//
-//            if showLeftArrow {
-//                Image(systemName: "chevron.left")
-//                    .foregroundColor(.gray)
-//                    .onTapGesture {
-//                        scrollToPreviousCard()
-//                    }
-//                    .padding()
-//            }
-//
-//            Spacer()
-//
-//            if showRightArrow {
-//                Image(systemName: "chevron.right")
-//                    .foregroundColor(.gray)
-//                    .onTapGesture {
-//                        scrollToNextCard()
-//                    }
-//                    .padding()
-//            }
-//
-//            Spacer()
-//        }
-//    }
-//
-//    func updateArrowVisibility(_ offset: CGFloat) {
-//        let screenWidth = UIScreen.main.bounds.width
-//        let maxContentOffset = screenWidth * CGFloat(2 - 1)
-//
-//        showLeftArrow = offset > 0
-//        showRightArrow = offset < maxContentOffset
-//    }
-//
-//    func scrollToPreviousCard() {
-//        withAnimation {
-//            contentOffset -= UIScreen.main.bounds.width
-//            updateArrowVisibility(contentOffset)
-//        }
-//    }
-//
-//    func scrollToNextCard() {
-//        withAnimation {
-//            contentOffset += UIScreen.main.bounds.width
-//            updateArrowVisibility(contentOffset)
-//        }
-//    }
-//
-//}
 
 
+struct Article1: View {
+    
+    var body: some View {
 
+        VStack {
+            Text("Money")
+                .font(.title)
+            Text("Drop some money")
+           
+        }
+    }
+}
+
+struct Article2: View {
+    
+    var body: some View {
+
+        VStack {
+            Text("Money 2")
+                .font(.title)
+            Text("Drop some money")
+           
+        }
+    }
+}
 
 
 

@@ -23,6 +23,8 @@ struct InputExpenses: View {
     @State var index = 0
     @State var type = "Expenses"
     
+    @State var name : String = ""
+    
     var body: some View {
 //        NavigationView {
             VStack {
@@ -93,7 +95,7 @@ struct InputExpenses: View {
                 
                 Button("Save") {
                     if check {
-                        expensesHistory.append(History(id: index, name: selectedOption?.expensesCategory ?? "", amount: Int(amount) ?? 0, date: date, type: type))
+                        expensesHistory.append(History(id: index, category: selectedOption?.expensesCategory ?? "", amount: Int(amount) ?? 0, date: date, type: type, name:name))
                         // Simpan data ke UserDefaults
                         let encoder = JSONEncoder()
                         if let encodedData = try? encoder.encode(expensesHistory) {

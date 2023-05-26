@@ -39,7 +39,7 @@ struct HomeView: View {
                         .frame(width: 220, height: 100)
                     
                     RoundedRectangle(cornerRadius: 10)
-                        .foregroundColor(Color(hex: 0x6DA3FF).opacity(0.3))
+                        .foregroundColor(Color(hex: 0xF89385).opacity(0.3))
                         .padding()
                         .overlay(
                             VStack(alignment: .leading){

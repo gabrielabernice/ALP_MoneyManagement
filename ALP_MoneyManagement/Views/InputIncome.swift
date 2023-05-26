@@ -23,9 +23,38 @@ struct InputIncome: View {
     @State var index = 0
     @State var type = "Income"
     
+    @State var name : String = ""
+    
+    
+    @State private var failMessage: String = ""
+    @State private var showFailMessage: Bool = false
+    
     var body: some View {
-//        NavigationView {
-            VStack {
+        //        NavigationView {
+        VStack {
+            Group {
+                Text("test")
+            }
+            Group {
+                Text("Date: \(date, formatter: dateFormatter)")
+                    .font(.title2)
+                
+                Button(action: {
+                    isExpanded.toggle()
+                }, label: {
+                    Text("Select a date")
+                        .padding(.bottom)
+                })
+                
+                if isExpanded {
+                    DatePicker(
+                        "",
+                        selection: $date,
+                        displayedComponents: [.date]
+                    )
+                    .datePickerStyle(WheelDatePickerStyle())
+                }
+                
                 Text("Source of Income : \n\(selectedOption?.incomeCategory ?? "")")
                     .font(.title2)
                     .multilineTextAlignment(.center)
@@ -72,36 +101,25 @@ struct InputIncome: View {
                         .padding()
                 }
                 
-                Text("Date: \(date, formatter: dateFormatter)")
-                    .font(.title2)
                 
-                Button(action: {
-                    isExpanded.toggle()
-                }, label: {
-                    Text("Select a date")
-                        .padding(.bottom)
-                })
-                
-                if isExpanded {
-                    DatePicker(
-                        "",
-                        selection: $date,
-                        displayedComponents: [.date]
-                    )
-                    .datePickerStyle(WheelDatePickerStyle())
-                }
                 
                 Button("Save") {
-                    if check {
-                        incomeHistory.append(History(id: index, name: selectedOption?.incomeCategory ?? "", amount: Int(amount) ?? 0, date: date, type: type))
-                        // Simpan data ke UserDefaults
-                        let encoder = JSONEncoder()
-                        if let encodedData = try? encoder.encode(incomeHistory) {
-                            UserDefaults.standard.set(encodedData, forKey: "incomeHistory")
+                    if selectedOption == nil {
+                        // Tampilkan pesan kesalahan karena opsi belum dipilih
+                        failMessage = "Please select an option"
+                        showFailMessage = true
+                    } else {
+                        if check {
+                            incomeHistory.append(History(id: index, category: selectedOption?.incomeCategory ?? "", amount: Int(amount) ?? 0, date: date, type: type, name: name))
+                            // Simpan data ke UserDefaults
+                            let encoder = JSONEncoder()
+                            if let encodedData = try? encoder.encode(incomeHistory) {
+                                UserDefaults.standard.set(encodedData, forKey: "incomeHistory")
+                            }
+                            
+                            appendIncome = true
+                            index += 1
                         }
-                        
-                        appendIncome = true
-                        index += 1
                     }
                 }
                 .fontWeight(.bold)
@@ -111,26 +129,35 @@ struct InputIncome: View {
                 .cornerRadius(10)
                 .disabled(!check)
                 
+                
                 if appendIncome{
                     Text("Data successfully saved!")
                         .padding()
                         .multilineTextAlignment(.center)
+                }else if showFailMessage {
+                    Text(failMessage)
+                        .padding()
+                        .multilineTextAlignment(.center)
                 }
             }
-            .onAppear {
-                if let data = UserDefaults.standard.data(forKey: "incomeHistory") {
-                    if let decodedData = try? JSONDecoder().decode([History].self, from: data) {
-                        incomeHistory = decodedData
-                        index = incomeHistory.count
-                    }
+            
+            
+            
+        }
+        .onAppear {
+            if let data = UserDefaults.standard.data(forKey: "incomeHistory") {
+                if let decodedData = try? JSONDecoder().decode([History].self, from: data) {
+                    incomeHistory = decodedData
+                    index = incomeHistory.count
                 }
-                
-                let url = Bundle.main.url(forResource: "incomeData", withExtension: "json")!
-                let jsonData = try! Data(contentsOf: url)
-                let decoder = JSONDecoder()
-                income = try! decoder.decode([Income].self, from: jsonData)
             }
-//        }
+            
+            let url = Bundle.main.url(forResource: "incomeData", withExtension: "json")!
+            let jsonData = try! Data(contentsOf: url)
+            let decoder = JSONDecoder()
+            income = try! decoder.decode([Income].self, from: jsonData)
+        }
+        //        }
         .onChange(of: amount) { newValue in
             check = ((Int(newValue) ?? 0) >= 1)
         }
@@ -140,11 +167,11 @@ struct InputIncome: View {
 }
 
 private let dateFormatter: DateFormatter = {
-       let formatter = DateFormatter()
-       formatter.dateStyle = .long
-       formatter.timeStyle = .none
-       return formatter
-   }()
+    let formatter = DateFormatter()
+    formatter.dateStyle = .long
+    formatter.timeStyle = .none
+    return formatter
+}()
 
 struct InputIncome_Previews: PreviewProvider {
     static var previews: some View {

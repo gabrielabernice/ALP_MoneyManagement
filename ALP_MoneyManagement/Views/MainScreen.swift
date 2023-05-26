@@ -83,7 +83,7 @@ struct MainScreen_Previews: PreviewProvider {
     static let modelData = ModelData()
     
     static var previews: some View {
-        MainScreen(savings: "S", history: [History(id: 0, name: "Shopping", amount: 30000, date: Calendar.current.date(from: DateComponents(year: 2024, month: 3, day: 7)) ?? Date(), type: "Expenses")])
+        MainScreen(savings: "S", history: [History(id: 0, category: "Shopping", amount: 30000, date: Calendar.current.date(from: DateComponents(year: 2024, month: 3, day: 7)) ?? Date(), type: "Expenses", name: "Makan")])
             .environmentObject(modelData)
     }
 }
