@@ -27,6 +27,7 @@
 		04E53B292A1F5030002DB572 /* ExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E53B282A1F5030002DB572 /* ExpensesView.swift */; };
 		04E53B2B2A1FAFEE002DB572 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E53B2A2A1FAFEE002DB572 /* HomeView.swift */; };
 		04E53B2D2A1FBADC002DB572 /* TransactionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E53B2C2A1FBADC002DB572 /* TransactionRow.swift */; };
+		3A8E1EEB2A2120F8004CBE6C /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 3A8E1EEA2A2120F8004CBE6C /* SwiftUICharts */; };
 		3AA492672A18A70400697CF6 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 3AA492662A18A70400697CF6 /* Charts */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AA492672A18A70400697CF6 /* Charts in Frameworks */,
+				3A8E1EEB2A2120F8004CBE6C /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +161,7 @@
 			name = ALP_MoneyManagement;
 			packageProductDependencies = (
 				3AA492662A18A70400697CF6 /* Charts */,
+				3A8E1EEA2A2120F8004CBE6C /* SwiftUICharts */,
 			);
 			productName = ALP_MoneyManagement;
 			productReference = 043BD3582A02B57E00BDF376 /* ALP_MoneyManagement.app */;
@@ -190,6 +193,7 @@
 			mainGroup = 043BD34F2A02B57E00BDF376;
 			packageReferences = (
 				3AA492652A18A70400697CF6 /* XCRemoteSwiftPackageReference "swiftui-charts" */,
+				3A8E1EE92A2120F8004CBE6C /* XCRemoteSwiftPackageReference "ChartView" */,
 			);
 			productRefGroup = 043BD3592A02B57E00BDF376 /* Products */;
 			projectDirPath = "";
@@ -443,6 +447,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3A8E1EE92A2120F8004CBE6C /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		3AA492652A18A70400697CF6 /* XCRemoteSwiftPackageReference "swiftui-charts" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/spacenation/swiftui-charts.git";
@@ -454,6 +466,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3A8E1EEA2A2120F8004CBE6C /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3A8E1EE92A2120F8004CBE6C /* XCRemoteSwiftPackageReference "ChartView" */;
+			productName = SwiftUICharts;
+		};
 		3AA492662A18A70400697CF6 /* Charts */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3AA492652A18A70400697CF6 /* XCRemoteSwiftPackageReference "swiftui-charts" */;
