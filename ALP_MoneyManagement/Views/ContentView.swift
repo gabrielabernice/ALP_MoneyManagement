@@ -8,92 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var isActive = false
     
     var body: some View {
-        NavigationView{
-            VStack{
-                Text("Welcome Aboard!")
-                    .foregroundColor(Color(red: 84/255, green: 84/255, blue: 84/255))
-                    .font(.largeTitle)
-                    .padding(.top, 20)
-                
-                Spacer()
-                
-                Image(systemName: "dollarsign.circle.fill") // logo?
-                    .resizable()
-                    .frame(width: 150, height: 150)
-                    .foregroundColor(.green) // biar jamet
-                
-                Spacer()
-                
-                Text("Are you ready\nto manage your money?") // ato apa itu slogan e
-                    .font(.headline)
-                    .foregroundColor(Color(red: 84/255, green: 84/255, blue: 84/255))
-                    .multilineTextAlignment(.center)
-                    .padding(.bottom)
-                
-                NavigationLink(destination: MainScreen(savings: "S", history: [History(id: 0, category: "Shopping", amount: 30000, date: Calendar.current.date(from: DateComponents(year: 2024, month: 3, day: 7)) ?? Date(), type: "Expenses", name: "Expenses")])){
-                    Text("START")
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color(red: 0.4, green: 0.6, blue: 1.0)) // kalo mau biru
-                        .background(.green) // kalo mau hijau
-                        .cornerRadius(10)
-                }
+        ZStack {
+            Color(UIColor(hex: "#75C1E1"))
+                .edgesIgnoringSafeArea(.all)
+            
+            Image("launchImage") 
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.isActive = true
             }
         }
-        .bold()
+        .fullScreenCover(isPresented: $isActive, content: {
+            MainScreen(savings: "S", history: [History(id: 0, category: "Shopping", amount: 30000, date: Calendar.current.date(from: DateComponents(year: 2024, month: 3, day: 7)) ?? Date(), type: "Expenses", name: "Expenses")])
+        })
     }
 }
 
-//struct ContentView: View {
-//    @State private var selection: Tab = .featured
-//
-//    //to display featured list
-//    enum Tab {
-//        case featured
-//        case list
-//    }
-//
-//    var body: some View {
-//        TabView(selection: $selection) {
-//            CategoryHome()
-//                .tabItem {
-//                    Label("Featured", systemImage: "star")
-//                }
-//                .tag(Tab.featured)
-//
-//            //display landmarklist
-//            LandmarkList()
-//                .tabItem {
-//                    Label("List", systemImage: "list.bullet")
-//                }
-//                .tag(Tab.list)
-//        }
-//    }
-//}
-
-
-//struct LaunchScreen: View {
-//    var body: some View {
-//        VStack{
-//            Image("moneyFest")
-//                .resizable()
-//                .aspectRatio(contentMode: .fit)
-//                .frame(width:150)
-//
-//            Text("Money Fest")
-//                .font(.title)
-//        }
-//    }
-//}
-//
-//struct LaunchScreen_Previews: PreviewProvider {
-//    static var previews: some View {
-//        LaunchScreen()
-//    }
-//}
 
 
 struct ContentView_Previews: PreviewProvider {
@@ -102,5 +38,24 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environmentObject(modelData)
+    }
+}
+
+extension UIColor {
+    convenience init(hex: String) {
+        var formattedHex = hex.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
+        
+        if formattedHex.hasPrefix("#") {
+            formattedHex.remove(at: formattedHex.startIndex)
+        }
+        
+        var rgbValue: UInt64 = 0
+        Scanner(string: formattedHex).scanHexInt64(&rgbValue)
+        
+        let red = CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0
+        let green = CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0
+        let blue = CGFloat(rgbValue & 0x0000FF) / 255.0
+        
+        self.init(red: red, green: green, blue: blue, alpha: 1.0)
     }
 }

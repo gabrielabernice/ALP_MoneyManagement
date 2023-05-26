@@ -111,7 +111,7 @@ struct InputSavings: View {
                     let result = Double(amountInt) / Double(daysInt)
                     perDay = Int(ceil(result))
                 }
-                .padding()
+                .padding(.bottom,20)
                 .frame(width: geometry.size.width * 0.9)
                 .font(.system(size: 24, weight: .bold))
                 .foregroundColor(.white)
@@ -120,6 +120,7 @@ struct InputSavings: View {
                 .font(.system(size: 20, weight: .bold))
                 .fontWeight(.bold)
                 .disabled(!checkAmount || !checkDays)
+                
                             
                        
                 
