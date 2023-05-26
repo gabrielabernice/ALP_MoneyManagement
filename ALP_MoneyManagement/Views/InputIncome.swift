@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Dispatch
 
 struct InputIncome: View {
     @State var income: [Income] = []
@@ -26,6 +27,7 @@ struct InputIncome: View {
     @State var name : String = ""
     
     @State var showFailMessage = false
+    @State var shouldNavigate = false
     
     
     
@@ -173,34 +175,34 @@ struct InputIncome: View {
                 .padding(.top, 80)
                 .padding(.horizontal, 40)
                 .frame(width: geometry.size.width, height: geometry.size.height * 0.75)
-                .background(Color(hex: 0x6DA3FF))
+                .background(Color(hex: 0x6DA3FF).opacity(0.8))
                 .clipShape(BottomRoundedRectangle(radius:55))
                 .shadow(color: Color.black.opacity(0.3), radius: 18, x: 0, y: 5)
                 //                .onChange
                 
-//                HStack{}.frame(height: -20)
+                //                HStack{}.frame(height: -20)
                 
                 
-                    Text("Data successfully saved!")
-                        .padding()
-                        .multilineTextAlignment(.center)
-                        .offset(y: 10)
-                        .opacity(appendIncome == true ? 1.0 : 0.0)
-                        .opacity(showFailMessage == false ? 1:0)
+                Text("Data successfully saved!")
+                    .padding()
+                    .multilineTextAlignment(.center)
+                    .offset(y: 10)
+                    .opacity(appendIncome == true ? 1.0 : 0.0)
+                    .opacity(showFailMessage == false ? 1:0)
                 
-              
-                    Text("Please select an option")
-                        .multilineTextAlignment(.center)
-                        .offset(y: -40)
-                        .opacity(appendIncome == false ? 1:0)
-                        .opacity(showFailMessage == true ? 1.0 : 0.0)
-                        
+                
+                Text("Please select an option")
+                    .multilineTextAlignment(.center)
+                    .offset(y: -40)
+                    .opacity(appendIncome == false ? 1:0)
+                    .opacity(showFailMessage == true ? 1.0 : 0.0)
+                
                 
                 
                 Button("Save") {
                     if selectedOption == nil {
                         // Tampilkan pesan kesalahan karena opsi belum dipilih
-//                        failMessage = "Please select an option"
+                        //                        failMessage = "Please select an option"
                         showFailMessage = true
                         appendIncome = false
                     } else {
@@ -214,6 +216,9 @@ struct InputIncome: View {
                             
                             appendIncome = true
                             showFailMessage = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                shouldNavigate = true
+                            }
                             index += 1
                         }
                     }
@@ -228,6 +233,16 @@ struct InputIncome: View {
                 .padding(.bottom, 60)
                 .offset(y: -10)
                 .disabled(!check)
+                .overlay(
+                    NavigationLink(
+                        destination: AllIncomeView(),
+                        isActive: $shouldNavigate,
+                        label: {
+                            EmptyView()
+                        })
+                    .hidden()
+                )
+                .animation(.easeInOut)
                 
                 
                 
@@ -251,7 +266,7 @@ struct InputIncome: View {
             check = ((Int(newValue) ?? 0) >= 1)
         }
         .ignoresSafeArea(.all)
-    
+        
     }
     
     struct BottomRoundedRectangle: Shape {

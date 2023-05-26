@@ -77,7 +77,7 @@ struct InputSavings: View {
                 .padding(.top, 80)
                 .padding(.horizontal, 40)
                 .frame(width: geometry.size.width, height: geometry.size.height * 0.6)
-                .background(Color(hex: 0x6DA3FF))
+                .background(Color(hex: 0x6DA3FF).opacity(0.8))
                 .clipShape(BottomRoundedRectangle(radius:55))
                 .shadow(color: Color.black.opacity(0.3), radius: 18, x: 0, y: 5)
                 .onChange(of: amount) { newValue in
