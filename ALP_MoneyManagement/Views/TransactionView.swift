@@ -35,12 +35,15 @@ struct TransactionView: View {
                                             Text("Income")
                                                 .font(.title)
                                                 .padding()
+                                                .padding(.horizontal)
                                                 .background(Color(hex: 0x6DA3FF))
                                                 .foregroundColor(.white)
                                                 .cornerRadius(10)
                                                 .padding(.trailing)
                                         }
+                                        
                                         .padding()
+                                        
                                     }
                                 }
                             )
