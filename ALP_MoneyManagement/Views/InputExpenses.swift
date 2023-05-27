@@ -4,30 +4,11 @@
 //
 //  Created by MacBook Pro on 04/05/23.
 //
-
 import SwiftUI
 import Dispatch
 
 struct InputExpenses: View {
-    @State var expenses: [Expenses] = []
-    @State var selectedOption: Expenses?
-    
-    @State var amount: String = ""
-    @State var check: Bool = false
-    
-    @State var date = Date()
-    @State var isExpanded = false
-    
-    @State var expensesHistory: [History] = []
-    @State var appendExpenses = false
-    
-    @State var index = 0
-    @State var type = "Expenses"
-    
-    @State var name : String = ""
-    
-    @State var showFailMessage = false
-    @State var shouldNavigate = false
+    @StateObject private var viewModel = InputExpensesViewModel()
     
     var body: some View {
         NavigationView {
@@ -47,35 +28,31 @@ struct InputExpenses: View {
                                 .font(.system(size: 22, weight: .bold))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             
-                            
                             RoundedRectangle(cornerRadius: 10)
                                 .foregroundColor(Color.white)
                                 .frame(width: 350, height: 50)
                                 .padding()
                                 .overlay(
                                     HStack{
-                                        Text("\(date, formatter: dateFormatter)")
-                                        
+                                        Text("\(viewModel.date, formatter: dateFormatter)")
                                         
                                         Spacer().frame(width: 85)
                                         
                                         Button(action: {
-                                            isExpanded.toggle()
+                                            viewModel.isExpanded.toggle()
                                         }, label: {
                                             Text("Select a date")
                                                 .padding()
                                                 .foregroundColor(Color(hex: 0xF89385))
                                             
-                                            
                                         })
-                                        
                                     }
                                 )
                             
-                            if isExpanded {
+                            if viewModel.isExpanded {
                                 DatePicker(
                                     "",
-                                    selection: $date,
+                                    selection: $viewModel.date,
                                     displayedComponents: [.date]
                                 )
                                 .datePickerStyle(WheelDatePickerStyle())
@@ -95,38 +72,34 @@ struct InputExpenses: View {
                                 .padding()
                                 .overlay(
                                     HStack{
-                                        Text("\(selectedOption?.expensesCategory ?? "")")
+                                        Text("\(viewModel.selectedOption?.expensesCategory ?? "")")
                                         Spacer().frame(width: 85)
                                         
                                         Menu {
-                                            ForEach(expenses, id: \.self) { expenses in
+                                            ForEach(viewModel.expenses, id: \.self) { expense in
                                                 Button(action: {
-                                                    selectedOption = expenses
+                                                    viewModel.selectedOption = expense
                                                 }) {
-                                                    Text(expenses.expensesCategory)
+                                                    Text(expense.expensesCategory)
                                                 }
                                             }
                                         } label: {
                                             Label("Select an option", systemImage: "arrowtriangle.down.fill")
                                                 .foregroundColor(Color(hex: 0xF89385))
-                                            
                                         }
-                                        
                                     }
                                 )
-                            
                         }
                         .padding(.bottom, -33)
                         
                         VStack(spacing: -8){
-                            
                             Text("Amount")
                                 .foregroundColor(.white)
                                 .font(.system(size: 22, weight: .bold))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .offset(x:-12)
                             
-                            TextField("ex : 50000", text: $amount)
+                            TextField("ex : 50000", text: $viewModel.amount)
                                 .padding()
                                 .background(Color(.white))
                                 .cornerRadius(10)
@@ -141,22 +114,19 @@ struct InputExpenses: View {
                                 .font(.caption)
                                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                                 .font(.title)
-                                .opacity(!check ? 1 : 0)
-                            
-                            
+                                .opacity(!viewModel.check ? 1 : 0)
                         }
                         .padding()
                         .padding(.bottom, -50)
                         
                         VStack(spacing: -5){
-                            
                             Text("Note ")
                                 .foregroundColor(.white)
                                 .font(.system(size: 22, weight: .bold))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .offset(x:-12)
                             
-                            TextField("Mcd", text: $name)
+                            TextField("Mcd", text: $viewModel.name)
                                 .padding()
                                 .background(Color(.white))
                                 .cornerRadius(10)
@@ -164,60 +134,54 @@ struct InputExpenses: View {
                                 .font(.system(size: 16, weight: .bold))
                                 .cornerRadius(10)
                                 .keyboardType(.numberPad)
-                            
                         }
                         .padding()
+                        
                         //batas vstack 1 untuk form
                     }
                     .padding(.top, 80)
-                    .padding(.horizontal, 40)
+                    .padding(.horizontal, 20)
                     .frame(width: geometry.size.width, height: geometry.size.height * 0.75)
-                    .background(Color(hex:0xF89385).opacity(0.8))
+                    .background(Color(hex: 0xF89385).opacity(0.8))
                     .clipShape(BottomRoundedRectangle(radius:55))
                     .shadow(color: Color.black.opacity(0.3), radius: 18, x: 0, y: 5)
-                    
-                    
                     
                     Text("Data successfully saved!")
                         .padding()
                         .multilineTextAlignment(.center)
                         .offset(y: 10)
-                        .opacity(appendExpenses == true ? 1.0 : 0.0)
-                        .opacity(showFailMessage == false ? 1:0)
+                        .opacity(viewModel.appendExpenses == true ? 1.0 : 0.0)
+                        .opacity(viewModel.showFailMessage == false ? 1:0)
                     
                     Text("Please select an option")
                         .multilineTextAlignment(.center)
                         .offset(y: -40)
-                        .opacity(appendExpenses == false ? 1:0)
-                        .opacity(showFailMessage == true ? 1.0 : 0.0)
-                    
+                        .opacity(viewModel.appendExpenses == false ? 1:0)
+                        .opacity(viewModel.showFailMessage == true ? 1.0 : 0.0)
                     
                     Button("Save") {
-                        if selectedOption == nil {
-                            // Tampilkan pesan kesalahan karena opsi belum dipilih
-                            //                        failMessage = "Please select an option"
-                            showFailMessage = true
-                            appendExpenses = false
+                        if viewModel.selectedOption == nil {
+                            viewModel.showFailMessage = true
+                            viewModel.appendExpenses = false
                         } else {
-                            if check {
+                            if viewModel.check {
                                 withAnimation(.easeInOut) {
-                                expensesHistory.append(History(id: index, category: selectedOption?.expensesCategory ?? "", amount: Int(amount) ?? 0, date: date, type: type, name: name))
-                                // Simpan data ke UserDefaults
-                                let encoder = JSONEncoder()
-                                if let encodedData = try? encoder.encode(expensesHistory) {
-                                    UserDefaults.standard.set(encodedData, forKey: "expensesHistory")
+                                    viewModel.expensesHistory.append(History(id: viewModel.index, category: viewModel.selectedOption?.expensesCategory ?? "", amount: Int(viewModel.amount) ?? 0, date: viewModel.date, type: viewModel.type, name: viewModel.name))
+                                    let encoder = JSONEncoder()
+                                    if let encodedData = try? encoder.encode(viewModel.expensesHistory) {
+                                        UserDefaults.standard.set(encodedData, forKey: "expensesHistory")
+                                    }
+                                    
+                                    viewModel.appendExpenses = true
+                                    viewModel.showFailMessage = false
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                        viewModel.shouldNavigate = true
+                                    }
+                                    viewModel.index += 1
                                 }
-                                
-                                appendExpenses = true
-                                showFailMessage = false
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                    shouldNavigate = true
-                                }
-                                index += 1
                             }
                         }
                     }
-                }
                     .padding()
                     .frame(width: geometry.size.width * 0.9)
                     .font(.system(size: 22, weight: .bold))
@@ -225,36 +189,35 @@ struct InputExpenses: View {
                     .background(Color(hex: 0xF89385))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .fontWeight(.bold)
-                    .padding(.bottom, 60)
+                    .padding(.bottom, 90)
+                    .padding(.top, -50)
                     .offset(y: -10)
-                    .disabled(!check)
+                    .disabled(!viewModel.check)
                     .overlay(
                         NavigationLink(
-                            destination: AllIncomeView(),
+                            destination: AllExpensesView(),
                             label: {
                                 EmptyView()
                             })
                         .hidden()
                     )
-//                    .animation(.easeInOut)
-                    
                 }
                 .onAppear {
                     if let data = UserDefaults.standard.data(forKey: "expensesHistory") {
                         if let decodedData = try? JSONDecoder().decode([History].self, from: data) {
-                            expensesHistory = decodedData
-                            index = expensesHistory.count
+                            viewModel.expensesHistory = decodedData
+                            viewModel.index = viewModel.expensesHistory.count
                         }
                     }
                     
                     let url = Bundle.main.url(forResource: "expensesData", withExtension: "json")!
                     let jsonData = try! Data(contentsOf: url)
                     let decoder = JSONDecoder()
-                    expenses = try! decoder.decode([Expenses].self, from: jsonData)
+                    viewModel.expenses = try! decoder.decode([Expenses].self, from: jsonData)
                 }
             }
-            .onChange(of: amount) { newValue in
-                check = ((Int(newValue) ?? 0) >= 1)
+            .onChange(of: viewModel.amount) { newValue in
+                viewModel.check = ((Int(newValue) ?? 0) >= 1)
             }
             .ignoresSafeArea(.all)
         }
@@ -292,14 +255,13 @@ struct InputExpenses: View {
             return path
         }
     }
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .none
+        return formatter
+    }()
 }
-
-private let dateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .long
-    formatter.timeStyle = .none
-    return formatter
-}()
 
 struct InputExpenses_Previews: PreviewProvider {
     static var previews: some View {

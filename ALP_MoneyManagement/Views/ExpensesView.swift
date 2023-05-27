@@ -37,7 +37,7 @@ struct AllExpensesView: View {
                     
                 }
                 .listStyle(.inset)
-                
+                Spacer()
                 NavigationLink(destination: InputExpenses()) {
                     Text("Add New Expenses")
                         .font(.title)
@@ -48,7 +48,7 @@ struct AllExpensesView: View {
                         .cornerRadius(10)
                         
                 }
-                
+                .padding(.bottom, 65)
 //            }
         }
         .navigationTitle("Expenses")

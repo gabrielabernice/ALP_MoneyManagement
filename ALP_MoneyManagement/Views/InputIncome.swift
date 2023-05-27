@@ -9,27 +9,7 @@ import SwiftUI
 import Dispatch
 
 struct InputIncome: View {
-    @State var income: [Income] = []
-    @State var selectedOption: Income?
-    
-    @State var amount: String = ""
-    @State var check: Bool = false
-    
-    @State var date = Date()
-    @State var isExpanded = false
-    
-    @State var incomeHistory: [History] = []
-    @State var appendIncome = false
-    
-    @State var index = 0
-    @State var type = "Income"
-    
-    @State var name : String = ""
-    
-    @State var showFailMessage = false
-    @State var shouldNavigate = false
-    
-    
+    @StateObject private var viewModel = InputIncomeViewModel()
     
     var body: some View {
         NavigationView {
@@ -49,33 +29,29 @@ struct InputIncome: View {
                                 .font(.system(size: 22, weight: .bold))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             
-                            
                             RoundedRectangle(cornerRadius: 10)
                                 .foregroundColor(Color.white)
                                 .frame(width: 350, height: 50)
                                 .padding()
                                 .overlay(
                                     HStack{
-                                        Text("\(date, formatter: dateFormatter)")
-                                        
+                                        Text("\(viewModel.date, formatter: dateFormatter)")
                                         
                                         Spacer().frame(width: 85)
                                         
                                         Button(action: {
-                                            isExpanded.toggle()
+                                            viewModel.isExpanded.toggle()
                                         }, label: {
                                             Text("Select a date")
                                                 .padding()
-                                            
                                         })
-                                        
                                     }
                                 )
                             
-                            if isExpanded {
+                            if viewModel.isExpanded {
                                 DatePicker(
                                     "",
-                                    selection: $date,
+                                    selection: $viewModel.date,
                                     displayedComponents: [.date]
                                 )
                                 .datePickerStyle(WheelDatePickerStyle())
@@ -95,13 +71,13 @@ struct InputIncome: View {
                                 .padding()
                                 .overlay(
                                     HStack{
-                                        Text("\(selectedOption?.incomeCategory ?? "")")
+                                        Text("\(viewModel.selectedOption?.incomeCategory ?? "")")
                                         Spacer().frame(width: 85)
                                         
                                         Menu {
-                                            ForEach(income, id: \.self) { incomes in
+                                            ForEach(viewModel.income, id: \.self) { incomes in
                                                 Button(action: {
-                                                    selectedOption = incomes
+                                                    viewModel.selectedOption = incomes
                                                 }) {
                                                     Text(incomes.incomeCategory)
                                                 }
@@ -109,24 +85,20 @@ struct InputIncome: View {
                                         } label: {
                                             Label("Select an option", systemImage: "arrowtriangle.down.fill")
                                                 .foregroundColor(Color(red: 0.4, green: 0.6, blue: 1.0))
-                                            
                                         }
-                                        
                                     }
                                 )
-                            
                         }
                         .padding(.bottom, -33)
                         
                         VStack(spacing: -8){
-                            
                             Text("Amount")
                                 .foregroundColor(.white)
                                 .font(.system(size: 22, weight: .bold))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .offset(x:-12)
                             
-                            TextField("ex : 50000", text: $amount)
+                            TextField("ex : 50000", text: $viewModel.amount)
                                 .padding()
                                 .background(Color(.white))
                                 .cornerRadius(10)
@@ -141,22 +113,19 @@ struct InputIncome: View {
                                 .font(.caption)
                                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                                 .font(.title)
-                                .opacity(!check ? 1 : 0)
-                            
-                            
+                                .opacity(!viewModel.check ? 1 : 0)
                         }
                         .padding()
                         .padding(.bottom, -50)
                         
                         VStack(spacing: -5){
-                            
                             Text("Note ")
                                 .foregroundColor(.white)
                                 .font(.system(size: 22, weight: .bold))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .offset(x:-12)
                             
-                            TextField("Mcd", text: $name)
+                            TextField("Mcd", text: $viewModel.name)
                                 .padding()
                                 .background(Color(.white))
                                 .cornerRadius(10)
@@ -164,62 +133,50 @@ struct InputIncome: View {
                                 .font(.system(size: 16, weight: .bold))
                                 .cornerRadius(10)
                                 .keyboardType(.numberPad)
-                            
                         }
                         .padding()
-                        
-                        
-                        
                         
                         //batas vstack 1 untuk form
                     }
                     .padding(.top, 80)
-                    .padding(.horizontal, 40)
+                    .padding(.horizontal, 20)
                     .frame(width: geometry.size.width, height: geometry.size.height * 0.75)
                     .background(Color(hex: 0x6DA3FF).opacity(0.8))
                     .clipShape(BottomRoundedRectangle(radius:55))
                     .shadow(color: Color.black.opacity(0.3), radius: 18, x: 0, y: 5)
                     
-                    
-                    
                     Text("Data successfully saved!")
                         .padding()
                         .multilineTextAlignment(.center)
                         .offset(y: 10)
-                        .opacity(appendIncome == true ? 1.0 : 0.0)
-                        .opacity(showFailMessage == false ? 1:0)
-                    
+                        .opacity(viewModel.appendIncome == true ? 1.0 : 0.0)
+                        .opacity(viewModel.showFailMessage == false ? 1:0)
                     
                     Text("Please select an option")
                         .multilineTextAlignment(.center)
                         .offset(y: -40)
-                        .opacity(appendIncome == false ? 1:0)
-                        .opacity(showFailMessage == true ? 1.0 : 0.0)
-                    
-                    
+                        .opacity(viewModel.appendIncome == false ? 1:0)
+                        .opacity(viewModel.showFailMessage == true ? 1.0 : 0.0)
                     
                     Button("Save") {
-                        if selectedOption == nil {
-                            // Tampilkan pesan kesalahan karena opsi belum dipilih
-                            //                        failMessage = "Please select an option"
-                            showFailMessage = true
-                            appendIncome = false
+                        if viewModel.selectedOption == nil {
+                            viewModel.showFailMessage = true
+                            viewModel.appendIncome = false
                         } else {
-                            if check {
+                            if viewModel.check {
                                 withAnimation(.easeInOut) {
-                                    incomeHistory.append(History(id: index, category: selectedOption?.incomeCategory ?? "", amount: Int(amount) ?? 0, date: date, type: type, name: name))
-                                    // Simpan data ke UserDefaults
+                                    viewModel.incomeHistory.append(History(id: viewModel.index, category: viewModel.selectedOption?.incomeCategory ?? "", amount: Int(viewModel.amount) ?? 0, date: viewModel.date, type: viewModel.type, name: viewModel.name))
                                     let encoder = JSONEncoder()
-                                    if let encodedData = try? encoder.encode(incomeHistory) {
+                                    if let encodedData = try? encoder.encode(viewModel.incomeHistory) {
                                         UserDefaults.standard.set(encodedData, forKey: "incomeHistory")
                                     }
                                     
-                                    appendIncome = true
-                                    showFailMessage = false
+                                    viewModel.appendIncome = true
+                                    viewModel.showFailMessage = false
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                        shouldNavigate = true
+                                        viewModel.shouldNavigate = true
                                     }
-                                    index += 1
+                                    viewModel.index += 1
                                 }
                             }
                         }
@@ -231,9 +188,10 @@ struct InputIncome: View {
                     .background(Color(hex: 0x6DA3FF))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .fontWeight(.bold)
-                    .padding(.bottom, 60)
+                    .padding(.bottom, 90)
+                    .padding(.top, -50)
                     .offset(y: -10)
-                    .disabled(!check)
+                    .disabled(!viewModel.check)
                     .overlay(
                         NavigationLink(
                             destination: AllIncomeView(),
@@ -242,31 +200,25 @@ struct InputIncome: View {
                             })
                         .hidden()
                     )
-                    //                    .animation(.easeInOut)
-                    
-                    
-                    
-                    
                 }
                 .onAppear {
                     if let data = UserDefaults.standard.data(forKey: "incomeHistory") {
                         if let decodedData = try? JSONDecoder().decode([History].self, from: data) {
-                            incomeHistory = decodedData
-                            index = incomeHistory.count
+                            viewModel.incomeHistory = decodedData
+                            viewModel.index = viewModel.incomeHistory.count
                         }
                     }
                     
                     let url = Bundle.main.url(forResource: "incomeData", withExtension: "json")!
                     let jsonData = try! Data(contentsOf: url)
                     let decoder = JSONDecoder()
-                    income = try! decoder.decode([Income].self, from: jsonData)
+                    viewModel.income = try! decoder.decode([Income].self, from: jsonData)
                 }
             }
-            .onChange(of: amount) { newValue in
-                check = ((Int(newValue) ?? 0) >= 1)
+            .onChange(of: viewModel.amount) { newValue in
+                viewModel.check = ((Int(newValue) ?? 0) >= 1)
             }
             .ignoresSafeArea(.all)
-            
         }
     }
     
@@ -303,14 +255,13 @@ struct InputIncome: View {
         }
     }
     
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .none
+        return formatter
+    }()
 }
-
-private let dateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .long
-    formatter.timeStyle = .none
-    return formatter
-}()
 
 struct InputIncome_Previews: PreviewProvider {
     static var previews: some View {

@@ -37,7 +37,7 @@ struct AllIncomeView: View {
                     .padding(.horizontal, -3)
                 }
                 .listStyle(.inset)
-                
+                Spacer()
                 NavigationLink(destination: InputIncome()) {
                     Text("Add New Income")
                         .font(.title)
@@ -48,6 +48,7 @@ struct AllIncomeView: View {
                         .cornerRadius(10)
                         
                 }
+                .padding(.bottom, 65)
             }
             
 //            }

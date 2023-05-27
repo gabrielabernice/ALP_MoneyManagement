@@ -28,6 +28,8 @@
 		04E53B2B2A1FAFEE002DB572 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E53B2A2A1FAFEE002DB572 /* HomeView.swift */; };
 		04E53B2D2A1FBADC002DB572 /* TransactionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E53B2C2A1FBADC002DB572 /* TransactionRow.swift */; };
 		3A8E1EEB2A2120F8004CBE6C /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 3A8E1EEA2A2120F8004CBE6C /* SwiftUICharts */; };
+		3A8E1EEE2A218CFF004CBE6C /* InputIncomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8E1EED2A218CFF004CBE6C /* InputIncomeViewModel.swift */; };
+		3A8E1EF02A21DD6F004CBE6C /* InputExpensesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8E1EEF2A21DD6F004CBE6C /* InputExpensesViewModel.swift */; };
 		3AA492672A18A70400697CF6 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 3AA492662A18A70400697CF6 /* Charts */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +55,8 @@
 		04E53B282A1F5030002DB572 /* ExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesView.swift; sourceTree = "<group>"; };
 		04E53B2A2A1FAFEE002DB572 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		04E53B2C2A1FBADC002DB572 /* TransactionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRow.swift; sourceTree = "<group>"; };
+		3A8E1EED2A218CFF004CBE6C /* InputIncomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputIncomeViewModel.swift; sourceTree = "<group>"; };
+		3A8E1EEF2A21DD6F004CBE6C /* InputExpensesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputExpensesViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,8 +92,9 @@
 			isa = PBXGroup;
 			children = (
 				043BD35B2A02B57E00BDF376 /* ALP_MoneyManagementApp.swift */,
-				043BD36C2A02BBC700BDF376 /* Views */,
 				043BD3712A02BC3200BDF376 /* Model */,
+				043BD36C2A02BBC700BDF376 /* Views */,
+				3A8E1EEC2A218CCD004CBE6C /* ViewModel */,
 				043BD36B2A02BBB700BDF376 /* Resources */,
 				043BD35F2A02B58000BDF376 /* Assets.xcassets */,
 				043BD3612A02B58000BDF376 /* Preview Content */,
@@ -141,6 +146,15 @@
 				043BD38A2A03F9E700BDF376 /* History.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		3A8E1EEC2A218CCD004CBE6C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3A8E1EED2A218CFF004CBE6C /* InputIncomeViewModel.swift */,
+				3A8E1EEF2A21DD6F004CBE6C /* InputExpensesViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,6 +240,7 @@
 				043BD37B2A03443100BDF376 /* MainScreen.swift in Sources */,
 				043BD37D2A03571500BDF376 /* InputExpenses.swift in Sources */,
 				043BD38B2A03F9E700BDF376 /* History.swift in Sources */,
+				3A8E1EEE2A218CFF004CBE6C /* InputIncomeViewModel.swift in Sources */,
 				04E53B2B2A1FAFEE002DB572 /* HomeView.swift in Sources */,
 				04E53B292A1F5030002DB572 /* ExpensesView.swift in Sources */,
 				043BD3752A02BD0100BDF376 /* Expenses.swift in Sources */,
@@ -234,6 +249,7 @@
 				04E53B252A1F4C03002DB572 /* IncomeView.swift in Sources */,
 				043BD3812A038A5200BDF376 /* HistoryView.swift in Sources */,
 				043BD36A2A02B5EB00BDF376 /* InputIncome.swift in Sources */,
+				3A8E1EF02A21DD6F004CBE6C /* InputExpensesViewModel.swift in Sources */,
 				043BD35E2A02B57E00BDF376 /* ContentView.swift in Sources */,
 				043BD3732A02BC6300BDF376 /* Income.swift in Sources */,
 				04E53B2D2A1FBADC002DB572 /* TransactionRow.swift in Sources */,

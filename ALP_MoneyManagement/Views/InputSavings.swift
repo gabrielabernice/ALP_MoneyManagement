@@ -105,7 +105,7 @@ struct InputSavings: View {
                         .font(.system(size: 20, weight: .bold))
                         .opacity(perDay > 0 ? 1.0 : 0.0)
                 }
-                
+//                Spacer()
                 Button("Calculate") {
                     let amountInt = Int(amount) ?? 0
                     let daysInt = Int(days) ?? 0
@@ -113,6 +113,7 @@ struct InputSavings: View {
                     perDay = Int(ceil(result))
                 }
                 .padding()
+                
                 .frame(width: geometry.size.width * 0.9)
                 .font(.system(size: 24, weight: .bold))
                 .foregroundColor(.white)
@@ -123,6 +124,7 @@ struct InputSavings: View {
                 .disabled(!checkAmount || !checkDays)
                 
             }
+            .padding(.bottom, 90)
         }
         .padding(.bottom, 20)
         .ignoresSafeArea(.all)
