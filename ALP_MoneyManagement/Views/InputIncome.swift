@@ -159,27 +159,7 @@ struct InputIncome: View {
                         .opacity(viewModel.showFailMessage == true ? 1.0 : 0.0)
                     
                     Button("Save") {
-                        if viewModel.selectedOption == nil {
-                            viewModel.showFailMessage = true
-                            viewModel.appendIncome = false
-                        } else {
-                            if viewModel.check {
-                                withAnimation(.easeInOut) {
-                                    viewModel.incomeHistory.append(History(id: viewModel.index, category: viewModel.selectedOption?.incomeCategory ?? "", amount: Int(viewModel.amount) ?? 0, date: viewModel.date, type: viewModel.type, name: viewModel.name))
-                                    let encoder = JSONEncoder()
-                                    if let encodedData = try? encoder.encode(viewModel.incomeHistory) {
-                                        UserDefaults.standard.set(encodedData, forKey: "incomeHistory")
-                                    }
-                                    
-                                    viewModel.appendIncome = true
-                                    viewModel.showFailMessage = false
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                        viewModel.shouldNavigate = true
-                                    }
-                                    viewModel.index += 1
-                                }
-                            }
-                        }
+                        viewModel.saveIncome()
                     }
                     .padding()
                     .frame(width: geometry.size.width * 0.9)
@@ -202,21 +182,13 @@ struct InputIncome: View {
                     )
                 }
                 .onAppear {
-                    if let data = UserDefaults.standard.data(forKey: "incomeHistory") {
-                        if let decodedData = try? JSONDecoder().decode([History].self, from: data) {
-                            viewModel.incomeHistory = decodedData
-                            viewModel.index = viewModel.incomeHistory.count
-                        }
-                    }
-                    
-                    let url = Bundle.main.url(forResource: "incomeData", withExtension: "json")!
-                    let jsonData = try! Data(contentsOf: url)
-                    let decoder = JSONDecoder()
-                    viewModel.income = try! decoder.decode([Income].self, from: jsonData)
+                    viewModel.loadIncomeData()
+                        viewModel.loadIncomeHistory()
+
                 }
             }
             .onChange(of: viewModel.amount) { newValue in
-                viewModel.check = ((Int(newValue) ?? 0) >= 1)
+                viewModel.validateAmount()
             }
             .ignoresSafeArea(.all)
         }

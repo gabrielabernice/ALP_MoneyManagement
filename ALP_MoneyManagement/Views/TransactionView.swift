@@ -97,15 +97,9 @@ struct TransactionView: View {
                         .accessibilityAddTraits(.isHeader)
                 }
             }
-            
-            
         }
-        
-        
     }
 }
-
-
 extension Color {
     init(hex: UInt32) {
         let red = Double((hex >> 16) & 0xFF) / 255.0

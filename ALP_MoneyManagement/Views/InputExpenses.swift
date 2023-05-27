@@ -203,17 +203,7 @@ struct InputExpenses: View {
                     )
                 }
                 .onAppear {
-                    if let data = UserDefaults.standard.data(forKey: "expensesHistory") {
-                        if let decodedData = try? JSONDecoder().decode([History].self, from: data) {
-                            viewModel.expensesHistory = decodedData
-                            viewModel.index = viewModel.expensesHistory.count
-                        }
-                    }
-                    
-                    let url = Bundle.main.url(forResource: "expensesData", withExtension: "json")!
-                    let jsonData = try! Data(contentsOf: url)
-                    let decoder = JSONDecoder()
-                    viewModel.expenses = try! decoder.decode([Expenses].self, from: jsonData)
+                    viewModel.loadExpensesData()
                 }
             }
             .onChange(of: viewModel.amount) { newValue in
