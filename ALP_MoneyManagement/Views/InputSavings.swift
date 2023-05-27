@@ -24,8 +24,8 @@ struct InputSavings: View {
                         .foregroundColor(.white)
                         .font(.system(size: 32, weight: .bold))
                         .frame(maxWidth: .infinity)
-                        
-
+                    
+                    
                     
                     VStack(alignment:.leading, spacing: -5) {
                         Text("Savings Target")
@@ -81,12 +81,12 @@ struct InputSavings: View {
                 .clipShape(BottomRoundedRectangle(radius:55))
                 .shadow(color: Color.black.opacity(0.3), radius: 18, x: 0, y: 5)
                 .onChange(of: amount) { newValue in
-                            checkAmount = ((Int(newValue) ?? 0) >= 1)
-                        }
-                        .onChange(of: days) { newValue in
-                            checkDays = ((Int(newValue) ?? 0) >= 1)
-                        }
-                        .bold()
+                    checkAmount = ((Int(newValue) ?? 0) >= 1)
+                }
+                .onChange(of: days) { newValue in
+                    checkDays = ((Int(newValue) ?? 0) >= 1)
+                }
+                .bold()
                 
                 HStack{}.frame(height: 150)
                 
@@ -105,13 +105,14 @@ struct InputSavings: View {
                         .font(.system(size: 20, weight: .bold))
                         .opacity(perDay > 0 ? 1.0 : 0.0)
                 }
+                
                 Button("Calculate") {
                     let amountInt = Int(amount) ?? 0
-                                    let daysInt = Int(days) ?? 0
+                    let daysInt = Int(days) ?? 0
                     let result = Double(amountInt) / Double(daysInt)
                     perDay = Int(ceil(result))
                 }
-                .padding(.bottom,20)
+                .padding()
                 .frame(width: geometry.size.width * 0.9)
                 .font(.system(size: 24, weight: .bold))
                 .foregroundColor(.white)
@@ -121,14 +122,9 @@ struct InputSavings: View {
                 .fontWeight(.bold)
                 .disabled(!checkAmount || !checkDays)
                 
-                            
-                       
-                
-                
             }
-            
-            
         }
+        .padding(.bottom, 20)
         .ignoresSafeArea(.all)
         
     }

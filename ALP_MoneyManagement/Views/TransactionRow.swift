@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct TransactionRow: View {
-//    @State private var showLeftArrow = false
-//    @State private var showRightArrow = true
-//    @State private var contentOffset: CGFloat = 0
+    //    @State private var showLeftArrow = false
+    //    @State private var showRightArrow = true
+    //    @State private var contentOffset: CGFloat = 0
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -34,7 +34,7 @@ struct TransactionRow: View {
                                                 .resizable()
                                                 .aspectRatio(contentMode: .fit)
                                                 .frame(width: 200, height: 200)
-                            
+                                            
                                             
                                             VStack(spacing:5){
                                                 Text("Mastering Budget Management")
@@ -43,7 +43,7 @@ struct TransactionRow: View {
                                                     .padding(.trailing)
                                                     .bold()
                                                 
-                                            
+                                                
                                                 NavigationLink(destination: Article1()) {
                                                     Text("Read")
                                                         .font(.title)
@@ -72,7 +72,7 @@ struct TransactionRow: View {
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
                                             .frame(width: 180, height: 200)
-                        
+                                        
                                         
                                         VStack(spacing:5){
                                             Text("The Art of Savings Money")
@@ -81,7 +81,7 @@ struct TransactionRow: View {
                                                 .padding(.trailing)
                                                 .bold()
                                             
-                                        
+                                            
                                             NavigationLink(destination: Article2()) {
                                                 Text("Read")
                                                     .font(.title)
@@ -100,25 +100,25 @@ struct TransactionRow: View {
                         .frame(width: 380, height: 280)
                     }
                     .padding(.horizontal)
-
-                    }
+                    
                 }
             }
-            .frame(height: 185)
         }
+        .frame(height: 185)
     }
-    
+}
+
 
 
 struct Article1: View {
     
     var body: some View {
-
+        
         VStack {
             Text("Money")
                 .font(.title)
             Text("Drop some money")
-           
+            
         }
     }
 }
@@ -126,12 +126,12 @@ struct Article1: View {
 struct Article2: View {
     
     var body: some View {
-
+        
         VStack {
             Text("Money 2")
                 .font(.title)
             Text("Drop some money")
-           
+            
         }
     }
 }
