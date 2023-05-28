@@ -8,9 +8,11 @@
 import SwiftUI
 import SwiftUICharts
 
+
 struct HomeView: View {
     @StateObject var incomeViewModel = InputIncomeViewModel()
     @StateObject var expensesViewModel = InputExpensesViewModel()
+    @Environment(\.colorScheme) var colorScheme
     
     var totalIncomeAmount: Int {
         incomeViewModel.incomeHistory.reduce(0) { $0 + $1.amount }
@@ -23,11 +25,11 @@ struct HomeView: View {
     var incomeData: [Double] {
         return incomeViewModel.incomeHistory.map { Double($0.amount) }
     }
-
+    
     var expensesData: [Double] {
         return expensesViewModel.expensesHistory.map { Double($0.amount) }
     }
-
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -44,14 +46,19 @@ struct HomeView: View {
                                     LineChartView(data: incomeData,
                                                   title: "Income Chart",
                                                   legend: "Income")
+                                    .foregroundColor(Color(hex: 0x6DA3FF))
+                                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                                    .background(colorScheme == .dark ? Color.black : Color.white)
                                     .frame(height: 240)
                                     .padding()
                                 }
-                                
                                 if !expensesViewModel.expensesHistory.isEmpty {
-                                    LineChartView(data:  expensesData,
+                                    LineChartView(data: expensesData,
                                                   title: "Expenses Chart",
                                                   legend: "Expenses")
+                                    .foregroundColor(Color(hex:0xF89385))
+                                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                                    .background(colorScheme == .dark ? Color.black : Color.white)
                                     .frame(height: 240)
                                     .padding()
                                 }
