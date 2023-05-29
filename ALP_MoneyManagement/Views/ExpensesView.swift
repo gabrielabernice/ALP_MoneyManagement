@@ -18,7 +18,7 @@ struct AllExpensesView: View {
     var body: some View {
         //        NavigationView{
         VStack {
-            PieChartView(data:expensesData, title: "Income")
+            PieChartView(data:expensesData, title: "Expenses")
                 .frame(height: 300)
                 .padding(.vertical, 20)
             

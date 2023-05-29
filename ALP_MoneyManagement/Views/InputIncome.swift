@@ -16,13 +16,13 @@ struct InputIncome: View {
             GeometryReader { geometry in
                 ScrollView{
                     VStack {
-                        ScrollView {
+                        ScrollView{
                             VStack(alignment: .leading, spacing: 30){
                                 Text("Input Income")
                                     .foregroundColor(.white)
                                     .font(.system(size: 32, weight: .bold))
                                     .frame(maxWidth: .infinity, alignment: .center)
-                                    .padding(.top, -8)
+                                    .padding(.top, 10)
                                     .offset(x: 12)
                                 
                                 VStack(spacing: -5) {
@@ -137,9 +137,8 @@ struct InputIncome: View {
                                         .keyboardType(.numberPad)
                                 }
                                 .padding()
-                                
-                                //batas vstack 1 untuk form
                             }
+                            //batas vstack 1 untuk form
                         }
                         .padding(.top, 80)
                         .padding(.horizontal, 20)
@@ -151,13 +150,11 @@ struct InputIncome: View {
                         Text("Data successfully saved!")
                             .padding()
                             .multilineTextAlignment(.center)
-                            .offset(y: 10)
                             .opacity(viewModel.appendIncome == true ? 1.0 : 0.0)
                             .opacity(viewModel.showFailMessage == false ? 1:0)
                         
                         Text("Please select an option")
                             .multilineTextAlignment(.center)
-                            .offset(y: -40)
                             .opacity(viewModel.appendIncome == false ? 1:0)
                             .opacity(viewModel.showFailMessage == true ? 1.0 : 0.0)
                         
@@ -171,9 +168,7 @@ struct InputIncome: View {
                         .background(Color(hex: 0x6DA3FF))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .fontWeight(.bold)
-                        .padding(.bottom, 90)
-                        .padding(.top, -50)
-                        .offset(y: -10)
+                        .padding(.top, 10) // Adjusted the top padding here
                         .disabled(!viewModel.check)
                         .overlay(
                             NavigationLink(
