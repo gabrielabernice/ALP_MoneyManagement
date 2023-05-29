@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Charts
 
 struct HistoryView: View {
     @State var incomeHistory: [History] = []
@@ -13,6 +14,22 @@ struct HistoryView: View {
 
     var body: some View {
         VStack {
+            Chart {
+                    ForEach(incomeHistory) { income in
+                            BarMark(
+                                x: .value("Income", "Income"),
+                                y: .value("Expenses", income.amount)
+                                    )
+                                           
+                                }
+                    ForEach(expensesHistory) { expenses in
+                            BarMark(
+                                x: .value("Expenses", "Expenses"),
+                                y: .value("Expenses", expenses.amount)
+                                    )
+                                           
+                                    }
+                                }
             List {
                 Section(header: Text("Income")) {
                     ForEach(incomeHistory) { history in
