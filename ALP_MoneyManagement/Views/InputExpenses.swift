@@ -21,7 +21,7 @@ struct InputExpenses: View {
                                     .foregroundColor(.white)
                                     .font(.system(size: 32, weight: .bold))
                                     .frame(maxWidth: .infinity, alignment: .center)
-                                    .padding(.top, 10)
+                                    .padding(.top, -8)
                                     .offset(x: 12)
                                 
                                 VStack(spacing: -5) {
@@ -193,7 +193,7 @@ struct InputExpenses: View {
                         .fontWeight(.bold)
 //                        .padding(.bottom, 90)
                         .padding(.top, 10)
-//                        .offset(y: -10)
+                        .offset(y: -10)
                         .disabled(!viewModel.check)
                         .overlay(
                             NavigationLink(

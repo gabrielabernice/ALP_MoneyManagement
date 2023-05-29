@@ -17,7 +17,7 @@ struct InputIncome: View {
                 ScrollView{
                     VStack {
                         ScrollView{
-                            VStack(alignment: .leading, spacing: 30){
+                            VStack(alignment: .leading, spacing: 50){
                                 Text("Input Income")
                                     .foregroundColor(.white)
                                     .font(.system(size: 32, weight: .bold))
