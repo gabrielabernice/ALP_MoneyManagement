@@ -9,9 +9,12 @@ import SwiftUI
 
 struct TransactionView: View {
     @State private var historyView = false
+    
     var body: some View {
         NavigationView {
             VStack{
+                
+                // making the income section
                 VStack(spacing: 20) {
                     ZStack {
                         RoundedRectangle(cornerRadius: 10)
@@ -19,19 +22,19 @@ struct TransactionView: View {
                             .padding()
                             .overlay(
                                 HStack (spacing:-14){
-                                    // Gambar
+                                    // image for the income section
                                     Image("incomeLogo")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width: 170, height: 200)
                                     
-                                    // Tombol dengan NavigationLink
                                     VStack(spacing:5){
                                         Text("In this menu you can input your Income")
                                             .multilineTextAlignment(.center)
                                             .font(.system(size: 20))
                                             .padding(.trailing)
                                         
+                                        // to navigate the user to the income section view
                                         NavigationLink(destination: AllIncomeView()) {
                                             Text("Income")
                                                 .font(.title)
@@ -42,9 +45,7 @@ struct TransactionView: View {
                                                 .cornerRadius(10)
                                                 .padding(.trailing)
                                         }
-                                        
                                         .padding()
-                                        
                                     }
                                 }
                             )
@@ -52,25 +53,26 @@ struct TransactionView: View {
                     .frame(width: 380, height: 280)
                 }
                 
+                // making the expenses section
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
                         .foregroundColor(Color(hex: 0xF0A79D).opacity(0.3))
                         .padding()
                         .overlay(
                             HStack (spacing:-14){
-                                // Gambar
+                                // image for the expenses section
                                 Image("ExpensesLogo")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 155, height: 200)
                                 
-                                // Tombol dengan NavigationLink
                                 VStack(spacing:5){
                                     Text("In this menu you can input your Expenses")
                                         .multilineTextAlignment(.center)
                                         .font(.system(size: 20))
                                         .padding(.trailing)
                                     
+                                    // to navigate the user to the expenses section view
                                     NavigationLink(destination: AllExpensesView()) {
                                         Text("Expenses")
                                             .font(.title)
@@ -86,7 +88,6 @@ struct TransactionView: View {
                         )
                 }
                 .frame(width: 380, height: 280)
-                
             }
             .padding(.top, -135)
             .padding(.horizontal)
@@ -97,6 +98,8 @@ struct TransactionView: View {
                         .font(.largeTitle.bold())
                         .accessibilityAddTraits(.isHeader)
                 }
+                
+                // tool bar to navigate the user to the history view
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         historyView = true
@@ -112,7 +115,8 @@ struct TransactionView: View {
         }
     }
 }
-        
+
+// to make a customable color for the background of each section
 extension Color {
     init(hex: UInt32) {
         let red = Double((hex >> 16) & 0xFF) / 255.0
