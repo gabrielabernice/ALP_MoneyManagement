@@ -16,128 +16,130 @@ struct InputIncome: View {
             GeometryReader { geometry in
                 ScrollView{
                     VStack {
-                        VStack(alignment: .leading, spacing: 30){
-                            Text("Input Income")
-                                .foregroundColor(.white)
-                                .font(.system(size: 32, weight: .bold))
-                                .frame(maxWidth: .infinity, alignment: .center)
-                                .padding(.top, -8)
-                                .offset(x: 12)
-                            
-                            VStack(spacing: -5) {
-                                Text("Date ")
+                        ScrollView {
+                            VStack(alignment: .leading, spacing: 30){
+                                Text("Input Income")
                                     .foregroundColor(.white)
-                                    .font(.system(size: 22, weight: .bold))
-                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .font(.system(size: 32, weight: .bold))
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .padding(.top, -8)
+                                    .offset(x: 12)
                                 
-                                RoundedRectangle(cornerRadius: 10)
-                                    .foregroundColor(Color.white)
-                                    .frame(width: 350, height: 50)
-                                    .padding()
-                                    .overlay(
-                                        HStack{
-                                            Text("\(viewModel.date, formatter: dateFormatter)")
-                                            
-                                            Spacer().frame(width: 85)
-                                            
-                                            Button(action: {
-                                                viewModel.isExpanded.toggle()
-                                            }, label: {
-                                                Text("Select a date")
-                                                    .padding()
-                                            })
-                                        }
-                                    )
-                                
-                                if viewModel.isExpanded {
-                                    DatePicker(
-                                        "",
-                                        selection: $viewModel.date,
-                                        displayedComponents: [.date]
-                                    )
-                                    .datePickerStyle(WheelDatePickerStyle())
-                                }
-                            }
-                            .padding(.bottom, -20)
-                            
-                            VStack(spacing: -5){
-                                Text("Source of Income")
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 22, weight: .bold))
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                
-                                RoundedRectangle(cornerRadius: 10)
-                                    .foregroundColor(Color.white)
-                                    .frame(width: 350, height: 50)
-                                    .padding()
-                                    .overlay(
-                                        HStack{
-                                            Text("\(viewModel.selectedOption?.incomeCategory ?? "")")
-                                            Spacer().frame(width: 85)
-                                            
-                                            Menu {
-                                                ForEach(viewModel.income, id: \.self) { incomes in
-                                                    Button(action: {
-                                                        viewModel.selectedOption = incomes
-                                                    }) {
-                                                        Text(incomes.incomeCategory)
-                                                    }
-                                                }
-                                            } label: {
-                                                Label("Select an option", systemImage: "arrowtriangle.down.fill")
-                                                    .foregroundColor(Color(red: 0.4, green: 0.6, blue: 1.0))
+                                VStack(spacing: -5) {
+                                    Text("Date ")
+                                        .foregroundColor(.white)
+                                        .font(.system(size: 22, weight: .bold))
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .foregroundColor(Color.white)
+                                        .frame(width: 350, height: 50)
+                                        .padding()
+                                        .overlay(
+                                            HStack{
+                                                Text("\(viewModel.date, formatter: dateFormatter)")
+                                                
+                                                Spacer().frame(width: 85)
+                                                
+                                                Button(action: {
+                                                    viewModel.isExpanded.toggle()
+                                                }, label: {
+                                                    Text("Select a date")
+                                                        .padding()
+                                                })
                                             }
-                                        }
-                                    )
-                            }
-                            .padding(.bottom, -33)
-                            
-                            VStack(spacing: -8){
-                                Text("Amount")
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 22, weight: .bold))
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .offset(x:-12)
+                                        )
+                                    
+                                    if viewModel.isExpanded {
+                                        DatePicker(
+                                            "",
+                                            selection: $viewModel.date,
+                                            displayedComponents: [.date]
+                                        )
+                                        .datePickerStyle(WheelDatePickerStyle())
+                                    }
+                                }
+                                .padding(.bottom, -20)
                                 
-                                TextField("ex : 50000", text: $viewModel.amount)
-                                    .padding()
-                                    .background(Color(.white))
-                                    .cornerRadius(10)
-                                    .frame(width: 350, height: 90)
-                                    .font(.system(size: 16, weight: .bold))
-                                    .cornerRadius(10)
-                                    .keyboardType(.numberPad)
+                                VStack(spacing: -5){
+                                    Text("Source of Income")
+                                        .foregroundColor(.white)
+                                        .font(.system(size: 22, weight: .bold))
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .foregroundColor(Color.white)
+                                        .frame(width: 350, height: 50)
+                                        .padding()
+                                        .overlay(
+                                            HStack{
+                                                Text("\(viewModel.selectedOption?.incomeCategory ?? "")")
+                                                Spacer().frame(width: 85)
+                                                
+                                                Menu {
+                                                    ForEach(viewModel.income, id: \.self) { incomes in
+                                                        Button(action: {
+                                                            viewModel.selectedOption = incomes
+                                                        }) {
+                                                            Text(incomes.incomeCategory)
+                                                        }
+                                                    }
+                                                } label: {
+                                                    Label("Select an option", systemImage: "arrowtriangle.down.fill")
+                                                        .foregroundColor(Color(red: 0.4, green: 0.6, blue: 1.0))
+                                                }
+                                            }
+                                        )
+                                }
+                                .padding(.bottom, -33)
                                 
-                                Text("*Only numbers above 0")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.red)
-                                    .font(.caption)
-                                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                                    .font(.title)
-                                    .opacity(!viewModel.check ? 1 : 0)
-                            }
-                            .padding()
-                            .padding(.bottom, -50)
-                            
-                            VStack(spacing: -5){
-                                Text("Note ")
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 22, weight: .bold))
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .offset(x:-12)
+                                VStack(spacing: -8){
+                                    Text("Amount")
+                                        .foregroundColor(.white)
+                                        .font(.system(size: 22, weight: .bold))
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .offset(x:-12)
+                                    
+                                    TextField("ex : 50000", text: $viewModel.amount)
+                                        .padding()
+                                        .background(Color(.white))
+                                        .cornerRadius(10)
+                                        .frame(width: 350, height: 90)
+                                        .font(.system(size: 16, weight: .bold))
+                                        .cornerRadius(10)
+                                        .keyboardType(.numberPad)
+                                    
+                                    Text("*Only numbers above 0")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(.red)
+                                        .font(.caption)
+                                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                        .font(.title)
+                                        .opacity(!viewModel.check ? 1 : 0)
+                                }
+                                .padding()
+                                .padding(.bottom, -50)
                                 
-                                TextField("Mcd", text: $viewModel.name)
-                                    .padding()
-                                    .background(Color(.white))
-                                    .cornerRadius(10)
-                                    .frame(width: 350, height: 90)
-                                    .font(.system(size: 16, weight: .bold))
-                                    .cornerRadius(10)
-                                    .keyboardType(.numberPad)
+                                VStack(spacing: -5){
+                                    Text("Note ")
+                                        .foregroundColor(.white)
+                                        .font(.system(size: 22, weight: .bold))
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .offset(x:-12)
+                                    
+                                    TextField("Mcd", text: $viewModel.name)
+                                        .padding()
+                                        .background(Color(.white))
+                                        .cornerRadius(10)
+                                        .frame(width: 350, height: 90)
+                                        .font(.system(size: 16, weight: .bold))
+                                        .cornerRadius(10)
+                                        .keyboardType(.numberPad)
+                                }
+                                .padding()
+                                
+                                //batas vstack 1 untuk form
                             }
-                            .padding()
-                            
-                            //batas vstack 1 untuk form
                         }
                         .padding(.top, 80)
                         .padding(.horizontal, 20)
