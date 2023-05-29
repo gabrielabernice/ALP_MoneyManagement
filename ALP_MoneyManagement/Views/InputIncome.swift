@@ -179,6 +179,7 @@ struct InputIncome: View {
                             .hidden()
                         )
                     }
+                    
                     .onAppear {
                         viewModel.loadIncomeData()
                         viewModel.loadIncomeHistory()
