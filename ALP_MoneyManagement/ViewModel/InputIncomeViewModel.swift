@@ -35,6 +35,7 @@ class InputIncomeViewModel: ObservableObject {
         loadIncomeHistory()
     }
     
+    // function to load the data of income from the json data
     func loadIncomeData() {
         let url = Bundle.main.url(forResource: "incomeData", withExtension: "json")!
         let jsonData = try! Data(contentsOf: url)
@@ -42,6 +43,7 @@ class InputIncomeViewModel: ObservableObject {
         self.income = try! decoder.decode([Income].self, from: jsonData)
     }
     
+    // function to load the data from the income history
     func loadIncomeHistory() {
         if let data = UserDefaults.standard.data(forKey: "incomeHistory") {
             if let decodedData = try? JSONDecoder().decode([History].self, from: data) {
@@ -51,6 +53,7 @@ class InputIncomeViewModel: ObservableObject {
         }
     }
     
+    // function to save the income history
     func saveIncomeHistory() {
         let encoder = JSONEncoder()
         if let encodedData = try? encoder.encode(incomeHistory) {
@@ -58,15 +61,19 @@ class InputIncomeViewModel: ObservableObject {
         }
     }
     
+    // function to check if the amount is valid (if the amount being inputted is greater than 0)
     func validateAmount() {
         self.check = ((Int(amount) ?? 0) >= 1)
     }
     
+    // function to save the income
     func saveIncome() {
+        // if the income category is not selected, then it will show an error message and the data will not be saved
         if selectedOption == nil {
             showFailMessage = true
             appendIncome = false
         } else {
+            // if the income category is selected, then it will not show an error message and the data will be saved
             if check {
                 withAnimation(.easeInOut) {
                     incomeHistory.append(History(id: index, category: selectedOption?.incomeCategory ?? "", amount: Int(amount) ?? 0, date: date, type: type, name: name))
