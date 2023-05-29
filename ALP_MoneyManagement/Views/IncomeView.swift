@@ -17,11 +17,9 @@ struct AllIncomeView: View {
     }
 
     var body: some View {
-        //        NavigationView{
         VStack {
-
+            // displaying the piechart to show the chart for income from each inputs
             PieChartView(data:incomeData, title: "Income",style: Styles.pieChartStyleOne, form: ChartForm.large).padding(.horizontal)
-               
                 .frame(height: 300)
                 .padding(.vertical, 20)
                 
@@ -32,13 +30,17 @@ struct AllIncomeView: View {
                 .padding(.top)
                 .padding(.bottom, -1)
             
+            // to make a list for the data of incomes that have been saved by the user
             List {
                 Section() {
+                    // loop the data of income that has been saved by the user
                     ForEach(viewModel.incomeHistory) { history in
+                        // allow the user to see the detail of the income data
                         NavigationLink(destination: EditIncomeHistoryView(history: $viewModel.incomeHistory[getIndex(for: history, in: viewModel.incomeHistory)])) {
                             HistoryIncomeRow(history: history)
                         }
                     }
+                    // allow the user to delete the data of income that has been saved
                     .onDelete { offsets in
                         deleteHistory(at: offsets, type: "Income")
                     }
@@ -48,7 +50,10 @@ struct AllIncomeView: View {
                 .padding(.horizontal, -3)
             }
             .listStyle(.inset)
+            
             Spacer()
+            
+            // button that will navigate the user to the inputincome view
             NavigationLink(destination: InputIncome()) {
                 Text("Add New Income")
                     .font(.title)
@@ -57,27 +62,27 @@ struct AllIncomeView: View {
                     .background(Color(hex: 0x6DA3FF))
                     .foregroundColor(.white)
                     .cornerRadius(10)
-                
             }
             .padding(.bottom, 25)
         }
-        
-        //            }
         .navigationTitle("Income")
+        // to call the functions when the view screen shows up
         .onAppear {
             viewModel.loadIncomeData()
             viewModel.loadIncomeHistory()
-
         }
     }
+    
+    // function to delete the income history
     func deleteHistory(at offsets: IndexSet, type: String) {
         if type == "Income" {
            viewModel.incomeHistory.remove(atOffsets: offsets)
         }
-        viewModel.saveIncomeHistory() // Menyimpan perubahan riwayat pendapatan setelah penghapusan
+        // update the changes of the history data for income after a data is being deleted
+        viewModel.saveIncomeHistory()
     }
-
     
+    // function to get the index of the history
     func getIndex(for history: History, in array: [History]) -> Int {
         guard let index = array.firstIndex(where: { $0.id == history.id }) else {
             fatalError("History not found")
@@ -87,20 +92,20 @@ struct AllIncomeView: View {
     
 }
 
+// to edit the history
 struct EditIncomeHistoryView: View {
     @Binding var history: History
     
     var body: some View {
-        // Tampilan untuk mengedit entri History
         VStack {
             Text("Name: \(history.name)")
             Text("Amount: \(history.amount)")
             Text("Date: \(history.date, formatter: dateFormatter)")
-            // Tambahkan informasi lain yang ingin diubah
         }
     }
 }
 
+// to show the detailed history data of income
 struct HistoryIncomeRow: View {
     var history: History
     
@@ -112,12 +117,12 @@ struct HistoryIncomeRow: View {
                 .font(.subheadline)
             Text("Date: \(history.date, formatter: dateFormatter)")
                 .font(.subheadline)
-            // Tambahkan informasi lain yang ingin ditampilkan
         }
         .padding()
     }
 }
 
+// to make the format of the date picker, using the long date style, and not recording the time
 private let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .long
