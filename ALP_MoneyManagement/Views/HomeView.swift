@@ -13,7 +13,7 @@ struct HomeView: View {
     @StateObject var incomeViewModel = InputIncomeViewModel()
     @StateObject var expensesViewModel = InputExpensesViewModel()
     @Environment(\.colorScheme) var colorScheme
-    
+      
     var totalIncomeAmount: Int {
         incomeViewModel.incomeHistory.reduce(0) { $0 + $1.amount }
     }
@@ -42,26 +42,24 @@ struct HomeView: View {
                     } else {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack{
-                                if !incomeViewModel.incomeHistory.isEmpty {
-                                    LineChartView(data: incomeData,
-                                                  title: "Income Chart",
-                                                  legend: "Income")
-                                    .foregroundColor(Color(hex: 0x6DA3FF))
+                                if !incomeViewModel.incomeHistory.isEmpty &&  !expensesViewModel.expensesHistory.isEmpty {
+                                    MultiLineChartView(data: [(incomeData, GradientColors.blue), (expensesData, GradientColors.orange)], title: "Data", style: Styles.lineChartStyleOne, form: ChartForm.large).padding(.horizontal)
                                     .foregroundColor(colorScheme == .dark ? .white : .black)
                                     .background(colorScheme == .dark ? Color.black : Color.white)
                                     .frame(height: 240)
+                                    
                                     .padding()
                                 }
-                                if !expensesViewModel.expensesHistory.isEmpty {
-                                    LineChartView(data: expensesData,
-                                                  title: "Expenses Chart",
-                                                  legend: "Expenses")
-                                    .foregroundColor(Color(hex:0xF89385))
-                                    .foregroundColor(colorScheme == .dark ? .white : .black)
-                                    .background(colorScheme == .dark ? Color.black : Color.white)
-                                    .frame(height: 240)
-                                    .padding()
-                                }
+//                                if !expensesViewModel.expensesHistory.isEmpty {
+//                                    LineChartView(data: expensesData,
+//                                                  title: "Expenses Chart",
+//                                                  legend: "Expenses")
+//                                    .foregroundColor(Color(hex:0xF89385))
+//                                    .foregroundColor(colorScheme == .dark ? .white : .black)
+//                                    .background(colorScheme == .dark ? Color.black : Color.white)
+//                                    .frame(height: 240)
+//                                    .padding()
+//                                }
                             }
                         }
                     }

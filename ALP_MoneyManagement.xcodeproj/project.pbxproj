@@ -27,7 +27,6 @@
 		04E53B292A1F5030002DB572 /* ExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E53B282A1F5030002DB572 /* ExpensesView.swift */; };
 		04E53B2B2A1FAFEE002DB572 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E53B2A2A1FAFEE002DB572 /* HomeView.swift */; };
 		04E53B2D2A1FBADC002DB572 /* TransactionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E53B2C2A1FBADC002DB572 /* TransactionRow.swift */; };
-		3A60A8592A23061D00A3E2EF /* MacALP_MoneyManagementApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A60A8582A23061D00A3E2EF /* MacALP_MoneyManagementApp.swift */; };
 		3A60A85B2A23061D00A3E2EF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A60A85A2A23061D00A3E2EF /* ContentView.swift */; };
 		3A60A85D2A23062000A3E2EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A60A85C2A23062000A3E2EF /* Assets.xcassets */; };
 		3A60A8602A23062000A3E2EF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A60A85F2A23062000A3E2EF /* Preview Assets.xcassets */; };
@@ -60,7 +59,6 @@
 		04E53B2A2A1FAFEE002DB572 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		04E53B2C2A1FBADC002DB572 /* TransactionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRow.swift; sourceTree = "<group>"; };
 		3A60A8562A23061D00A3E2EF /* MacALP_MoneyManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacALP_MoneyManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3A60A8582A23061D00A3E2EF /* MacALP_MoneyManagementApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacALP_MoneyManagementApp.swift; sourceTree = "<group>"; };
 		3A60A85A2A23061D00A3E2EF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3A60A85C2A23062000A3E2EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A60A85F2A23062000A3E2EF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -169,7 +167,6 @@
 		3A60A8572A23061D00A3E2EF /* MacALP_MoneyManagement */ = {
 			isa = PBXGroup;
 			children = (
-				3A60A8582A23061D00A3E2EF /* MacALP_MoneyManagementApp.swift */,
 				3A60A85A2A23061D00A3E2EF /* ContentView.swift */,
 				3A60A85C2A23062000A3E2EF /* Assets.xcassets */,
 				3A60A8612A23062000A3E2EF /* MacALP_MoneyManagement.entitlements */,
@@ -330,7 +327,6 @@
 			files = (
 				3A60A8652A231AC500A3E2EF /* HomeView.swift in Sources */,
 				3A60A85B2A23061D00A3E2EF /* ContentView.swift in Sources */,
-				3A60A8592A23061D00A3E2EF /* MacALP_MoneyManagementApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

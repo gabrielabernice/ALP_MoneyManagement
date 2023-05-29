@@ -20,7 +20,8 @@ struct AllIncomeView: View {
         //        NavigationView{
         VStack {
 
-            PieChartView(data:incomeData, title: "Income")
+            PieChartView(data:incomeData, title: "Income",style: Styles.pieChartStyleOne, form: ChartForm.large).padding(.horizontal)
+               
                 .frame(height: 300)
                 .padding(.vertical, 20)
                 
@@ -58,7 +59,7 @@ struct AllIncomeView: View {
                     .cornerRadius(10)
                 
             }
-            .padding(.bottom, 65)
+            .padding(.bottom, 25)
         }
         
         //            }
