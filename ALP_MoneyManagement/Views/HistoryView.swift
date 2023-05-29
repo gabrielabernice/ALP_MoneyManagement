@@ -16,39 +16,48 @@ struct HistoryView: View {
     var body: some View {
         VStack {
             Chart {
+                // to loop the datas of incomes that has been saved by the user
                     ForEach(incomeHistory) { income in
+                        // making the barchart for income
                             BarMark(
                                 x: .value("Income", "Income"),
-                                y: .value("Expenses", income.amount)
+                                y: .value("Income", income.amount)
                                     )
-                                           
                                 }
+                
+                // to loop the datas of incomes that has been saved by the user
                     ForEach(expensesHistory) { expenses in
+                        // making the barchart for income
                             BarMark(
                                 x: .value("Expenses", "Expenses"),
                                 y: .value("Expenses", expenses.amount)
                                     )
-                                           
                                     }
                                 }
+            
+            // making the list for the datas from income and expenses that has been saved by the user
             List {
                 Section(header: Text("Income")) {
+                    // to loop the datas of incomes that has been saved by the user
                     ForEach(incomeHistory) { history in
                         NavigationLink(destination: EditHistoryView(history: $incomeHistory[getIndex(for: history, in: incomeHistory)])) {
                             HistoryRow(history: history)
                         }
                     }
+                    // to delete the income data
                     .onDelete { offsets in
                         deleteHistory(at: offsets, type: "Income")
                     }
                 }
                 
+                // to loop the datas of expenses that has been saved by the user
                 Section(header: Text("Expenses")) {
                     ForEach(expensesHistory) { history in
                         NavigationLink(destination: EditHistoryView(history: $expensesHistory[getIndex(for: history, in: expensesHistory)])) {
                             HistoryRow(history: history)
                         }
                     }
+                    // to delete the expenses data
                     .onDelete { offsets in
                         deleteHistory(at: offsets, type: "Expenses")
                     }
@@ -57,11 +66,13 @@ struct HistoryView: View {
             .listStyle(GroupedListStyle())
         }
         .navigationTitle("History")
+        // to call the functions when the view screen shows up
         .onAppear {
             loadDataFromUserDefaults()
         }
     }
     
+    // function to delete the history of income and expenses
     func deleteHistory(at offsets: IndexSet, type: String) {
         if type == "Income" {
             incomeHistory.remove(atOffsets: offsets)
@@ -72,6 +83,7 @@ struct HistoryView: View {
         saveDataToUserDefaults()
     }
     
+    // function to save the data to history
     func saveDataToUserDefaults() {
         let encoder = JSONEncoder()
         
@@ -84,6 +96,7 @@ struct HistoryView: View {
         }
     }
     
+    // function to load all the data of income and expenses
     func loadDataFromUserDefaults() {
         if let incomeData = UserDefaults.standard.data(forKey: "incomeHistory") {
             let decoder = JSONDecoder()
@@ -100,6 +113,7 @@ struct HistoryView: View {
         }
     }
     
+    // function to get the index of the history (income and expenses)
     func getIndex(for history: History, in array: [History]) -> Int {
         guard let index = array.firstIndex(where: { $0.id == history.id }) else {
             fatalError("History not found")
@@ -108,20 +122,20 @@ struct HistoryView: View {
     }
 }
 
+// to edit the history (income and expenses)
 struct EditHistoryView: View {
     @Binding var history: History
     
     var body: some View {
-        // Tampilan untuk mengedit entri History
         VStack {
             Text("Name: \(history.name)")
             Text("Amount: \(history.amount)")
             Text("Date: \(history.date, formatter: dateFormatter)")
-            // Tambahkan informasi lain yang ingin diubah
         }
     }
 }
 
+// to show the history detail (income and expenses)
 struct HistoryRow: View {
     var history: History
     
@@ -133,12 +147,12 @@ struct HistoryRow: View {
                 .font(.subheadline)
             Text("Date: \(history.date, formatter: dateFormatter)")
                 .font(.subheadline)
-            // Tambahkan informasi lain yang ingin ditampilkan
         }
         .padding()
     }
 }
 
+// to make the format of the date picker, using the long date style, and not recording the time
 private let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .long
