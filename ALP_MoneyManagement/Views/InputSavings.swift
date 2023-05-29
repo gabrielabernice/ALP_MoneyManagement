@@ -25,13 +25,13 @@ struct InputSavings: View {
                         .font(.system(size: 32, weight: .bold))
                         .frame(maxWidth: .infinity)
                     
-                    
-                    
+                    // to let the user to input the target amount of money they want to save
                     VStack(alignment:.leading, spacing: -5) {
                         Text("Savings Target")
                             .foregroundColor(.white)
                             .font(.system(size: 22, weight: .bold))
                         
+                        // textfield to allow the user to input their target amount of money
                         TextField("Rp", text: $amount)
                             .padding()
                             .font(.system(size: 16, weight: .bold))
@@ -40,6 +40,7 @@ struct InputSavings: View {
                             .frame(width: 350, height: 90)
                             .keyboardType(.numberPad)
                         
+                        // error warning that is going to be shown for the error handling, the opacity will be turned to 0 (unseen) if the user's input doesnt meet the requirement
                         Text("*Only numbers above 0")
                             .font(.system(size: 20))
                             .foregroundColor(.red)
@@ -49,29 +50,29 @@ struct InputSavings: View {
                             .opacity(!checkAmount ? 1 : 0)
                     }
                     
+                    // to let the user to input the target day
                     VStack(alignment:.leading, spacing: -5) {
                         Text("Target Day")
                             .foregroundColor(.white)
                             .font(.system(size: 22, weight: .bold))
                         
+                        // textfield to allow the user to input their target of day
                         TextField("Day", text: $days)
                             .padding()
                             .font(.system(size: 16, weight: .bold))
                             .background(Color(.white))
                             .cornerRadius(10)
                             .frame(width: 350, height: 90)
-                        
                             .keyboardType(.numberPad)
                         
+                        // error warning that is going to be shown for the error handling, the opacity will be turned to 0 (unseen) if the user's input doesnt meet the requirement
                         Text("*Only numbers above 0")
                             .font(.system(size: 20))
                             .foregroundColor(.red)
                             .font(.title)
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                             .opacity(!checkDays ? 1 : 0)
-                        
                     }
-                    
                     Spacer()
                 }
                 .padding(.top, 80)
@@ -83,6 +84,7 @@ struct InputSavings: View {
                 .onChange(of: amount) { newValue in
                     checkAmount = ((Int(newValue) ?? 0) >= 1)
                 }
+                // will be called when the value of amount is changed, to pass the new value
                 .onChange(of: days) { newValue in
                     checkDays = ((Int(newValue) ?? 0) >= 1)
                 }
@@ -90,6 +92,7 @@ struct InputSavings: View {
                 
                 HStack{}.frame(height: 150)
                 
+                // to check the user's input, will only allow if the target amount of money will be bigger than the target of day(s), and will show a message of error
                 if (Int(amount) ?? 0 < Int(days) ?? 0){
                     Text("Please set your target amount higher than your target day")
                         .padding(.horizontal, 50)
@@ -99,13 +102,15 @@ struct InputSavings: View {
                         .foregroundColor(.red)
                     
                 }else{
+                    // if the user's input already meet the requirement, the text of savings goal per day will be shown
                     Text("You need to save \nRp. \(perDay) per day")
                         .multilineTextAlignment(.center)
                         .offset(y:-80)
                         .font(.system(size: 20, weight: .bold))
                         .opacity(perDay > 0 ? 1.0 : 0.0)
                 }
-//                Spacer()
+                
+                // to let the user to calculate their goal of savings per day
                 Button("Calculate") {
                     let amountInt = Int(amount) ?? 0
                     let daysInt = Int(days) ?? 0
@@ -121,23 +126,13 @@ struct InputSavings: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .font(.system(size: 20, weight: .bold))
                 .fontWeight(.bold)
-                .disabled(!checkAmount || !checkDays)
-                
+                .disabled(!checkAmount || !checkDays) // the button will be disabled if the target amount and days are not meeting the requirement
             }
             .padding(.bottom, 90)
         }
         .padding(.bottom, 20)
         .ignoresSafeArea(.all)
-        
     }
-    
-    struct InputSavings_Previews: PreviewProvider {
-        static var previews: some View {
-            InputSavings()
-        }
-    }
-    
-    
     
     struct BottomRoundedRectangle: Shape {
         var radius: CGFloat
@@ -169,6 +164,12 @@ struct InputSavings: View {
             path.closeSubpath()
             
             return path
+        }
+    }
+    
+    struct InputSavings_Previews: PreviewProvider {
+        static var previews: some View {
+            InputSavings()
         }
     }
 }
