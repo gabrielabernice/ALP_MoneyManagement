@@ -12,35 +12,29 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
+            // to fill in the rest of the background color to fit our logo
             Color(UIColor(hex: "#75C1E1"))
                 .edgesIgnoringSafeArea(.all)
             
+            // our logo
             Image("launchImage") 
                 .resizable()
                 .aspectRatio(contentMode: .fit)
         }
+        // to set the launch image to be shown for 2s
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 self.isActive = true
             }
         }
+        // to show the mainscreen after the launch screen
         .fullScreenCover(isPresented: $isActive, content: {
             MainScreen(savings: "S", history: [History(id: 0, category: "Shopping", amount: 30000, date: Calendar.current.date(from: DateComponents(year: 2024, month: 3, day: 7)) ?? Date(), type: "Expenses", name: "Expenses")])
         })
     }
 }
 
-
-
-struct ContentView_Previews: PreviewProvider {
-    static let modelData = ModelData()
-    
-    static var previews: some View {
-        ContentView()
-            .environmentObject(modelData)
-    }
-}
-
+// to make a customable color for the launch screen background
 extension UIColor {
     convenience init(hex: String) {
         var formattedHex = hex.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
@@ -57,5 +51,14 @@ extension UIColor {
         let blue = CGFloat(rgbValue & 0x0000FF) / 255.0
         
         self.init(red: red, green: green, blue: blue, alpha: 1.0)
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static let modelData = ModelData()
+    
+    static var previews: some View {
+        ContentView()
+            .environmentObject(modelData)
     }
 }
