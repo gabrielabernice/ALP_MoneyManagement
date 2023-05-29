@@ -25,6 +25,7 @@ struct InputIncome: View {
                                     .padding(.top, 10)
                                     .offset(x: 12)
                                 
+                                // for the date input
                                 VStack(spacing: -5) {
                                     Text("Date ")
                                         .foregroundColor(.white)
@@ -37,10 +38,12 @@ struct InputIncome: View {
                                         .padding()
                                         .overlay(
                                             HStack{
+                                                // to show the date that is being picked
                                                 Text("\(viewModel.date, formatter: dateFormatter)")
                                                 
                                                 Spacer().frame(width: 85)
                                                 
+                                                // to make the button for the date picke
                                                 Button(action: {
                                                     viewModel.isExpanded.toggle()
                                                 }, label: {
@@ -50,6 +53,7 @@ struct InputIncome: View {
                                             }
                                         )
                                     
+                                    // if the button is being expanded, the date picker with a wheel style will be expanded, showing the dates
                                     if viewModel.isExpanded {
                                         DatePicker(
                                             "",
@@ -61,6 +65,7 @@ struct InputIncome: View {
                                 }
                                 .padding(.bottom, -20)
                                 
+                                // for inputting the income category
                                 VStack(spacing: -5){
                                     Text("Source of Income")
                                         .foregroundColor(.white)
@@ -73,9 +78,11 @@ struct InputIncome: View {
                                         .padding()
                                         .overlay(
                                             HStack{
+                                                // to show the selected income category
                                                 Text("\(viewModel.selectedOption?.incomeCategory ?? "")")
                                                 Spacer().frame(width: 85)
                                                 
+                                                // showing all the income category by looping, making it in the form of dropdownn list
                                                 Menu {
                                                     ForEach(viewModel.income, id: \.self) { incomes in
                                                         Button(action: {
@@ -93,6 +100,7 @@ struct InputIncome: View {
                                 }
                                 .padding(.bottom, -33)
                                 
+                                // to input the amount of the income
                                 VStack(spacing: -8){
                                     Text("Amount")
                                         .foregroundColor(.white)
@@ -100,6 +108,7 @@ struct InputIncome: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .offset(x:-12)
                                     
+                                    // textfield to let the user input the amount of income
                                     TextField("ex : 50000", text: $viewModel.amount)
                                         .padding()
                                         .background(Color(.white))
@@ -109,6 +118,7 @@ struct InputIncome: View {
                                         .cornerRadius(10)
                                         .keyboardType(.numberPad)
                                     
+                                    // error warning that is going to be shown for the error handling, the opacity will be turned to 0 (unseen) if the user's input doesnt meet the requirement
                                     Text("*Only numbers above 0")
                                         .font(.system(size: 20))
                                         .foregroundColor(.red)
@@ -120,6 +130,7 @@ struct InputIncome: View {
                                 .padding()
                                 .padding(.bottom, -50)
                                 
+                                // to input the note about the income
                                 VStack(spacing: -5){
                                     Text("Note ")
                                         .foregroundColor(.white)
@@ -127,6 +138,7 @@ struct InputIncome: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .offset(x:-12)
                                     
+                                    // text field to let the user to input the notes
                                     TextField("Mcd", text: $viewModel.name)
                                         .padding()
                                         .background(Color(.white))
@@ -138,7 +150,7 @@ struct InputIncome: View {
                                 }
                                 .padding()
                             }
-                            //batas vstack 1 untuk form
+                            // max part of main vstack for the form
                         }
                         .padding(.top, 80)
                         .padding(.horizontal, 20)
@@ -147,12 +159,14 @@ struct InputIncome: View {
                         .clipShape(BottomRoundedRectangle(radius:55))
                         .shadow(color: Color.black.opacity(0.3), radius: 18, x: 0, y: 5)
                         
+                        // a text to show when a data is successfully saved, if the user already input the income category and amount, the text will be seen (opacity set to 1)
                         Text("Data successfully saved!")
                             .padding()
                             .multilineTextAlignment(.center)
                             .opacity(viewModel.appendIncome == true ? 1.0 : 0.0)
                             .opacity(viewModel.showFailMessage == false ? 1:0)
                         
+                        // a text to show when a data is not completed yet, if the user havent input the income category and amount, the text will be seen (opacity set to 1)
                         Text("Please select an option")
                             .multilineTextAlignment(.center)
                             .opacity(viewModel.appendIncome == false ? 1:0)
@@ -169,7 +183,7 @@ struct InputIncome: View {
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .fontWeight(.bold)
                         .padding(.top, 10) // Adjusted the top padding here
-                        .disabled(!viewModel.check)
+                        .disabled(!viewModel.check) // the button for saving the data will be disabled if it doesnt fullfil the requirement
                         .overlay(
                             NavigationLink(
                                 destination: AllIncomeView(),
@@ -180,12 +194,13 @@ struct InputIncome: View {
                         )
                     }
                     
+                    // to call the functions when the view screen shows up
                     .onAppear {
                         viewModel.loadIncomeData()
                         viewModel.loadIncomeHistory()
-                        
                     }
                 }
+                // will be called when the value of amount is changed, to pass the new value
                 .onChange(of: viewModel.amount) { newValue in
                     viewModel.validateAmount()
                 }
@@ -227,6 +242,7 @@ struct InputIncome: View {
         }
     }
     
+    // to make the format of the date picker, using the long date style, and not recording the time
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
