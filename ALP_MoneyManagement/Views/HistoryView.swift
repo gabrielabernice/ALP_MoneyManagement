@@ -8,6 +8,7 @@
 import SwiftUI
 import Charts
 
+
 struct HistoryView: View {
     @State var incomeHistory: [History] = []
     @State var expensesHistory: [History] = []
