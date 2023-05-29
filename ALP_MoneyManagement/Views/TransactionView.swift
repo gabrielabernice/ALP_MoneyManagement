@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TransactionView: View {
+    @State private var historyView = false
     var body: some View {
         NavigationView {
             VStack{
@@ -96,10 +97,22 @@ struct TransactionView: View {
                         .font(.largeTitle.bold())
                         .accessibilityAddTraits(.isHeader)
                 }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        historyView = true
+                    }) {
+                        Image(systemName: "clock.arrow.circlepath")
+                            .imageScale(.large)
+                    }
+                }
+            }
+            .sheet(isPresented: $historyView) {
+                HistoryView()
             }
         }
     }
 }
+        
 extension Color {
     init(hex: UInt32) {
         let red = Double((hex >> 16) & 0xFF) / 255.0
