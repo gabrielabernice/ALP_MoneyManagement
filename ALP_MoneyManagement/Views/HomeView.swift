@@ -13,11 +13,13 @@ struct HomeView: View {
     @StateObject var incomeViewModel = InputIncomeViewModel()
     @StateObject var expensesViewModel = InputExpensesViewModel()
     @Environment(\.colorScheme) var colorScheme
-      
+    
+    // to get the total income amount from the data that has been saved
     var totalIncomeAmount: Int {
         incomeViewModel.incomeHistory.reduce(0) { $0 + $1.amount }
     }
     
+    // to get the total expenses amount from the data that has been saved
     var totalExpensesAmount: Int {
         expensesViewModel.expensesHistory.reduce(0) { $0 + $1.amount }
     }
@@ -34,6 +36,7 @@ struct HomeView: View {
         NavigationView {
             ScrollView {
                 VStack {
+                    // to check if there are no data (income and expenses) has been inputed, the chart will not be shown, and the text will be shown
                     if incomeViewModel.incomeHistory.isEmpty && expensesViewModel.expensesHistory.isEmpty {
                         Text("No data available")
                             .foregroundColor(.gray)
@@ -42,12 +45,12 @@ struct HomeView: View {
                     } else {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack{
+                                // to check if there are data (income and expenses) has been inputed, the chart will be shown
                                 if !incomeViewModel.incomeHistory.isEmpty &&  !expensesViewModel.expensesHistory.isEmpty {
                                     MultiLineChartView(data: [(incomeData, GradientColors.blue), (expensesData, GradientColors.orange)], title: "Data", style: Styles.lineChartStyleOne, form: ChartForm.large).padding(.horizontal)
                                     .foregroundColor(colorScheme == .dark ? .white : .black)
                                     .background(colorScheme == .dark ? Color.black : Color.white)
                                     .frame(height: 240)
-                                    
                                     .padding()
                                 }
 //                                if !expensesViewModel.expensesHistory.isEmpty {
@@ -63,12 +66,17 @@ struct HomeView: View {
                             }
                         }
                     }
+                    
+                    // to show the total amount of income and expenses that has been saved by the user
                     HStack(alignment: .top, spacing: -15) {
+                        
+                        // income section
                         RoundedRectangle(cornerRadius: 10)
                             .foregroundColor(Color(hex: 0x6DA3FF).opacity(0.3))
                             .padding(.leading, 10)
                             .padding()
                             .overlay(
+                                // income data
                                 VStack(alignment: .leading) {
                                     Text("Income")
                                         .padding(.bottom, 1)
@@ -78,11 +86,13 @@ struct HomeView: View {
                             )
                             .frame(width: 220, height: 100)
                         
+                        // expenses section
                         RoundedRectangle(cornerRadius: 10)
                             .foregroundColor(Color(hex: 0xF89385).opacity(0.3))
                             .padding(.trailing, 10)
                             .padding()
                             .overlay(
+                                // expenses data
                                 VStack(alignment: .leading) {
                                     Text("Expenses")
                                         .padding(.bottom, 1)
@@ -94,11 +104,13 @@ struct HomeView: View {
                     }
                     .padding(.vertical, 60)
                     
-                    TransactionRow()
+                    // for the articles section
+                    ArticlesRow()
                 }
                 .padding()
             }
             .navigationBarTitleDisplayMode(.inline)
+            // to call the functions when the view screen shows up
             .onAppear {
                 incomeViewModel.loadIncomeHistory()
                 expensesViewModel.loadExpensesHistory()
