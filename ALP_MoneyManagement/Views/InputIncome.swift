@@ -22,7 +22,7 @@ struct InputIncome: View {
                                     .foregroundColor(.white)
                                     .font(.system(size: 32, weight: .bold))
                                     .frame(maxWidth: .infinity, alignment: .center)
-                                    .padding(.top, -8)
+                                    .padding(.top, 10)
                                     .offset(x: 12)
                                 
                                 VStack(spacing: -5) {
