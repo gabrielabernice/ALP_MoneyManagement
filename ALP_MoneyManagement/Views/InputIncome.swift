@@ -43,7 +43,7 @@ struct InputIncome: View {
                                                 
                                                 Spacer().frame(width: 85)
                                                 
-                                                // to make the button for the date picke
+                                                // to make the button for the date picker
                                                 Button(action: {
                                                     viewModel.isExpanded.toggle()
                                                 }, label: {
@@ -149,8 +149,8 @@ struct InputIncome: View {
                                         .keyboardType(.numberPad)
                                 }
                                 .padding()
+                                // max part of main vstack for the form
                             }
-                            // max part of main vstack for the form
                         }
                         .padding(.top, 80)
                         .padding(.horizontal, 20)
