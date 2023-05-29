@@ -23,46 +23,30 @@ struct MainScreen: View {
     
     var body: some View {
         TabView {
+            // tab for the home page
             HomeView()
                 .tabItem {
                     Label("Home", systemImage: "house.fill")
                 }
             
+            // tab for the transaction page (for input income and expenses, and also the history)
             TransactionView()
                 .tabItem {
                     Label("Transaction", systemImage: "dollarsign.circle.fill")
                 }
             
+            // tab for savings feature
             SavingsView(savings: savings)
                 .tabItem {
                     Label("Savings", systemImage: "creditcard.fill")
                 }
-            
         }
+        // to hide the "back" navigation
         .navigationBarBackButtonHidden(true)
     }
 }
 
-struct IncomeView: View {
-    var income: [Income]
-    
-    var body: some View {
-        NavigationView {
-            InputIncome()
-        }
-    }
-}
-
-struct ExpensesView: View {
-    var expenses: [Expenses]
-    
-    var body: some View {
-        NavigationView {
-            InputExpenses()
-        }
-    }
-}
-
+// to display the inputsavings view
 struct SavingsView: View {
     var savings: String
     
@@ -71,6 +55,7 @@ struct SavingsView: View {
     }
 }
 
+// to display the history view
 struct IncomeExpensesHistoryView: View {
     var history: [History]
     
