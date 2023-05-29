@@ -34,6 +34,7 @@
 		3A8E1EEB2A2120F8004CBE6C /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 3A8E1EEA2A2120F8004CBE6C /* SwiftUICharts */; };
 		3A8E1EEE2A218CFF004CBE6C /* InputIncomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8E1EED2A218CFF004CBE6C /* InputIncomeViewModel.swift */; };
 		3A8E1EF02A21DD6F004CBE6C /* InputExpensesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8E1EEF2A21DD6F004CBE6C /* InputExpensesViewModel.swift */; };
+		3AE55B512A256EA30091912E /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE55B502A256EA30091912E /* HistoryViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		3A60A8612A23062000A3E2EF /* MacALP_MoneyManagement.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacALP_MoneyManagement.entitlements; sourceTree = "<group>"; };
 		3A8E1EED2A218CFF004CBE6C /* InputIncomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputIncomeViewModel.swift; sourceTree = "<group>"; };
 		3A8E1EEF2A21DD6F004CBE6C /* InputExpensesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputExpensesViewModel.swift; sourceTree = "<group>"; };
+		3AE55B502A256EA30091912E /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +190,7 @@
 			children = (
 				3A8E1EED2A218CFF004CBE6C /* InputIncomeViewModel.swift */,
 				3A8E1EEF2A21DD6F004CBE6C /* InputExpensesViewModel.swift */,
+				3AE55B502A256EA30091912E /* HistoryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				043BD38B2A03F9E700BDF376 /* History.swift in Sources */,
 				3A8E1EEE2A218CFF004CBE6C /* InputIncomeViewModel.swift in Sources */,
 				04E53B2B2A1FAFEE002DB572 /* HomeView.swift in Sources */,
+				3AE55B512A256EA30091912E /* HistoryViewModel.swift in Sources */,
 				04E53B292A1F5030002DB572 /* ExpensesView.swift in Sources */,
 				043BD3752A02BD0100BDF376 /* Expenses.swift in Sources */,
 				04DC8D9B2A24F69F002D0489 /* ArticlesRow.swift in Sources */,

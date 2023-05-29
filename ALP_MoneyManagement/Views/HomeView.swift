@@ -23,11 +23,10 @@ struct HomeView: View {
     var totalExpensesAmount: Int {
         expensesViewModel.expensesHistory.reduce(0) { $0 + $1.amount }
     }
-    
+    //computed properties convert the amount values of the History objects into the Double type
     var incomeData: [Double] {
         return incomeViewModel.incomeHistory.map { Double($0.amount) }
     }
-    
     var expensesData: [Double] {
         return expensesViewModel.expensesHistory.map { Double($0.amount) }
     }
@@ -48,21 +47,11 @@ struct HomeView: View {
                                 // to check if there are data (income and expenses) has been inputed, the chart will be shown
                                 if !incomeViewModel.incomeHistory.isEmpty &&  !expensesViewModel.expensesHistory.isEmpty {
                                     MultiLineChartView(data: [(incomeData, GradientColors.blue), (expensesData, GradientColors.orange)], title: "Data", style: Styles.lineChartStyleOne, form: ChartForm.large).padding(.horizontal)
-                                    .foregroundColor(colorScheme == .dark ? .white : .black)
-                                    .background(colorScheme == .dark ? Color.black : Color.white)
-                                    .frame(height: 240)
-                                    .padding()
+                                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                                        .background(colorScheme == .dark ? Color.black : Color.white)
+                                        .frame(height: 240)
+                                        .padding()
                                 }
-//                                if !expensesViewModel.expensesHistory.isEmpty {
-//                                    LineChartView(data: expensesData,
-//                                                  title: "Expenses Chart",
-//                                                  legend: "Expenses")
-//                                    .foregroundColor(Color(hex:0xF89385))
-//                                    .foregroundColor(colorScheme == .dark ? .white : .black)
-//                                    .background(colorScheme == .dark ? Color.black : Color.white)
-//                                    .frame(height: 240)
-//                                    .padding()
-//                                }
                             }
                         }
                     }

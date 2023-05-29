@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftUICharts
 
 struct AllIncomeView: View {
-//    @State var incomeHistory: [History] = []
+
     @StateObject private var viewModel = InputIncomeViewModel()
     
     var incomeData: [Double] {
@@ -19,9 +19,10 @@ struct AllIncomeView: View {
     var body: some View {
         VStack {
             // displaying the piechart to show the chart for income from each inputs
-            PieChartView(data:incomeData, title: "Income",style: Styles.pieChartStyleOne, form: ChartForm.large).padding(.horizontal)
+            PieChartView(data:incomeData, title: "Income",style: Styles.barChartStyleNeonBlueLight, form: ChartForm.large).padding(.horizontal)
                 .frame(height: 300)
                 .padding(.vertical, 20)
+            
                 
             Text("Income History")
                 .font(.system(size: 25))
