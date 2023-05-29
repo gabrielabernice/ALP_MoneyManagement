@@ -30,11 +30,14 @@ class InputExpensesViewModel: ObservableObject {
     @Published var showFailMessage = false
     @Published var shouldNavigate = false
     
+    // to initialize the expenses data and expenses history data
+
     init() {
         loadExpensesData()
         loadExpensesHistory()
     }
     
+    // function to load the data of expenses from the json data
     func loadExpensesData() {
         let url = Bundle.main.url(forResource: "expensesData", withExtension: "json")!
         let jsonData = try! Data(contentsOf: url)
@@ -42,6 +45,7 @@ class InputExpensesViewModel: ObservableObject {
         self.expenses = try! decoder.decode([Expenses].self, from: jsonData)
     }
     
+    // function to load the data from the expenses history
     func loadExpensesHistory() {
         if let data = UserDefaults.standard.data(forKey: "expensesHistory") {
             if let decodedData = try? JSONDecoder().decode([History].self, from: data) {
@@ -51,6 +55,7 @@ class InputExpensesViewModel: ObservableObject {
         }
     }
     
+    // function to save the expenses history
     func saveExpensesHistory() {
         let encoder = JSONEncoder()
         if let encodedData = try? encoder.encode(expensesHistory) {
@@ -58,15 +63,19 @@ class InputExpensesViewModel: ObservableObject {
         }
     }
     
+    // function to check if the amount is valid (if the amount being inputted is greater than 0)
     func validateAmount() {
         self.check = ((Int(amount) ?? 0) >= 1)
     }
     
+    // function to save the expenses
     func saveExpenses() {
+        // if the expenses category is not selected, then it will show an error message and the data will not be saved
         if selectedOption == nil {
             showFailMessage = true
             appendExpenses = false
         } else {
+            // if the expenses category is selected, then it will not show an error message and the data will be saved
             if check {
                 withAnimation(.easeInOut) {
                     expensesHistory.append(History(id: index, category: selectedOption?.expensesCategory ?? "", amount: Int(amount) ?? 0, date: date, type: type, name: name))

@@ -30,6 +30,7 @@ class InputIncomeViewModel: ObservableObject {
     @Published var showFailMessage = false
     @Published var shouldNavigate = false
     
+    // to initialize the income data and income history data
     init() {
         loadIncomeData()
         loadIncomeHistory()
