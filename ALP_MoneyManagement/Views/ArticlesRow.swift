@@ -16,7 +16,10 @@ struct ArticlesRow: View {
                 .padding(.leading, 18)
                 .padding(.top, 10)
                 .padding(.bottom, -10)
-            
+#if os(macOS)
+                .frame(maxWidth: .infinity, alignment: .center)
+#endif
+               
             // the articles in horizontal scroll view
             ScrollView(.horizontal, showsIndicators: false) {
                 ScrollViewReader { proxy in
@@ -29,21 +32,19 @@ struct ArticlesRow: View {
                                     .foregroundColor(Color(hex: 0x6DA3FF).opacity(0.3))
                                     .padding()
                                     .overlay(
-                                        HStack(spacing:-38){
+                                        HStack(spacing: -38) {
                                             // image for article 1
                                             Image("MoneyManagement")
                                                 .resizable()
                                                 .aspectRatio(contentMode: .fit)
                                                 .frame(width: 200, height: 200)
-                                            
-                                            VStack(spacing:5){
+                                            VStack(spacing: 5) {
                                                 // title for article 1
                                                 Text("Mastering Budget Management")
                                                     .multilineTextAlignment(.center)
                                                     .font(.system(size: 22))
                                                     .padding(.trailing)
                                                     .bold()
-                                                
                                                 // button to navigate to article 1
                                                 NavigationLink(destination: Article1()) {
                                                     Text("Read")
@@ -55,12 +56,16 @@ struct ArticlesRow: View {
                                                         .padding(.trailing)
                                                 }
                                                 .padding()
+                                                #if os(macOS)
+                                                .frame(width:600)
+                                                #endif
                                             }
                                         }
                                     )
                             }
                             .frame(width: 380, height: 280)
-                            .padding(.horizontal,-12)
+                            .padding(.horizontal, -12)
+                            
                         }
                         
                         // article 2 section
@@ -95,6 +100,9 @@ struct ArticlesRow: View {
                                                     .padding(.trailing)
                                             }
                                             .padding()
+                                            #if os(macOS)
+                                            .frame(width: 600)
+                                            #endif
                                         }
                                     }
                                 )
@@ -180,25 +188,25 @@ struct Article2: View {
                 // article 2 contents
                 Text("""
                  In an era of economic uncertainty and ever-changing financial landscapes, the art of saving money has emerged as a cornerstone of financial stability and prosperity. It is a skill that empowers individuals to take control of their finances, overcome unexpected challenges, and realize their long-term aspirations. This article delves into the profound significance of saving money, delving into the multifaceted benefits it offers and providing insightful strategies to cultivate effective saving habits.
-
+                 
                  The Power of Saving:
                  Saving money is not merely about accumulating wealth; it is about embracing a mindset that fosters financial well-being and peace of mind. One of the primary advantages of saving is the creation of an emergency fund, a financial safety net that cushions against unforeseen circumstances such as job loss, medical emergencies, or unexpected home repairs. By having a reserve of funds readily available, you can navigate these challenges without resorting to debt or feeling overwhelmed by financial strain.
-
+                 
                  Moreover, saving money provides a pathway to reduce stress and anxiety related to financial matters. Knowing that you have savings to fall back on instills a sense of security and stability, enabling you to face life's uncertainties with confidence. Financial stress is a common burden that weighs heavily on individuals and relationships, but a robust saving habit alleviates this burden and fosters a greater sense of overall well-being.
-
+                 
                  Setting Clear Saving Goals:
                  To embark on a successful saving journey, it is essential to set clear and tangible saving goals. These goals serve as guiding beacons, directing your financial decisions and actions. Whether you aspire to purchase a home, travel the world, start a business, or retire comfortably, articulating your objectives in specific and measurable terms provides focus and motivation.
-
+                 
                  When defining your saving goals, consider their short-term and long-term aspects. Short-term goals might include saving for a dream vacation or purchasing a new vehicle, while long-term goals encompass building a retirement nest egg or funding your children's education. By establishing both types of goals, you create a balanced approach to saving that allows for immediate gratification while keeping a steadfast eye on the future.
-
+                 
                  Crafting a Realistic Budget:
                  A well-crafted budget acts as a financial compass, guiding your spending and empowering you to make deliberate choices. It entails a thorough evaluation of your income and expenses, including fixed costs like rent or mortgage payments, utilities, and insurance, as well as variable expenses such as groceries, transportation, and entertainment. By gaining a comprehensive understanding of your cash flow, you can assess how much you can realistically allocate towards saving.
-
+                 
                  While creating a budget, it is crucial to strike a balance between necessary expenses and discretionary spending. Differentiate between needs and wants, and critically evaluate your spending patterns. Look for areas where you can reduce expenses, such as cutting down on dining out, finding more affordable alternatives for everyday items, or renegotiating service contracts. Even small adjustments can yield significant savings over time.
-
+                 
                  Automating Savings:
                  One of the most effective strategies for successful saving is automating the process. Take advantage of online banking and automatic transfer features to designate a specific portion of your income to be deposited directly into a separate savings account. By automating your savings, you remove the temptation to spend the allocated funds impulsively and create a disciplined approach to building wealth.
-
+                 
                  Automating savings not only simplifies the saving process but also reinforces the habit. Treat your savings contribution as a non-negotiable expense, just like your monthly bills. Over time, this consistent saving practice becomes ingrained in your financial routine, and you may even find it satisfying to watch your savings account grow steadily.
                  """)
                 .padding(.horizontal)

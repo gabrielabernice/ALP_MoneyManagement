@@ -7,6 +7,22 @@
 
 import SwiftUI
 
+#if os(macOS)
+@main
+struct ALP_MoneyManagementApp: App {
+    @StateObject private var modelData = ModelData()
+
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .environmentObject(modelData)
+        }
+        Settings {
+            SettingsView()
+        }
+    }
+}
+#else
 @main
 struct ALP_MoneyManagementApp: App {
     @StateObject private var modelData = ModelData()
@@ -18,3 +34,4 @@ struct ALP_MoneyManagementApp: App {
         }
     }
 }
+#endif

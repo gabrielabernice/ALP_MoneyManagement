@@ -6,17 +6,17 @@
 //
 
 import SwiftUI
+import SwiftUICharts
+
+
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            HomeView()
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
+        #if os(macOS)
+        HomeViewMac()
+        #else
+        HomeView()
+        #endif
     }
 }
 
@@ -25,3 +25,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+

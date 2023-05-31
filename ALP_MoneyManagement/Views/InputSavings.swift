@@ -128,9 +128,7 @@ struct InputSavings: View {
                 .fontWeight(.bold)
                 .disabled(!checkAmount || !checkDays) // the button will be disabled if the target amount and days are not meeting the requirement
             }
-            .padding(.bottom, 90)
         }
-        .padding(.bottom, 20)
         .ignoresSafeArea(.all)
     }
     
