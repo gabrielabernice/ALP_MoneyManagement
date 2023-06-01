@@ -6,70 +6,77 @@
 //
 
 import SwiftUI
-
-
 struct MainViewMac: View {
     @EnvironmentObject var modelData: ModelData
-    
+    @State private var isSidebarExpanded = false
+
     var body: some View {
         NavigationView {
-            List {
-                Text("Menu")
-//                    .customFont(.largeTitle2)
-//                    .foregroundColor(.white)
-                    .padding(.top, 12)
-                NavigationLink(destination: HomeViewMac()) {
-                    HStack(alignment: .center) {
-                        VStack {
-                            Image(systemName: "home")
-//                                .customFont(.subheadline)
+            VStack {
+                HStack {
+                    Button(action: {
+                        withAnimation {
+                            isSidebarExpanded.toggle()
                         }
-                        .frame(width: 24)
-                        Text("Home")
-//                            .customFont(.subheadline)
-//                            .padding(.top, 4)
+                    }) {
+                        Image(systemName: isSidebarExpanded ? "sidebar.left" : "sidebar.right")
                     }
-                    .foregroundColor(.white)
+                    .buttonStyle(PlainButtonStyle())
+                    .padding()
+                    
+                    Spacer()
                 }
-                .padding(.vertical, 1)
-                .padding(.leading, 20)
-                NavigationLink(destination: TransactionViewMac()) {
-                    HStack(alignment: .center) {
-                        VStack {
+
+                List {
+                    Text("Menu")
+                        .font(.title)
+                        .foregroundColor(.black)
+                        .padding(.top, 12)
+                        .padding(.bottom, 10)
+
+                    NavigationLink(destination: HomeViewMac()) {
+                        HStack(alignment: .center) {
+                            Image(systemName: "house.fill")
+                                .frame(width: 24)
+                            Text("Home")
+                        }
+                        .foregroundColor(.black)
+                    }
+                    .padding(.vertical, 1)
+                    .padding(.leading, 20)
+
+                    NavigationLink(destination: TransactionViewMac()) {
+                        HStack(alignment: .center) {
                             Image(systemName: "list.bullet.clipboard")
-//                                .customFont(.subheadline)
+                                .frame(width: 24)
+                            Text("Transaction")
                         }
-                        .frame(width: 24)
-                        Text("Transaction")
-//                            .customFont(.subheadline)
-//                            .padding(.top, 4)
+                        .foregroundColor(.black)
                     }
-                    .foregroundColor(.white)
+                    .padding(.vertical, 1)
+                    .padding(.leading, 20)
+
+                    NavigationLink(destination: InputSavings()) {
+                        HStack(alignment: .center) {
+                            Image(systemName: "creditcard.fill")
+                                .frame(width: 24)
+                            Text("Savings")
+                        }
+                        .foregroundColor(.black)
+                    }
+                    .padding(.vertical, 1)
+                    .padding(.leading, 20)
                 }
-                .padding(.vertical, 1)
-                .padding(.leading, 20)
-//                NavigationLink(destination: S) {
-//                    HStack(alignment: .center) {
-//                        VStack {
-//                            Image(systemName: "person")
-//                                .customFont(.subheadline)
-//                        }
-//                        .frame(width: 24)
-//                        Text("Profile")
-//                            .customFont(.subheadline)
-//                            .padding(.top, 4)
-//                    }
-//                    .foregroundColor(.white)
-//                }
-//                .padding(.vertical, 1)
-//                .padding(.leading, 20)
+                .listStyle(SidebarListStyle())
+                .frame(minWidth: 200, idealWidth: 250, maxWidth: 300)
             }
-//            .background(Color(hex: "EF233C"))
-            
+
             HomeViewMac()
         }
     }
 }
+
+
 
 struct MainViewMac_Previews: PreviewProvider {
     static var previews: some View {

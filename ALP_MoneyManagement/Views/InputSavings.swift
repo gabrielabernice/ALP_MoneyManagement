@@ -38,7 +38,7 @@ struct InputSavings: View {
                             .background(Color(.white))
                             .cornerRadius(10)
                             .frame(width: 350, height: 90)
-                            .keyboardType(.numberPad)
+//                            .keyboardType(.numberPad)
                         
                         // error warning that is going to be shown for the error handling, the opacity will be turned to 0 (unseen) if the user's input doesnt meet the requirement
                         Text("*Only numbers above 0")
@@ -63,8 +63,9 @@ struct InputSavings: View {
                             .background(Color(.white))
                             .cornerRadius(10)
                             .frame(width: 350, height: 90)
+#if os(iOS)
                             .keyboardType(.numberPad)
-                        
+#endif
                         // error warning that is going to be shown for the error handling, the opacity will be turned to 0 (unseen) if the user's input doesnt meet the requirement
                         Text("*Only numbers above 0")
                             .font(.system(size: 20))

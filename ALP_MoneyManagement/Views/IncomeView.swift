@@ -96,7 +96,7 @@ struct AllIncomeView: View {
 // to edit the history
 struct EditIncomeHistoryView: View {
     @Binding var history: History
-    
+
     var body: some View {
         VStack {
             Text("Name: \(history.name)")
@@ -109,7 +109,7 @@ struct EditIncomeHistoryView: View {
 // to show the detailed history data of income
 struct HistoryIncomeRow: View {
     var history: History
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             Text("Name: \(history.name)")

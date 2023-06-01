@@ -1,14 +1,15 @@
 //
-//  ExpensesView.swift
-//  ALP_MoneyManagement
+//  AllExpensesViewMac.swift
+//  MacALP_MoneyManagement
 //
-//  Created by MacBook Pro on 25/05/23.
+//  Created by Nuzulul Salsabila on 01/06/23.
 //
+
 
 import SwiftUI
 import SwiftUICharts
 
-struct AllExpensesView: View {
+struct AllExpensesViewMac: View {
     @StateObject private var viewModel = InputExpensesViewModel()
     
     var expensesData: [Double] {
@@ -35,8 +36,8 @@ struct AllExpensesView: View {
                     // loop the data of expenses that has been saved by the user
                     ForEach(viewModel.expensesHistory) { history in
                         // allow the user to see the detail of the expenses data
-                        NavigationLink(destination: EditHistoryView(history: $viewModel.expensesHistory[getIndex(for: history, in: viewModel.expensesHistory)])) {
-                            HistoryRow(history: history)
+                        NavigationLink(destination: EditExpensesHistoryView(history: $viewModel.expensesHistory[getIndex(for: history, in: viewModel.expensesHistory)])) {
+                            HistoryExpensesRow(history: history)
                         }
                     }
                     // allow the user to delete the data of expenses that has been saved
@@ -54,7 +55,7 @@ struct AllExpensesView: View {
             Spacer()
             
             // button that will navigate the user to the inputexpenses view
-            NavigationLink(destination: InputExpenses()) {
+            NavigationLink(destination: InputExpensesMac()) {
                 Text("Add New Expenses")
                     .font(.title)
                     .padding(10)
@@ -107,6 +108,7 @@ struct EditExpensesHistoryView: View {
 // to show the detailed history data of expenses
 struct HistoryExpensesRow: View {
     var history: History
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("Name: \(history.name)")
@@ -121,17 +123,17 @@ struct HistoryExpensesRow: View {
 }
 
 // to make the format of the date picker, using the long date style, and not recording the time
-private let dateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .long
-    formatter.timeStyle = .none
-    return formatter
-}()
+//private let dateFormatter: DateFormatter = {
+//    let formatter = DateFormatter()
+//    formatter.dateStyle = .long
+//    formatter.timeStyle = .none
+//    return formatter
+//}()
 
 
 
-struct AllExpensesView_Previews: PreviewProvider {
+struct AllExpensesViewMac_Previews: PreviewProvider {
     static var previews: some View {
-        AllExpensesView()
+        AllExpensesViewMac()
     }
 }
