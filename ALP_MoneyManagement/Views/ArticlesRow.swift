@@ -57,7 +57,7 @@ struct ArticlesRow: View {
                                                 }
                                                 .padding()
                                                 #if os(macOS)
-                                                .frame(width:600)
+                                                .frame(width:200)
                                                 #endif
                                             }
                                         }
@@ -101,7 +101,7 @@ struct ArticlesRow: View {
                                             }
                                             .padding()
                                             #if os(macOS)
-                                            .frame(width: 600)
+                                            .frame(width: 200)
                                             #endif
                                         }
                                     }
