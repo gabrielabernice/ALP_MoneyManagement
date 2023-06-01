@@ -33,10 +33,11 @@ struct InputIncome: View {
                                         .foregroundColor(.white)
                                         .font(.system(size: 22, weight: .bold))
                                         .frame(maxWidth: .infinity, alignment: .leading)
+                                        .offset(x:12)
                                     
                                     RoundedRectangle(cornerRadius: 10)
                                         .foregroundColor(Color.white)
-                                        .frame(width: 350, height: 50)
+                                        .frame(width: geometry.size.width - 40, height: 50) // Adjusted the width here
                                         .padding()
                                         .overlay(
                                             HStack{
@@ -73,10 +74,11 @@ struct InputIncome: View {
                                         .foregroundColor(.white)
                                         .font(.system(size: 22, weight: .bold))
                                         .frame(maxWidth: .infinity, alignment: .leading)
+                                        .offset(x: 12)
                                     
                                     RoundedRectangle(cornerRadius: 10)
                                         .foregroundColor(Color.white)
-                                        .frame(width: 350, height: 50)
+                                        .frame(width: geometry.size.width - 40, height: 50) // Adjusted the width here
                                         .padding()
                                         .overlay(
                                             HStack{
@@ -108,14 +110,14 @@ struct InputIncome: View {
                                         .foregroundColor(.white)
                                         .font(.system(size: 22, weight: .bold))
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                        .offset(x:-12)
+                                        .offset(x:12)
                                     
                                     // textfield to let the user input the amount of income
                                     TextField("ex : 50000", text: $viewModel.amount)
                                         .padding()
                                         .background(Color(.white))
                                         .cornerRadius(10)
-                                        .frame(width: 350, height: 90)
+                                        .frame(width: geometry.size.width - 40, height: 90) // Adjusted the width here
                                         .font(.system(size: 16, weight: .bold))
                                         .cornerRadius(10)
                                         .keyboardType(.numberPad)
@@ -138,14 +140,14 @@ struct InputIncome: View {
                                         .foregroundColor(.white)
                                         .font(.system(size: 22, weight: .bold))
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                        .offset(x:-12)
+                                        .offset(x:12)
                                     
                                     // text field to let the user to input the notes
                                     TextField("Mcd", text: $viewModel.name)
                                         .padding()
                                         .background(Color(.white))
                                         .cornerRadius(10)
-                                        .frame(width: 350, height: 90)
+                                        .frame(width: geometry.size.width - 40, height: 90) // Adjusted the width here
                                         .font(.system(size: 16, weight: .bold))
                                         .cornerRadius(10)
                                         .keyboardType(.numberPad)
@@ -161,8 +163,6 @@ struct InputIncome: View {
                         .clipShape(BottomRoundedRectangle(radius:55))
                         .shadow(color: Color.black.opacity(0.3), radius: 18, x: 0, y: 5)
                         
-        
-                        
                         // a text to show when a data is not completed yet, if the user havent input the income category and amount, the text will be seen (opacity set to 1)
                         Text("Please select an option")
                             .multilineTextAlignment(.center)
@@ -170,12 +170,12 @@ struct InputIncome: View {
                             .opacity(viewModel.showFailMessage == true ? 1.0 : 0.0)
                         
                         Button("Save") {
-                                        viewModel.saveIncome()
-                                        showAlert = true
-                                    }
-                                    .alert(isPresented: $showAlert) {
-                                        Alert(title: Text("Data successfully saved"), dismissButton: .default(Text("OK")))
-                                    }
+                            viewModel.saveIncome()
+                            showAlert = true
+                        }
+                        .alert(isPresented: $showAlert) {
+                            Alert(title: Text("Data successfully saved"), dismissButton: .default(Text("OK")))
+                        }
                         .padding()
                         .frame(width: geometry.size.width * 0.9)
                         .font(.system(size: 22, weight: .bold))
@@ -191,7 +191,7 @@ struct InputIncome: View {
                                 label: {
                                     EmptyView()
                                 })
-                            .hidden()
+                                .hidden()
                         )
                     }
                     
@@ -208,6 +208,7 @@ struct InputIncome: View {
                 .ignoresSafeArea(.all)
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     struct BottomRoundedRectangle: Shape {

@@ -113,6 +113,7 @@ struct TransactionView: View {
                 HistoryView()
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle()) // Set navigation view style to remove sidebar on iPad
     }
 }
 
