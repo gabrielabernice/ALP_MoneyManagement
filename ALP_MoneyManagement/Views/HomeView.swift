@@ -46,7 +46,8 @@ struct HomeView: View {
                             HStack{
                                 // to check if there are data (income and expenses) has been inputed, the chart will be shown
                                 if !incomeViewModel.incomeHistory.isEmpty &&  !expensesViewModel.expensesHistory.isEmpty {
-                                    MultiLineChartView(data: [(incomeData, GradientColors.blue), (expensesData, GradientColors.orange)], title: "Income & Expenses", style: Styles.lineChartStyleOne, form: ChartForm.large).padding(.horizontal)
+                                    MultiLineChartView(data: [(incomeData, GradientColors.blue), (expensesData, GradientColors.orange)], title: "Income & Expenses", style: Styles.lineChartStyleOne, form: ChartForm.large)
+                                        .padding(.horizontal)
                                         .foregroundColor(colorScheme == .dark ? .white : .black)
                                         .background(colorScheme == .dark ? Color.black : Color.white)
                                         .frame(height: 240)
@@ -71,7 +72,7 @@ struct HomeView: View {
                                         .padding(.bottom, 1)
                                     Text("Rp \(totalIncomeAmount)")
                                 }
-                                    .padding(.leading, -50)
+                                .padding(.leading, -50)
                             )
                             .frame(width: 220, height: 100)
                         
@@ -87,7 +88,7 @@ struct HomeView: View {
                                         .padding(.bottom, 1)
                                     Text("Rp \(totalExpensesAmount)")
                                 }
-                                    .padding(.leading, -50)
+                                .padding(.leading, -50)
                             )
                             .frame(width: 220, height: 100)
                     }
@@ -105,11 +106,15 @@ struct HomeView: View {
                 expensesViewModel.loadExpensesHistory()
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle()) // Set navigation view style to remove sidebar on iPad
     }
 }
+
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
     }
 }
+
+
