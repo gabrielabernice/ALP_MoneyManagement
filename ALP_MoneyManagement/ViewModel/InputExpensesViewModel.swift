@@ -63,6 +63,23 @@ class InputExpensesViewModel: ObservableObject {
         }
     }
     
+    // function to get the index of the history
+    func getIndex(for history: History, in array: [History]) -> Int {
+        guard let index = array.firstIndex(where: { $0.id == history.id }) else {
+            fatalError("History not found")
+        }
+        return index
+    }
+    
+    // function to delete the expenses history
+    func deleteHistory(at offsets: IndexSet, type: String) {
+        if type == "Expenses" {
+            expensesHistory.remove(atOffsets: offsets)
+        }
+        // update the changes of the history data for expenses after a data is being deleted
+        saveExpensesHistory()
+    }
+    
     // function to check if the amount is valid (if the amount being inputted is greater than 0)
     func validateAmount() {
         self.check = ((Int(amount) ?? 0) >= 1)

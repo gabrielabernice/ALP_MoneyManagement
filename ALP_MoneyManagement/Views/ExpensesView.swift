@@ -35,13 +35,13 @@ struct AllExpensesView: View {
                     // loop the data of expenses that has been saved by the user
                     ForEach(viewModel.expensesHistory) { history in
                         // allow the user to see the detail of the expenses data
-                        NavigationLink(destination: EditHistoryView(history: $viewModel.expensesHistory[getIndex(for: history, in: viewModel.expensesHistory)])) {
+                        NavigationLink(destination: EditHistoryView(history: $viewModel.expensesHistory[viewModel.getIndex(for: history, in: viewModel.expensesHistory)])) {
                             HistoryRow(history: history)
                         }
                     }
                     // allow the user to delete the data of expenses that has been saved
                     .onDelete { offsets in
-                        deleteHistory(at: offsets, type: "Expenses")
+                        viewModel.deleteHistory(at: offsets, type: "Expenses")
                     }
                 }
                 .padding(.top, -15)
@@ -73,22 +73,9 @@ struct AllExpensesView: View {
         }
     }
     
-    // function to delete the expenses history
-    func deleteHistory(at offsets: IndexSet, type: String) {
-        if type == "Expenses" {
-            viewModel.expensesHistory.remove(atOffsets: offsets)
-        }
-        // update the changes of the history data for expenses after a data is being deleted
-        viewModel.saveExpensesHistory()
-    }
+
     
-    // function to get the index of the history
-    func getIndex(for history: History, in array: [History]) -> Int {
-        guard let index = array.firstIndex(where: { $0.id == history.id }) else {
-            fatalError("History not found")
-        }
-        return index
-    }
+  
 }
 
 // to edit the history

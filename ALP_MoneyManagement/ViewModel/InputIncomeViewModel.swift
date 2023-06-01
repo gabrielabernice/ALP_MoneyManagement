@@ -67,6 +67,23 @@ class InputIncomeViewModel: ObservableObject {
         self.check = ((Int(amount) ?? 0) >= 1)
     }
     
+    // function to delete the income history
+    func deleteHistory(at offsets: IndexSet, type: String) {
+        if type == "Income" {
+           incomeHistory.remove(atOffsets: offsets)
+        }
+        // update the changes of the history data for income after a data is being deleted
+        saveIncomeHistory()
+    }
+    
+    // function to get the index of the history
+    func getIndex(for history: History, in array: [History]) -> Int {
+        guard let index = array.firstIndex(where: { $0.id == history.id }) else {
+            fatalError("History not found")
+        }
+        return index
+    }
+    
     // function to save the income
     func saveIncome() {
         // if the income category is not selected, then it will show an error message and the data will not be saved

@@ -37,13 +37,13 @@ struct AllIncomeView: View {
                     // loop the data of income that has been saved by the user
                     ForEach(viewModel.incomeHistory) { history in
                         // allow the user to see the detail of the income data
-                        NavigationLink(destination: EditIncomeHistoryView(history: $viewModel.incomeHistory[getIndex(for: history, in: viewModel.incomeHistory)])) {
+                        NavigationLink(destination: EditIncomeHistoryView(history: $viewModel.incomeHistory[viewModel.getIndex(for: history, in: viewModel.incomeHistory)])) {
                             HistoryIncomeRow(history: history)
                         }
                     }
                     // allow the user to delete the data of income that has been saved
                     .onDelete { offsets in
-                        deleteHistory(at: offsets, type: "Income")
+                        viewModel.deleteHistory(at: offsets, type: "Income")
                     }
                 }
                 .padding(.top, -15)
@@ -74,22 +74,9 @@ struct AllIncomeView: View {
         }
     }
     
-    // function to delete the income history
-    func deleteHistory(at offsets: IndexSet, type: String) {
-        if type == "Income" {
-           viewModel.incomeHistory.remove(atOffsets: offsets)
-        }
-        // update the changes of the history data for income after a data is being deleted
-        viewModel.saveIncomeHistory()
-    }
+ 
     
-    // function to get the index of the history
-    func getIndex(for history: History, in array: [History]) -> Int {
-        guard let index = array.firstIndex(where: { $0.id == history.id }) else {
-            fatalError("History not found")
-        }
-        return index
-    }
+
     
 }
 
