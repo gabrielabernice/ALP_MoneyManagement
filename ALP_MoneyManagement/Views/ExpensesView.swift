@@ -9,7 +9,11 @@ import SwiftUI
 import SwiftUICharts
 
 struct AllExpensesView: View {
+    // Create an instance of the InputExpensesViewModel as a state object
     @StateObject private var viewModel = InputExpensesViewModel()
+    
+    // State property to control the visibility of the alert
+    @State private var showAlert = false
     
     var expensesData: [Double] {
         return viewModel.expensesHistory.map { Double($0.amount) }
@@ -71,12 +75,17 @@ struct AllExpensesView: View {
             viewModel.loadExpensesData()
             viewModel.loadExpensesHistory()
         }
+        // Show an alert when showAlert is true
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Data Deleted"),
+                message: Text("The data entry has been successfully deleted."),
+                dismissButton: .default(Text("OK"))
+            )
+        }
     }
-    
-
-    
-  
 }
+
 
 // to edit the history
 struct EditExpensesHistoryView: View {

@@ -10,7 +10,11 @@ import Charts
 
 
 struct HistoryView: View {
+    // Create an instance of the HistoryViewModel as a state object
     @StateObject private var viewModel = HistoryViewModel()
+    
+    // State property to control the visibility of the alert
+    @State private var showAlert = false
     
     var body: some View {
         VStack {
@@ -46,6 +50,7 @@ struct HistoryView: View {
                     // to delete the income data
                     .onDelete { offsets in
                         viewModel.deleteHistory(at: offsets, type: "Income")
+                        showAlert = true // Show the alert after deletion
                     }
                 }
                 
@@ -69,8 +74,16 @@ struct HistoryView: View {
         .onAppear {
             viewModel.loadDataFromUserDefaults()
         }
-    }
-}
+        // Show an alert when showAlert is true
+        .alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text("Data Deleted"),
+                        message: Text("The data entry has been successfully deleted."),
+                        dismissButton: .default(Text("OK"))
+                    )
+                }
+            }
+        }
 
 // to edit the history (income and expenses)
 struct EditHistoryView: View {

@@ -9,13 +9,16 @@ import SwiftUI
 import SwiftUICharts
 
 struct AllIncomeView: View {
-
+    // Create an instance of the InputIncomeViewModel as a state object
     @StateObject private var viewModel = InputIncomeViewModel()
+    
+    // State property to control the visibility of the alert
+    @State private var showAlert = false
     
     var incomeData: [Double] {
         return viewModel.incomeHistory.map { Double($0.amount) }
     }
-
+    
     var body: some View {
         VStack {
             // displaying the piechart to show the chart for income from each inputs
@@ -23,7 +26,7 @@ struct AllIncomeView: View {
                 .frame(height: 300)
                 .padding(.vertical, 20)
             
-                
+            
             Text("Income History")
                 .font(.system(size: 25))
                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
@@ -44,6 +47,8 @@ struct AllIncomeView: View {
                     // allow the user to delete the data of income that has been saved
                     .onDelete { offsets in
                         viewModel.deleteHistory(at: offsets, type: "Income")
+                        // Show the alert after deletion
+                        showAlert = true
                     }
                 }
                 .padding(.top, -15)
@@ -72,12 +77,15 @@ struct AllIncomeView: View {
             viewModel.loadIncomeData()
             viewModel.loadIncomeHistory()
         }
+        .alert(isPresented: $showAlert) {
+            // Show an alert when showAlert is true
+            Alert(
+                title: Text("Data Deleted"),
+                message: Text("The data entry has been successfully deleted."),
+                dismissButton: .default(Text("OK"))
+            )
+        }
     }
-    
- 
-    
-
-    
 }
 
 // to edit the history

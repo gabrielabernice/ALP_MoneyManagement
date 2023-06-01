@@ -11,6 +11,8 @@ import UIKit
 
 struct InputIncome: View {
     @StateObject private var viewModel = InputIncomeViewModel()
+    
+    // State property to control the visibility of the alert
     @State private var showAlert = false
     
     var body: some View {
@@ -208,6 +210,7 @@ struct InputIncome: View {
                 .ignoresSafeArea(.all)
             }
         }
+        // Apply stack navigation view style to display the navigation hierarchy
         .navigationViewStyle(StackNavigationViewStyle())
     }
     

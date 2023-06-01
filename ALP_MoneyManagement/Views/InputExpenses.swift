@@ -11,8 +11,10 @@ import UIKit
 
 struct InputExpenses: View {
     @StateObject private var viewModel = InputExpensesViewModel()
+    
+    // State property to control the visibility of the alert
     @State private var isShowingAlert = false
-        @State private var alertMessage = ""
+    @State private var alertMessage = ""
     
     var body: some View {
         NavigationView {
@@ -251,6 +253,7 @@ struct InputExpenses: View {
                 .ignoresSafeArea(.all)
             }
         }
+        // Apply stack navigation view style to display the navigation hierarchy
         .navigationViewStyle(StackNavigationViewStyle())
     }
     
