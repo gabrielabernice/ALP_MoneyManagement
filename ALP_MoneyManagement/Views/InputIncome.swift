@@ -7,9 +7,11 @@
 
 import SwiftUI
 import Dispatch
+import UIKit
 
 struct InputIncome: View {
     @StateObject private var viewModel = InputIncomeViewModel()
+    @State private var showAlert = false
     
     var body: some View {
         NavigationView {
@@ -17,12 +19,12 @@ struct InputIncome: View {
                 ScrollView{
                     VStack {
                         ScrollView{
-                            VStack(alignment: .leading, spacing: 50){
+                            VStack(alignment: .leading, spacing: 30){
                                 Text("Input Income")
                                     .foregroundColor(.white)
                                     .font(.system(size: 32, weight: .bold))
                                     .frame(maxWidth: .infinity, alignment: .center)
-                                    .padding(.top, 10)
+                                    .padding(.top, 20)
                                     .offset(x: 12)
                                 
                                 // for the date input
@@ -159,12 +161,7 @@ struct InputIncome: View {
                         .clipShape(BottomRoundedRectangle(radius:55))
                         .shadow(color: Color.black.opacity(0.3), radius: 18, x: 0, y: 5)
                         
-                        // a text to show when a data is successfully saved, if the user already input the income category and amount, the text will be seen (opacity set to 1)
-                        Text("Data successfully saved!")
-                            .padding()
-                            .multilineTextAlignment(.center)
-                            .opacity(viewModel.appendIncome == true ? 1.0 : 0.0)
-                            .opacity(viewModel.showFailMessage == false ? 1:0)
+        
                         
                         // a text to show when a data is not completed yet, if the user havent input the income category and amount, the text will be seen (opacity set to 1)
                         Text("Please select an option")
@@ -173,8 +170,12 @@ struct InputIncome: View {
                             .opacity(viewModel.showFailMessage == true ? 1.0 : 0.0)
                         
                         Button("Save") {
-                            viewModel.saveIncome()
-                        }
+                                        viewModel.saveIncome()
+                                        showAlert = true
+                                    }
+                                    .alert(isPresented: $showAlert) {
+                                        Alert(title: Text("Data successfully saved"), dismissButton: .default(Text("OK")))
+                                    }
                         .padding()
                         .frame(width: geometry.size.width * 0.9)
                         .font(.system(size: 22, weight: .bold))

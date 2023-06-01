@@ -4,11 +4,15 @@
 //
 //  Created by MacBook Pro on 04/05/23.
 //
+
 import SwiftUI
 import Dispatch
+import UIKit
 
 struct InputExpenses: View {
     @StateObject private var viewModel = InputExpensesViewModel()
+    @State private var isShowingAlert = false
+        @State private var alertMessage = ""
     
     var body: some View {
         NavigationView {
@@ -16,12 +20,12 @@ struct InputExpenses: View {
                 ScrollView{
                     VStack {
                         ScrollView{
-                            VStack(alignment: .leading, spacing: 50){
+                            VStack(alignment: .leading, spacing: 40){
                                 Text("Input Expenses")
                                     .foregroundColor(.white)
                                     .font(.system(size: 32, weight: .bold))
                                     .frame(maxWidth: .infinity, alignment: .center)
-                                    .padding(.top, 10)
+                                    .padding(.top, 8)
                                     .offset(x: 12)
                                 
                                 // for the date input
@@ -161,11 +165,11 @@ struct InputExpenses: View {
                         .shadow(color: Color.black.opacity(0.3), radius: 18, x: 0, y: 5)
                         
                         // a text to show when a data is successfully saved, if the user already input the expenses category and amount, the text will be seen (opacity set to 1)
-                        Text("Data successfully saved!")
-                            .padding()
-                            .multilineTextAlignment(.center)
-                            .opacity(viewModel.appendExpenses == true ? 1.0 : 0.0)
-                            .opacity(viewModel.showFailMessage == false ? 1:0)
+//                        Text("Data successfully saved!")
+//                            .padding()
+//                            .multilineTextAlignment(.center)
+//                            .opacity(viewModel.appendExpenses == true ? 1.0 : 0.0)
+//                            .opacity(viewModel.showFailMessage == false ? 1:0)
                         
                         // a text to show when a data is not completed yet, if the user havent input the expenses category and amount, the text will be seen (opacity set to 1)
                         Text("Please select an option")
@@ -175,13 +179,12 @@ struct InputExpenses: View {
                         
                         // button to let the user to save the data when they already meet the requirements
                         Button("Save") {
-                            // it will show an error message and the data will not be saved if the user did not select the expenses category
                             if viewModel.selectedOption == nil {
-                                viewModel.showFailMessage = true
-                                viewModel.appendExpenses = false
+                                // Show failed message
+                                alertMessage = "Failed to save data. Please select an option."
                             } else {
-                                // if all the data has already meet the requirement, the data inputted will be saved, it will not show error message
                                 if viewModel.check {
+                                    // Save data
                                     withAnimation(.easeInOut) {
                                         viewModel.expensesHistory.append(History(id: viewModel.index, category: viewModel.selectedOption?.expensesCategory ?? "", amount: Int(viewModel.amount) ?? 0, date: viewModel.date, type: viewModel.type, name: viewModel.name))
                                         let encoder = JSONEncoder()
@@ -196,8 +199,16 @@ struct InputExpenses: View {
                                         }
                                         viewModel.index += 1
                                     }
+                                    
+                                    // Show success message
+                                    alertMessage = "Data saved successfully!"
+                                } else {
+                                    // Show failed message
+                                    alertMessage = "Failed to save data. Please enter a valid amount."
                                 }
                             }
+                            
+                            isShowingAlert = true
                         }
                         
                         .padding()
@@ -220,6 +231,12 @@ struct InputExpenses: View {
                             .hidden()
                         )
                     }
+                    .alert(isPresented: $isShowingAlert) {
+                                Alert(
+                                    title: Text(alertMessage),
+                                    dismissButton: .default(Text("OK"))
+                                )
+                            }
                     // to call the functions when the view screen shows up
                     .onAppear {
                         viewModel.loadExpensesData()
