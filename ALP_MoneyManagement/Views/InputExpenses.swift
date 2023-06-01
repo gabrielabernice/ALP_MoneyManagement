@@ -20,12 +20,12 @@ struct InputExpenses: View {
                 ScrollView{
                     VStack {
                         ScrollView{
-                            VStack(alignment: .leading, spacing: 40){
+                            VStack(alignment: .leading, spacing: 30){
                                 Text("Input Expenses")
                                     .foregroundColor(.white)
                                     .font(.system(size: 32, weight: .bold))
                                     .frame(maxWidth: .infinity, alignment: .center)
-                                    .padding(.top, 8)
+                                    .padding(.top, 20)
                                     .offset(x: 12)
                                 
                                 // for the date input
@@ -34,10 +34,12 @@ struct InputExpenses: View {
                                         .foregroundColor(.white)
                                         .font(.system(size: 22, weight: .bold))
                                         .frame(maxWidth: .infinity, alignment: .leading)
+                                        .offset(x:12)
+                                    
                                     
                                     RoundedRectangle(cornerRadius: 10)
                                         .foregroundColor(Color.white)
-                                        .frame(width: 350, height: 50)
+                                        .frame(width: geometry.size.width - 40, height: 50) // Adjusted the width here
                                         .padding()
                                         .overlay(
                                             HStack{
@@ -52,7 +54,6 @@ struct InputExpenses: View {
                                                 }, label: {
                                                     Text("Select a date")
                                                         .padding()
-                                                        .foregroundColor(Color(hex: 0xF89385))
                                                     
                                                 })
                                             }
@@ -76,10 +77,11 @@ struct InputExpenses: View {
                                         .foregroundColor(.white)
                                         .font(.system(size: 22, weight: .bold))
                                         .frame(maxWidth: .infinity, alignment: .leading)
+                                        .offset(x: 12)
                                     
                                     RoundedRectangle(cornerRadius: 10)
                                         .foregroundColor(Color.white)
-                                        .frame(width: 350, height: 50)
+                                        .frame(width: geometry.size.width - 40, height: 50) // Adjusted the width here
                                         .padding()
                                         .overlay(
                                             HStack{
@@ -111,14 +113,14 @@ struct InputExpenses: View {
                                         .foregroundColor(.white)
                                         .font(.system(size: 22, weight: .bold))
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                        .offset(x:-12)
+                                        .offset(x:12)
                                     
                                     // textfield to let the user input the amount of expenses
                                     TextField("ex : 50000", text: $viewModel.amount)
                                         .padding()
                                         .background(Color(.white))
                                         .cornerRadius(10)
-                                        .frame(width: 350, height: 90)
+                                        .frame(width: geometry.size.width - 40, height: 90) // Adjusted the width here
                                         .font(.system(size: 16, weight: .bold))
                                         .cornerRadius(10)
                                         .keyboardType(.numberPad)
@@ -141,14 +143,14 @@ struct InputExpenses: View {
                                         .foregroundColor(.white)
                                         .font(.system(size: 22, weight: .bold))
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                        .offset(x:-12)
+                                        .offset(x:12)
                                     
                                     // text field to let the user to input the notes
                                     TextField("Mcd", text: $viewModel.name)
                                         .padding()
                                         .background(Color(.white))
                                         .cornerRadius(10)
-                                        .frame(width: 350, height: 90)
+                                        .frame(width: geometry.size.width - 40, height: 90) // Adjusted the width here
                                         .font(.system(size: 16, weight: .bold))
                                         .cornerRadius(10)
                                         .keyboardType(.numberPad)
@@ -249,6 +251,7 @@ struct InputExpenses: View {
                 .ignoresSafeArea(.all)
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     struct BottomRoundedRectangle: Shape {
