@@ -1,13 +1,13 @@
 //
-//  InputSavings.swift
-//  ALP_MoneyManagement
+//  InputSavingsMac.swift
+//  MacALP_MoneyManagement
 //
-//  Created by MacBook Pro on 04/05/23.
+//  Created by Nuzulul Salsabila on 02/06/23.
 //
 
 import SwiftUI
 
-struct InputSavings: View {
+struct InputSavingsMac: View {
     @State var amount: String = ""
     @State var days: String = ""
     
@@ -19,65 +19,69 @@ struct InputSavings: View {
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                VStack(alignment: .leading, spacing: 30) {
-                    Text("Add your Goal")
-                        .foregroundColor(.white)
-                        .font(.system(size: 32, weight: .bold))
-                        .frame(maxWidth: .infinity)
-                    
-                    // to let the user to input the target amount of money they want to save
-                    VStack(alignment:.leading, spacing: -5) {
-                        Text("Savings Target")
+                ScrollView{
+                    VStack(alignment: .leading, spacing: 30) {
+                        Text("Add your Goal")
                             .foregroundColor(.white)
-                            .font(.system(size: 22, weight: .bold))
+                            .font(.system(size: 32, weight: .bold))
+                            .frame(maxWidth: .infinity)
                         
-                        // textfield to allow the user to input their target amount of money
-                        TextField("Rp", text: $amount)
-                            .padding()
-                            .font(.system(size: 16, weight: .bold))
-                            .background(Color(.white))
-                            .cornerRadius(10)
-                            .frame(width: 350, height: 90)
-//                            .keyboardType(.numberPad)
+                        // to let the user to input the target amount of money they want to save
+                        VStack(alignment:.leading, spacing: -5) {
+                            Text("Savings Target")
+                                .foregroundColor(.white)
+                                .font(.system(size: 22, weight: .bold))
+                               
+                            // textfield to allow the user to input their target amount of money
+                            TextField("Rp", text: $amount)
+                                .padding()
+                                .font(.system(size: 16, weight: .bold))
+                                .background(Color(.white))
+                                .cornerRadius(10)
+                                .frame(width: 600, height: 90)
+                            //                            .keyboardType(.numberPad)
+                            
+                            // error warning that is going to be shown for the error handling, the opacity will be turned to 0 (unseen) if the user's input doesnt meet the requirement
+                            Text("*Only numbers above 0")
+                                .font(.system(size: 20))
+                                .foregroundColor(.red)
+                                .font(.caption)
+                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                .font(.title)
+                                .opacity(!checkAmount ? 1 : 0)
+                        }
                         
-                        // error warning that is going to be shown for the error handling, the opacity will be turned to 0 (unseen) if the user's input doesnt meet the requirement
-                        Text("*Only numbers above 0")
-                            .font(.system(size: 20))
-                            .foregroundColor(.red)
-                            .font(.caption)
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                            .font(.title)
-                            .opacity(!checkAmount ? 1 : 0)
+                        // to let the user to input the target day
+                        VStack(alignment:.leading, spacing: -5) {
+                            Text("Target Day")
+                                .foregroundColor(.white)
+                                .font(.system(size: 22, weight: .bold))
+                            
+                            // textfield to allow the user to input their target of day
+                            TextField("Day", text: $days)
+                                .padding()
+                                .font(.system(size: 16, weight: .bold))
+                                .background(Color(.white))
+                                .cornerRadius(10)
+                                .frame(width: 600, height: 90)
+                            
+                            
+                            // error warning that is going to be shown for the error handling, the opacity will be turned to 0 (unseen) if the user's input doesnt meet the requirement
+                            Text("*Only numbers above 0")
+                                .font(.system(size: 20))
+                                .foregroundColor(.red)
+                                .font(.title)
+                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                .opacity(!checkDays ? 1 : 0)
+                        }
                     }
+                        Spacer()
                     
-                    // to let the user to input the target day
-                    VStack(alignment:.leading, spacing: -5) {
-                        Text("Target Day")
-                            .foregroundColor(.white)
-                            .font(.system(size: 22, weight: .bold))
-                        
-                        // textfield to allow the user to input their target of day
-                        TextField("Day", text: $days)
-                            .padding()
-                            .font(.system(size: 16, weight: .bold))
-                            .background(Color(.white))
-                            .cornerRadius(10)
-                            .frame(width: 350, height: 90)
-                            .keyboardType(.numberPad)
-
-                        // error warning that is going to be shown for the error handling, the opacity will be turned to 0 (unseen) if the user's input doesnt meet the requirement
-                        Text("*Only numbers above 0")
-                            .font(.system(size: 20))
-                            .foregroundColor(.red)
-                            .font(.title)
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                            .opacity(!checkDays ? 1 : 0)
-                    }
-                    Spacer()
                 }
                 .padding(.top, 80)
                 .padding(.horizontal, 40)
-                .frame(width: geometry.size.width, height: geometry.size.height * 0.6)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                .frame(width: geometry.size.width, height: geometry.size.height * 0.5)
                 .background(Color(hex: 0x6DA3FF).opacity(0.8))
                 .clipShape(BottomRoundedRectangle(radius:55))
                 .shadow(color: Color.black.opacity(0.3), radius: 18, x: 0, y: 5)
@@ -165,9 +169,9 @@ struct InputSavings: View {
         }
     }
     
-    struct InputSavings_Previews: PreviewProvider {
+    struct InputSavingsMac_Previews: PreviewProvider {
         static var previews: some View {
-            InputSavings()
+            InputSavingsMac()
         }
     }
 }

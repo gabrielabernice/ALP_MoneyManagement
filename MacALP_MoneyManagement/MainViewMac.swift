@@ -56,7 +56,7 @@ struct MainViewMac: View {
                     .padding(.vertical, 1)
                     .padding(.leading, 20)
 
-                    NavigationLink(destination: InputSavings()) {
+                    NavigationLink(destination: InputSavingsMac()) {
                         HStack(alignment: .center) {
                             Image(systemName: "creditcard.fill")
                                 .frame(width: 24)
