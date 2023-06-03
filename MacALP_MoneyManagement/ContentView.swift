@@ -12,11 +12,7 @@ import SwiftUICharts
 
 struct ContentView: View {
     var body: some View {
-        #if os(macOS)
         MainViewMac()
-        #else
-        HomeView()
-        #endif
     }
 }
 

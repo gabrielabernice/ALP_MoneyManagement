@@ -2,81 +2,39 @@
 //  MainViewMac.swift
 //  MacALP_MoneyManagement
 //
-//  Created by Nuzulul Salsabila on 01/06/23.
+//  Created by Nuzulul Salsabila on 03/06/23.
 //
 
 import SwiftUI
 struct MainViewMac: View {
-    @EnvironmentObject var modelData: ModelData
-    @State private var isSidebarExpanded = false
-
     var body: some View {
         NavigationView {
-            VStack {
-                HStack {
-                    Button(action: {
-                        withAnimation {
-                            isSidebarExpanded.toggle()
-                        }
-                    }) {
-                        Image(systemName: isSidebarExpanded ? "sidebar.left" : "sidebar.right")
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    .padding()
-                    
-                    Spacer()
+            List {
+                NavigationLink(destination: HomeViewMac()) {
+                    Label("Home", systemImage: "house")
                 }
-
-                List {
-                    Text("Menu")
-                        .font(.title)
-                        .foregroundColor(.black)
-                        .padding(.top, 12)
-                        .padding(.bottom, 10)
-
-                    NavigationLink(destination: HomeViewMac()) {
-                        HStack(alignment: .center) {
-                            Image(systemName: "house.fill")
-                                .frame(width: 24)
-                            Text("Home")
-                        }
-                        .foregroundColor(.black)
-                    }
-                    .padding(.vertical, 1)
-                    .padding(.leading, 20)
-
-                    NavigationLink(destination: TransactionViewMac()) {
-                        HStack(alignment: .center) {
-                            Image(systemName: "list.bullet.clipboard")
-                                .frame(width: 24)
-                            Text("Transaction")
-                        }
-                        .foregroundColor(.black)
-                    }
-                    .padding(.vertical, 1)
-                    .padding(.leading, 20)
-
-                    NavigationLink(destination: InputSavingsMac()) {
-                        HStack(alignment: .center) {
-                            Image(systemName: "creditcard.fill")
-                                .frame(width: 24)
-                            Text("Savings")
-                        }
-                        .foregroundColor(.black)
-                    }
-                    .padding(.vertical, 1)
-                    .padding(.leading, 20)
+                .tag(1)
+                
+                NavigationLink(destination: TransactionViewMac()) {
+                    Label("Transaction", systemImage: "list.bullet.clipboard")
                 }
-                .listStyle(SidebarListStyle())
-                .frame(minWidth: 200, idealWidth: 250, maxWidth: 300)
+                .tag(2)
+                
+                NavigationLink(destination: InputSavingsMac()) {
+                    Label("Savings", systemImage: "creditcard")
+                }
+                .tag(3)
             }
-
-            HomeViewMac()
+            .listStyle(SidebarListStyle())
+            .padding(.top, 20) // Move the list slightly downward
+            
+            Text("Select menu from the sidebar")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+        .frame(minWidth: 800, idealWidth: 1000, minHeight: 600) // Set the initial size of the window
+        .navigationTitle("MoneyFest")
     }
 }
-
-
 
 struct MainViewMac_Previews: PreviewProvider {
     static var previews: some View {

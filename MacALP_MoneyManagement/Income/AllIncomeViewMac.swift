@@ -8,70 +8,81 @@
 import SwiftUI
 import SwiftUICharts
 
+
 struct AllIncomeViewMac: View {
 
     @StateObject private var viewModel = InputIncomeViewModel()
+    @State private var isShowingInputIncome = false // State untuk mengontrol penampilan InputIncomeMac
     
     var incomeData: [Double] {
         return viewModel.incomeHistory.map { Double($0.amount) }
     }
 
     var body: some View {
-        VStack {
-            // displaying the piechart to show the chart for income from each inputs
-            PieChartView(data:incomeData, title: "Income",style: Styles.barChartStyleNeonBlueLight, form: ChartForm.large).padding(.horizontal)
-                .frame(height: 300)
-                .padding(.vertical, 20)
-            
+        NavigationView {
+            VStack {
+                // displaying the piechart to show the chart for income from each inputs
+                PieChartView(data:incomeData, title: "Income",style: Styles.barChartStyleNeonBlueLight, form: ChartForm.large).padding(.horizontal)
+                    .frame(height: 300)
+                    .padding(.vertical, 20)
                 
-            Text("Income History")
-                .font(.system(size: 25))
-                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal,30)
-                .padding(.top)
-                .padding(.bottom, -1)
-            
-            // to make a list for the data of incomes that have been saved by the user
-            List {
-                Section() {
-                    // loop the data of income that has been saved by the user
-                    ForEach(viewModel.incomeHistory) { history in
-                        // allow the user to see the detail of the income data
-                        NavigationLink(destination: EditIncomeHistoryView(history: $viewModel.incomeHistory[getIndex(for: history, in: viewModel.incomeHistory)])) {
-                            HistoryIncomeRow(history: history)
+                    
+                Text("Income History")
+                    .font(.system(size: 25))
+                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal,30)
+                    .padding(.top)
+                    .padding(.bottom, -1)
+                
+                // to make a list for the data of incomes that have been saved by the user
+                List {
+                    Section() {
+                        // loop the data of income that has been saved by the user
+                        ForEach(viewModel.incomeHistory) { history in
+                            // allow the user to see the detail of the income data
+                            NavigationLink(destination: EditIncomeHistoryView(history: $viewModel.incomeHistory[getIndex(for: history, in: viewModel.incomeHistory)])) {
+                                HistoryIncomeRow(history: history)
+                            }
+                        }
+                        // allow the user to delete the data of income that has been saved
+                        .onDelete { offsets in
+                            deleteHistory(at: offsets, type: "Income")
                         }
                     }
-                    // allow the user to delete the data of income that has been saved
-                    .onDelete { offsets in
-                        deleteHistory(at: offsets, type: "Income")
-                    }
+                    .padding(.top, -15)
+                    .padding(.bottom, -15)
+                    .padding(.horizontal, -3)
                 }
-                .padding(.top, -15)
-                .padding(.bottom, -15)
-                .padding(.horizontal, -3)
+                .listStyle(.inset)
+                
+                Spacer()
+                
+                // button that will navigate the user to the inputincome view
+                Button(action: {
+                    isShowingInputIncome = true // Set state untuk menampilkan InputIncomeMac
+                }) {
+                    Text("Add New Income")
+                        .font(.title)
+                        .padding(10)
+                        .padding(.horizontal, 55)
+                        .background(Color(hex: 0x6DA3FF))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .padding(.bottom, 25)
+                .frame(maxWidth: .infinity)
+                .padding()
             }
-            .listStyle(.inset)
-            
-            Spacer()
-            
-            // button that will navigate the user to the inputincome view
-            NavigationLink(destination: InputIncomeMac()) {
-                Text("Add New Income")
-                    .font(.title)
-                    .padding(10)
-                    .padding(.horizontal, 55)
-                    .background(Color(hex: 0x6DA3FF))
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+            .frame(maxWidth: .infinity, maxHeight: .infinity) // Set the view's frame to fill the available space
+            .navigationTitle("Income")
+            .sheet(isPresented: $isShowingInputIncome) {
+                InputIncomeMac() // Tampilkan InputIncomeMac ketika state isShowingInputIncome bernilai true
             }
-            .padding(.bottom, 25)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity) // Set the view's frame to fill the available space
-        .navigationTitle("Income")
-        // to call the functions when the view screen shows up
-        .onAppear {
-            viewModel.loadIncomeData()
-            viewModel.loadIncomeHistory()
+            // to call the functions when the view screen shows up
+            .onAppear {
+                viewModel.loadIncomeData()
+                viewModel.loadIncomeHistory()
+            }
         }
     }
     
@@ -93,6 +104,7 @@ struct AllIncomeViewMac: View {
     }
     
 }
+
 
 // to edit the history
 struct EditIncomeHistoryView: View {

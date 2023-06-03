@@ -95,7 +95,7 @@ struct HomeViewMac: View {
                 .padding(.vertical, 60)
                 
                 // for the articles section
-                ArticlesRow()
+                ArticleViewMac()
             }
             .padding()
         }
