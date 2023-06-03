@@ -37,8 +37,10 @@ struct InputSavings: View {
                             .font(.system(size: 16, weight: .bold))
                             .background(Color(.white))
                             .cornerRadius(10)
-                            .frame(width: 350, height: 90)
-//                            .keyboardType(.numberPad)
+                        //size for ipad
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 90)
+                            .keyboardType(.numberPad)
                         
                         // error warning that is going to be shown for the error handling, the opacity will be turned to 0 (unseen) if the user's input doesnt meet the requirement
                         Text("*Only numbers above 0")
@@ -62,7 +64,9 @@ struct InputSavings: View {
                             .font(.system(size: 16, weight: .bold))
                             .background(Color(.white))
                             .cornerRadius(10)
-                            .frame(width: 350, height: 90)
+                        //size for ipad
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 90)
                             .keyboardType(.numberPad)
 
                         // error warning that is going to be shown for the error handling, the opacity will be turned to 0 (unseen) if the user's input doesnt meet the requirement
@@ -129,6 +133,7 @@ struct InputSavings: View {
                 .disabled(!checkAmount || !checkDays) // the button will be disabled if the target amount and days are not meeting the requirement
             }
         }
+        // allows view to extend content to entire screen
         .ignoresSafeArea(.all)
     }
     
