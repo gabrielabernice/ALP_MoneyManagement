@@ -39,6 +39,7 @@ struct InputSavingsMac: View {
                                 .background(Color(.white))
                                 .cornerRadius(10)
                                 .frame(width: geometry.size.width*9/10, height: 90)
+                                .textFieldStyle(PlainTextFieldStyle())
                             //                            .keyboardType(.numberPad)
                             
                             // error warning that is going to be shown for the error handling, the opacity will be turned to 0 (unseen) if the user's input doesnt meet the requirement
@@ -64,7 +65,7 @@ struct InputSavingsMac: View {
                                 .background(Color(.white))
                                 .cornerRadius(10)
                                 .frame(width: geometry.size.width*9/10, height: 90)
-                            
+                                .textFieldStyle(PlainTextFieldStyle())
                             
                             // error warning that is going to be shown for the error handling, the opacity will be turned to 0 (unseen) if the user's input doesnt meet the requirement
                             Text("*Only numbers above 0")
@@ -123,12 +124,12 @@ struct InputSavingsMac: View {
                 }
                 .padding()
                 .buttonStyle(BorderlessButtonStyle())
-                
                 .frame(width: geometry.size.width * 0.9)
                 .font(.system(size: 24, weight: .bold))
                 .foregroundColor(.white)
                 .background(Color(hex: 0x6DA3FF))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
+                .padding(.bottom,20)
                 .font(.system(size: 20, weight: .bold))
                 .fontWeight(.bold)
                 .disabled(!checkAmount || !checkDays) // the button will be disabled if the target amount and days are not meeting the requirement
