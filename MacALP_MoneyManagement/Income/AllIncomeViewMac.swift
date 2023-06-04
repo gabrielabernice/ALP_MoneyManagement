@@ -19,7 +19,7 @@ struct AllIncomeViewMac: View {
     }
     
     var body: some View {
-        NavigationView {
+        
             VStack {
                 // displaying the piechart to show the chart for income from each inputs
                 PieChartView(data:incomeData, title: "Income",style: Styles.barChartStyleNeonBlueLight, form: ChartForm.large).padding(.horizontal)
@@ -72,6 +72,7 @@ struct AllIncomeViewMac: View {
                 .padding(.bottom, 25)
                 .frame(maxWidth: .infinity)
                 .padding()
+                .buttonStyle(BorderlessButtonStyle())
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity) // Set the view's frame to fill the available space
             .navigationTitle("Income")
@@ -88,7 +89,7 @@ struct AllIncomeViewMac: View {
                 viewModel.loadIncomeData()
                 viewModel.loadIncomeHistory()
             }
-        }
+        
     }
     
     // function to delete the income history
