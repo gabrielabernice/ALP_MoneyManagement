@@ -66,7 +66,7 @@ struct InputIncomeMac: View {
                                                     .foregroundColor(Color(hex: 0x6DA3FF))
                                                 
                                             })
-                                            .disabled(viewModel.date > Date() || viewModel.showInvalidDateMessage)
+                                            .disabled(viewModel.date > Date() && !viewModel.isExpanded)
                                         }
                                     )
                                 

@@ -50,13 +50,19 @@ struct InputExpensesMac: View {
                                             
                                             // to make the button for the date picker
                                             Button(action: {
-                                                viewModel.isExpanded.toggle()
+                                                if viewModel.date > Date() {
+                                                       viewModel.showInvalidDateMessage = true
+                                                   } else {
+                                                       viewModel.isExpanded.toggle()
+                                                       viewModel.showInvalidDateMessage = false
+                                                   }
                                             }, label: {
                                                 Text("Select a date")
                                                     .padding()
                                                     .foregroundColor(Color(hex: 0xF89385))
                                                 
                                             })
+                                            .disabled(viewModel.date > Date() && !viewModel.isExpanded) 
                                         }
                                     )
                                 
@@ -69,6 +75,17 @@ struct InputExpensesMac: View {
                                     )
                                     //                                        .datePickerStyle(WheelDatePickerStyle())
                                 }
+                                if viewModel.date > Date() {
+                                       // Show an error message if the selected date is in the future
+                                       Text("Please select a valid date")
+                                           .font(.system(size: geometry.size.width/44))
+                                           .foregroundColor(.red)
+                                           .font(.caption)
+                                           .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                           .padding(.top,10)
+                                           .padding(.horizontal, 10)
+                                           .font(.title)
+                                   }
                             }
                             .padding(.bottom, -20)
                             
@@ -193,6 +210,10 @@ struct InputExpensesMac: View {
                         if viewModel.selectedOption == nil {
                             viewModel.showFailMessage = true
                             viewModel.appendExpenses = false
+                        } else if viewModel.date > Date() {
+                            // Jika tanggal yang dipilih lebih besar dari tanggal sekarang, tampilkan pesan kesalahan
+                            viewModel.showInvalidDateMessage = true
+                            
                         } else {
                             // if all the data has already meet the requirement, the data inputted will be saved, it will not show error message
                             if viewModel.check {
@@ -226,7 +247,7 @@ struct InputExpensesMac: View {
                     //                        .padding(.bottom, 90)
                     .padding(.top, 10)
                     .offset(y: -10)
-                    .disabled(!viewModel.check) // the button for saving the data will be disabled if it doesnt fullfil the requirement
+                    .disabled(!viewModel.check || viewModel.showInvalidDateMessage) // the button for saving the data will be disabled if it doesnt fullfil the requirement
                     .overlay(
                         NavigationLink(
                             destination: AllExpensesViewMac(),

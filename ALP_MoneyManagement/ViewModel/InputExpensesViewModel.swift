@@ -29,6 +29,7 @@ class InputExpensesViewModel: ObservableObject {
     
     @Published var showFailMessage = false
     @Published var shouldNavigate = false
+    @Published var showInvalidDateMessage = false
     
     // to initialize the expenses data and expenses history data
 
