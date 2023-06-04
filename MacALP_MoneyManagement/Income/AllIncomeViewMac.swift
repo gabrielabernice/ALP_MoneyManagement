@@ -12,12 +12,12 @@ import SwiftUICharts
 struct AllIncomeViewMac: View {
     @State private var isShowingInputIncomeSheet = false
     @StateObject private var viewModel = InputIncomeViewModel()
-//    @State private var isShowingInputIncome = false // State untuk mengontrol penampilan InputIncomeMac
+    //    @State private var isShowingInputIncome = false // State untuk mengontrol penampilan InputIncomeMac
     
     var incomeData: [Double] {
         return viewModel.incomeHistory.map { Double($0.amount) }
     }
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -26,7 +26,7 @@ struct AllIncomeViewMac: View {
                     .frame(height: 300)
                     .padding(.vertical, 20)
                 
-                    
+                
                 Text("Income History")
                     .font(.system(size: 25))
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
@@ -77,6 +77,11 @@ struct AllIncomeViewMac: View {
             .navigationTitle("Income")
             .sheet(isPresented: $isShowingInputIncomeSheet) {
                 InputIncomeMac(isPresented: $isShowingInputIncomeSheet) // Tampilkan InputIncomeMac ketika state isShowingInputIncome bernilai true
+                    .onDisappear {
+                        // to reload data when the sheet disapear
+                        viewModel.loadIncomeData()
+                        viewModel.loadIncomeHistory()
+                    }
             }
             // to call the functions when the view screen shows up
             .onAppear {
@@ -89,7 +94,7 @@ struct AllIncomeViewMac: View {
     // function to delete the income history
     func deleteHistory(at offsets: IndexSet, type: String) {
         if type == "Income" {
-           viewModel.incomeHistory.remove(atOffsets: offsets)
+            viewModel.incomeHistory.remove(atOffsets: offsets)
         }
         // update the changes of the history data for income after a data is being deleted
         viewModel.saveIncomeHistory()
