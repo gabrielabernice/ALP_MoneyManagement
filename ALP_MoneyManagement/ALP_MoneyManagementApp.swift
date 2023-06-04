@@ -17,8 +17,10 @@ struct ALP_MoneyManagementApp: App {
             ContentView()
                 .environmentObject(modelData)
         }
+#if os(macOS)
         Settings {
             SettingsView()
         }
+#endif
     }
 }
