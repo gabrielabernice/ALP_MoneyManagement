@@ -107,7 +107,7 @@ struct InputIncomeMac: View {
                                                     }
                                                 }
                                             } label: {
-                                                Label("Select an option", systemImage: "arrowtriangle.down.fill")
+                                                Text("Select an option")
                                                     .foregroundColor(Color(hex: 0x6DA3FF))
                                                 
                                             }
