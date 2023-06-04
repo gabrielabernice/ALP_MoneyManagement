@@ -30,7 +30,7 @@ struct InputSavingsMac: View {
                         VStack(alignment:.leading, spacing: -5) {
                             Text("Savings Target")
                                 .foregroundColor(.white)
-                                .font(.system(size: geometry.size.width/28 , weight: .bold))
+                                .font(.system(size: geometry.size.width/34 , weight: .bold))
                             
                             // textfield to allow the user to input their target amount of money
                             TextField("Rp", text: $amount)
@@ -44,7 +44,7 @@ struct InputSavingsMac: View {
                             
                             // error warning that is going to be shown for the error handling, the opacity will be turned to 0 (unseen) if the user's input doesnt meet the requirement
                             Text("*Only numbers above 0")
-                                .font(.system(size: geometry.size.width/44))
+                                .font(.system(size: geometry.size.width/48))
                                 .foregroundColor(.red)
                                 .font(.caption)
                                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
@@ -56,7 +56,7 @@ struct InputSavingsMac: View {
                         VStack(alignment:.leading, spacing: -5) {
                             Text("Target Day")
                                 .foregroundColor(.white)
-                                .font(.system(size: geometry.size.width/28 , weight: .bold))
+                                .font(.system(size: geometry.size.width/34 , weight: .bold))
                             
                             // textfield to allow the user to input their target of day
                             TextField("Day", text: $days)
@@ -69,7 +69,7 @@ struct InputSavingsMac: View {
                             
                             // error warning that is going to be shown for the error handling, the opacity will be turned to 0 (unseen) if the user's input doesnt meet the requirement
                             Text("*Only numbers above 0")
-                                .font(.system(size: geometry.size.width/44))
+                                .font(.system(size: geometry.size.width/48))
                                 .foregroundColor(.red)
                                 .font(.title)
                                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)

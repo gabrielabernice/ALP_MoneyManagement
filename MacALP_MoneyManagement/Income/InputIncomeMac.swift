@@ -18,7 +18,13 @@ struct InputIncomeMac: View {
             ScrollView{
                 VStack {
                     ScrollView{
-                        VStack(alignment: .leading, spacing: 50){
+                        Button("Cancel") {
+                            isPresented = false // Dismiss the current view
+                        }
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
+                        
+                        VStack(alignment: .leading, spacing: 40){
+                            
                             Text("Input Income")
                                 .foregroundColor(.white)
                                 .font(.system(size: geometry.size.width/20 , weight: .bold))
@@ -169,7 +175,7 @@ struct InputIncomeMac: View {
                             // max part of main vstack for the form
                         }
                     }
-                    .padding(.top, 80)
+                    .padding(.top, 20)
                     .padding(.horizontal, 20)
                     .frame(width: geometry.size.width, height: geometry.size.height * 0.85)
                     .background(Color(hex: 0x6DA3FF).opacity(0.8))
