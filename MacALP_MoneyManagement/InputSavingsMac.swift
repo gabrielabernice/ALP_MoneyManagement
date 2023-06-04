@@ -33,13 +33,14 @@ struct InputSavingsMac: View {
                                 .font(.system(size: geometry.size.width/34 , weight: .bold))
                             
                             // textfield to allow the user to input their target amount of money
-                            TextField("Rp", text: $amount)
+                            TextField("Rp", text: formatAmount(amount))
                                 .padding()
                                 .font(.system(size: 16, weight: .bold))
                                 .background(Color(.white))
                                 .cornerRadius(10)
                                 .frame(width: geometry.size.width*9/10, height: 90)
                                 .textFieldStyle(PlainTextFieldStyle())
+                                
                             //                            .keyboardType(.numberPad)
                             
                             // error warning that is going to be shown for the error handling, the opacity will be turned to 0 (unseen) if the user's input doesnt meet the requirement
@@ -108,7 +109,7 @@ struct InputSavingsMac: View {
                     
                 }else{
                     // if the user's input already meet the requirement, the text of savings goal per day will be shown
-                    Text("You need to save \nRp. \(perDay) per day")
+                    Text("You need to save \nRp \(perDay) per day")
                         .multilineTextAlignment(.center)
                         .offset(y:-80)
                         .font(.system(size: 20, weight: .bold))
@@ -137,6 +138,26 @@ struct InputSavingsMac: View {
         }
         .ignoresSafeArea(.all)
     }
+    
+    //func to display comma separator in textfield
+    private func formatAmount(_ value: String) -> Binding<String> {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.groupingSeparator = ","
+            formatter.usesGroupingSeparator = true
+
+            let formattedValue = formatter.string(from: NSNumber(value: Int(value) ?? 0)) ?? ""
+
+        return Binding<String>(
+                    get: { "Rp " + (value.isEmpty ? "" : formattedValue) },
+                    set: { newValue in
+                        let cleanValue = newValue
+                            .replacingOccurrences(of: "Rp ", with: "")
+                            .replacingOccurrences(of: formatter.groupingSeparator, with: "")
+                        amount = cleanValue
+                    }
+                )
+        }
     
     struct BottomRoundedRectangle: Shape {
         var radius: CGFloat
