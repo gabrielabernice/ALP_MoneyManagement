@@ -31,7 +31,7 @@ struct InputSavingsMac: View {
                             Text("Savings Target")
                                 .foregroundColor(.white)
                                 .font(.system(size: geometry.size.width/28 , weight: .bold))
-                               
+                            
                             // textfield to allow the user to input their target amount of money
                             TextField("Rp", text: $amount)
                                 .padding()
@@ -75,13 +75,13 @@ struct InputSavingsMac: View {
                                 .opacity(!checkDays ? 1 : 0)
                         }
                     }
-                        Spacer()
+                    Spacer()
                     
                 }
                 .padding(.top, 80)
                 .padding(.horizontal, geometry.size.width/20 )
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                .frame(width: geometry.size.width, height: geometry.size.height * 0.5)
+                //                .frame(width: geometry.size.width, height: geometry.size.height * 0.5)
                 .background(Color(hex: 0x6DA3FF).opacity(0.8))
                 .clipShape(BottomRoundedRectangle(radius:55))
                 .shadow(color: Color.black.opacity(0.3), radius: 18, x: 0, y: 5)
@@ -122,6 +122,7 @@ struct InputSavingsMac: View {
                     perDay = Int(ceil(result))
                 }
                 .padding()
+                .buttonStyle(BorderlessButtonStyle())
                 
                 .frame(width: geometry.size.width * 0.9)
                 .font(.system(size: 24, weight: .bold))
