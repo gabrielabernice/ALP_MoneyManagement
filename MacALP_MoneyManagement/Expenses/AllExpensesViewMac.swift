@@ -66,6 +66,7 @@ struct AllExpensesViewMac: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
+            .buttonStyle(BorderlessButtonStyle())
             .padding(.bottom, 25)
             .frame(maxWidth: .infinity)
             .padding()
@@ -74,6 +75,11 @@ struct AllExpensesViewMac: View {
         .navigationTitle("Expenses")
         .sheet(isPresented: $isShowingInputExpensesSheet) {
             InputExpensesMac(isPresented: $isShowingInputExpensesSheet) // Tampilkan InputIncomeMac ketika state isShowingInputIncome bernilai true
+                .onDisappear {
+                    // to reload data when the sheet disapear
+                    viewModel.loadExpensesData()
+                    viewModel.loadExpensesHistory()
+                }
         }
         .onAppear {
             viewModel.loadExpensesData()
