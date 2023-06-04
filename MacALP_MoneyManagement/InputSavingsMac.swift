@@ -23,14 +23,14 @@ struct InputSavingsMac: View {
                     VStack(alignment: .leading, spacing: 30) {
                         Text("Add your Goal")
                             .foregroundColor(.white)
-                            .font(.system(size: 32, weight: .bold))
+                            .font(.system(size: geometry.size.width/24 , weight: .bold))
                             .frame(maxWidth: .infinity)
                         
                         // to let the user to input the target amount of money they want to save
                         VStack(alignment:.leading, spacing: -5) {
                             Text("Savings Target")
                                 .foregroundColor(.white)
-                                .font(.system(size: 22, weight: .bold))
+                                .font(.system(size: geometry.size.width/28 , weight: .bold))
                                
                             // textfield to allow the user to input their target amount of money
                             TextField("Rp", text: $amount)
@@ -38,12 +38,12 @@ struct InputSavingsMac: View {
                                 .font(.system(size: 16, weight: .bold))
                                 .background(Color(.white))
                                 .cornerRadius(10)
-                                .frame(width: 600, height: 90)
+                                .frame(width: geometry.size.width*9/10, height: 90)
                             //                            .keyboardType(.numberPad)
                             
                             // error warning that is going to be shown for the error handling, the opacity will be turned to 0 (unseen) if the user's input doesnt meet the requirement
                             Text("*Only numbers above 0")
-                                .font(.system(size: 20))
+                                .font(.system(size: geometry.size.width/44))
                                 .foregroundColor(.red)
                                 .font(.caption)
                                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
@@ -55,7 +55,7 @@ struct InputSavingsMac: View {
                         VStack(alignment:.leading, spacing: -5) {
                             Text("Target Day")
                                 .foregroundColor(.white)
-                                .font(.system(size: 22, weight: .bold))
+                                .font(.system(size: geometry.size.width/28 , weight: .bold))
                             
                             // textfield to allow the user to input their target of day
                             TextField("Day", text: $days)
@@ -63,12 +63,12 @@ struct InputSavingsMac: View {
                                 .font(.system(size: 16, weight: .bold))
                                 .background(Color(.white))
                                 .cornerRadius(10)
-                                .frame(width: 600, height: 90)
+                                .frame(width: geometry.size.width*9/10, height: 90)
                             
                             
                             // error warning that is going to be shown for the error handling, the opacity will be turned to 0 (unseen) if the user's input doesnt meet the requirement
                             Text("*Only numbers above 0")
-                                .font(.system(size: 20))
+                                .font(.system(size: geometry.size.width/44))
                                 .foregroundColor(.red)
                                 .font(.title)
                                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
@@ -79,7 +79,7 @@ struct InputSavingsMac: View {
                     
                 }
                 .padding(.top, 80)
-                .padding(.horizontal, 40)
+                .padding(.horizontal, geometry.size.width/20 )
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
 //                .frame(width: geometry.size.width, height: geometry.size.height * 0.5)
                 .background(Color(hex: 0x6DA3FF).opacity(0.8))
