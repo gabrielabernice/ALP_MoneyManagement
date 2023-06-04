@@ -29,6 +29,7 @@ class InputIncomeViewModel: ObservableObject {
     
     @Published var showFailMessage = false
     @Published var shouldNavigate = false
+    @Published var showInvalidDateMessage = false
     
     // to initialize the income data and income history data
     init() {
