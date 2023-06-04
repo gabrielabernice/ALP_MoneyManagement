@@ -11,7 +11,8 @@ import SwiftUICharts
 
 struct AllExpensesViewMac: View {
     @StateObject private var viewModel = InputExpensesViewModel()
-    
+    @State private var isShowingInputExpensesSheet = false
+
     var expensesData: [Double] {
         return viewModel.expensesHistory.map { Double($0.amount) }
     }
@@ -54,20 +55,26 @@ struct AllExpensesViewMac: View {
             
             Spacer()
             
-            // button that will navigate the user to the inputexpenses view
-            NavigationLink(destination: InputExpensesMac()) {
+            Button(action: {
+                isShowingInputExpensesSheet = true // Set state untuk menampilkan InputIncomeMac
+            }) {
                 Text("Add New Expenses")
                     .font(.title)
                     .padding(10)
-                    .padding(.horizontal, 45)
-                    .background(Color(hex: 0xF89385))
+                    .padding(.horizontal, 55)
+                    .background(Color(hex:0xF89385))
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
-            .padding(.bottom, 65)
+            .padding(.bottom, 25)
+            .frame(maxWidth: .infinity)
+            .padding()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity) // Set the view's frame to fill the available space
         .navigationTitle("Expenses")
-        // to call the functions when the view screen shows up
+        .sheet(isPresented: $isShowingInputExpensesSheet) {
+            InputExpensesMac(isPresented: $isShowingInputExpensesSheet) // Tampilkan InputIncomeMac ketika state isShowingInputIncome bernilai true
+        }
         .onAppear {
             viewModel.loadExpensesData()
             viewModel.loadExpensesHistory()
@@ -123,12 +130,12 @@ struct HistoryExpensesRow: View {
 }
 
 // to make the format of the date picker, using the long date style, and not recording the time
-//private let dateFormatter: DateFormatter = {
-//    let formatter = DateFormatter()
-//    formatter.dateStyle = .long
-//    formatter.timeStyle = .none
-//    return formatter
-//}()
+private let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .long
+    formatter.timeStyle = .none
+    return formatter
+}()
 
 
 

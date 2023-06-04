@@ -10,9 +10,9 @@ import SwiftUICharts
 
 
 struct AllIncomeViewMac: View {
-
+    @State private var isShowingInputIncomeSheet = false
     @StateObject private var viewModel = InputIncomeViewModel()
-    @State private var isShowingInputIncome = false // State untuk mengontrol penampilan InputIncomeMac
+//    @State private var isShowingInputIncome = false // State untuk mengontrol penampilan InputIncomeMac
     
     var incomeData: [Double] {
         return viewModel.incomeHistory.map { Double($0.amount) }
@@ -59,7 +59,7 @@ struct AllIncomeViewMac: View {
                 
                 // button that will navigate the user to the inputincome view
                 Button(action: {
-                    isShowingInputIncome = true // Set state untuk menampilkan InputIncomeMac
+                    isShowingInputIncomeSheet = true // Set state untuk menampilkan InputIncomeMac
                 }) {
                     Text("Add New Income")
                         .font(.title)
@@ -75,8 +75,8 @@ struct AllIncomeViewMac: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity) // Set the view's frame to fill the available space
             .navigationTitle("Income")
-            .sheet(isPresented: $isShowingInputIncome) {
-                InputIncomeMac() // Tampilkan InputIncomeMac ketika state isShowingInputIncome bernilai true
+            .sheet(isPresented: $isShowingInputIncomeSheet) {
+                InputIncomeMac(isPresented: $isShowingInputIncomeSheet) // Tampilkan InputIncomeMac ketika state isShowingInputIncome bernilai true
             }
             // to call the functions when the view screen shows up
             .onAppear {
@@ -137,12 +137,12 @@ struct HistoryIncomeRow: View {
 }
 
 // to make the format of the date picker, using the long date style, and not recording the time
-//private let dateFormatter: DateFormatter = {
-//    let formatter = DateFormatter()
-//    formatter.dateStyle = .long
-//    formatter.timeStyle = .none
-//    return formatter
-//}()
+private let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .long
+    formatter.timeStyle = .none
+    return formatter
+}()
 
 
 struct AllIncomeViewMac_Previews: PreviewProvider {

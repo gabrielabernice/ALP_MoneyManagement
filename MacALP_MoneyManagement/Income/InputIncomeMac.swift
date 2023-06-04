@@ -5,225 +5,282 @@
 //  Created by Nuzulul Salsabila on 01/06/23.
 //
 
-import SwiftUI
 
+import SwiftUI
+import Dispatch
 
 struct InputIncomeMac: View {
     @StateObject private var viewModel = InputIncomeViewModel()
-    
+    @Binding var isPresented: Bool
     var body: some View {
-        GeometryReader { geometry in
-            VStack {
-                VStack(alignment: .leading, spacing: 50){
-                    Text("Input Income")
-                        .foregroundColor(.white)
-                        .font(.system(size: 32, weight: .bold))
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .padding(.top, 10)
-                        .offset(x: 12)
-                    
-                    VStack(spacing: -5) {
-                        Text("Date ")
-                            .foregroundColor(.white)
-                            .font(.system(size: 22, weight: .bold))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        RoundedRectangle(cornerRadius: 10)
-                            .foregroundColor(Color.white)
-                            .frame(width: 350, height: 50)
-                            .padding()
-                            .overlay(
-                                HStack{
-                                    Text("\(viewModel.date, formatter: dateFormatter)")
+        NavigationView {
+            GeometryReader { geometry in
+                ScrollView{
+                    VStack {
+                        ScrollView{
+                            VStack(alignment: .leading, spacing: 50){
+                                Text("Input Income")
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 32, weight: .bold))
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .padding(.top, 10)
+                                    .offset(x: 12)
+                                
+                                // for the date input
+                                VStack(spacing: -5) {
+                                    Text("Date ")
+                                        .foregroundColor(.white)
+                                        .font(.system(size: 22, weight: .bold))
+                                        .frame(maxWidth: .infinity, alignment: .leading)
                                     
-                                    Spacer().frame(width: 85)
-                                    
-                                    Button(action: {
-                                        viewModel.isExpanded.toggle()
-                                    }, label: {
-                                        Text("Select a date")
-                                            .padding()
-                                    })
-                                }
-                            )
-                        
-                        if viewModel.isExpanded {
-                            DatePicker(
-                                "",
-                                selection: $viewModel.date,
-                                displayedComponents: [.date]
-                            )
-//                            .datePickerStyle(WheelDatePickerStyle())
-                        }
-                    }
-                    .padding(.bottom, -20)
-                    
-                    VStack(spacing: -5){
-                        Text("Source of Income")
-                            .foregroundColor(.white)
-                            .font(.system(size: 22, weight: .bold))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        RoundedRectangle(cornerRadius: 10)
-                            .foregroundColor(Color.white)
-                            .frame(width: 350, height: 50)
-                            .padding()
-                            .overlay(
-                                HStack{
-                                    Text("\(viewModel.selectedOption?.incomeCategory ?? "")")
-                                    Spacer().frame(width: 85)
-                                    
-                                    Menu {
-                                        ForEach(viewModel.income, id: \.self) { incomes in
-                                            Button(action: {
-                                                viewModel.selectedOption = incomes
-                                            }) {
-                                                Text(incomes.incomeCategory)
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .foregroundColor(Color.white)
+                                        .frame(width: 350, height: 50)
+                                        .padding()
+                                        .overlay(
+                                            HStack{
+                                                // to show the date that is being picked
+                                                Text("\(viewModel.date, formatter: dateFormatter)")
+                                                
+                                                Spacer().frame(width: 85)
+                                                
+                                                // to make the button for the date picker
+                                                Button(action: {
+                                                    viewModel.isExpanded.toggle()
+                                                }, label: {
+                                                    Text("Select a date")
+                                                        .padding()
+                                                        .foregroundColor(Color(hex: 0x6DA3FF))
+                                                    
+                                                })
                                             }
-                                        }
-                                    } label: {
-                                        Label("Select an option", systemImage: "arrowtriangle.down.fill")
-                                            .foregroundColor(Color(red: 0.4, green: 0.6, blue: 1.0))
+                                        )
+                                    
+                                    // if the button is being expanded, the date picker with a wheel style will be expanded, showing the dates
+                                    if viewModel.isExpanded {
+                                        DatePicker(
+                                            "",
+                                            selection: $viewModel.date,
+                                            displayedComponents: [.date]
+                                        )
+//                                        .datePickerStyle(WheelDatePickerStyle())
                                     }
                                 }
-                            )
-                    }
-                    .padding(.bottom, -33)
-                    
-                    VStack(spacing: -8){
-                        Text("Amount")
-                            .foregroundColor(.white)
-                            .font(.system(size: 22, weight: .bold))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .offset(x:-12)
+                                .padding(.bottom, -20)
+                                
+                                // for inputting the income category
+                                VStack(spacing: -5){
+                                    Text("Source of Income")
+                                        .foregroundColor(.white)
+                                        .font(.system(size: 22, weight: .bold))
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .foregroundColor(Color.white)
+                                        .frame(width: 350, height: 50)
+                                        .padding()
+                                        .overlay(
+                                            HStack{
+                                                // to show the selected income category
+                                                Text("\(viewModel.selectedOption?.incomeCategory ?? "")")
+                                                Spacer().frame(width: 85)
+                                                
+                                                // showing all the income category by looping, making it in the form of dropdownn list
+                                                Menu {
+                                                    ForEach(viewModel.income, id: \.self) { incomes in
+                                                        Button(action: {
+                                                            viewModel.selectedOption = incomes
+                                                        }) {
+                                                            Text(incomes.incomeCategory)
+                                                        }
+                                                    }
+                                                } label: {
+                                                    Label("Select an option", systemImage: "arrowtriangle.down.fill")
+                                                        .foregroundColor(Color(hex: 0x6DA3FF))
+                                                }
+                                            }
+                                        )
+                                }
+                                .padding(.bottom, -33)
+                                
+                                // to input the amount of the income
+                                VStack(spacing: -8){
+                                    Text("Amount")
+                                        .foregroundColor(.white)
+                                        .font(.system(size: 22, weight: .bold))
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .offset(x:-12)
+                                    
+                                    // textfield to let the user input the amount of income
+                                    TextField("ex : 50000", text: $viewModel.amount)
+                                        .padding()
+                                        .background(Color(.white))
+                                        .cornerRadius(10)
+                                        .frame(width: 350, height: 90)
+                                        .font(.system(size: 16, weight: .bold))
+                                        .cornerRadius(10)
+//                                        .keyboardType(.numberPad)
+                                    
+                                    // error warning that is going to be shown for the error handling, the opacity will be turned to 0 (unseen) if the user's input doesnt meet the requirement
+                                    Text("*Only numbers above 0")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(.red)
+                                        .font(.caption)
+                                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                        .font(.title)
+                                        .opacity(!viewModel.check ? 1 : 0)
+                                }
+                                .padding()
+                                .padding(.bottom, -50)
+                                
+                                // to input the note about the income
+                                VStack(spacing: -5){
+                                    Text("Note ")
+                                        .foregroundColor(.white)
+                                        .font(.system(size: 22, weight: .bold))
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .offset(x:-12)
+                                    
+                                    // text field to let the user to input the notes
+                                    TextField("Mcd", text: $viewModel.name)
+                                        .padding()
+                                        .background(Color(.white))
+                                        .cornerRadius(10)
+                                        .frame(width: 350, height: 90)
+                                        .font(.system(size: 16, weight: .bold))
+                                        .cornerRadius(10)
+//                                        .keyboardType(.numberPad)
+                                }
+                                .padding()
+                                // max part of main vstack for the form
+                            }
+                        }
+                        .padding(.top, 80)
+                        .padding(.horizontal, 20)
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.85)
+                        .background(Color(hex: 0x6DA3FF).opacity(0.8))
+                        .clipShape(BottomRoundedRectangle(radius:55))
+                        .shadow(color: Color.black.opacity(0.3), radius: 18, x: 0, y: 5)
                         
-                        TextField("ex : 50000", text: $viewModel.amount)
+                        // a text to show when a data is successfully saved, if the user already input the income category and amount, the text will be seen (opacity set to 1)
+                        Text("Data successfully saved!")
                             .padding()
-                            .background(Color(.white))
-                            .cornerRadius(10)
-                            .frame(width: 350, height: 90)
-                            .font(.system(size: 16, weight: .bold))
-                            .cornerRadius(10)
-//                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(.center)
+                            .opacity(viewModel.appendIncome == true ? 1.0 : 0.0)
+                            .opacity(viewModel.showFailMessage == false ? 1:0)
                         
-                        Text("*Only numbers above 0")
-                            .font(.system(size: 20))
-                            .foregroundColor(.red)
-                            .font(.caption)
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                            .font(.title)
-                            .opacity(!viewModel.check ? 1 : 0)
-                    }
-                    .padding()
-                    .padding(.bottom, -50)
-                    
-                    VStack(spacing: -5){
-                        Text("Note ")
-                            .foregroundColor(.white)
-                            .font(.system(size: 22, weight: .bold))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .offset(x:-12)
+                        // a text to show when a data is not completed yet, if the user havent input the income category and amount, the text will be seen (opacity set to 1)
+                        Text("Please select an option")
+                            .multilineTextAlignment(.center)
+                            .opacity(viewModel.appendIncome == false ? 1:0)
+                            .opacity(viewModel.showFailMessage == true ? 1.0 : 0.0)
                         
-                        TextField("Mcd", text: $viewModel.name)
-                            .padding()
-                            .background(Color(.white))
-                            .cornerRadius(10)
-                            .frame(width: 350, height: 90)
-                            .font(.system(size: 16, weight: .bold))
-                            .cornerRadius(10)
-//                            .keyboardType(.numberPad)
+                        // button to let the user to save the data when they already meet the requirements
+                        Button("Save") {
+                            // it will show an error message and the data will not be saved if the user did not select the income category
+                            if viewModel.selectedOption == nil {
+                                viewModel.showFailMessage = true
+                                viewModel.appendIncome = false
+                            } else {
+                                // if all the data has already meet the requirement, the data inputted will be saved, it will not show error message
+                                if viewModel.check {
+                                    withAnimation(.easeInOut) {
+                                        viewModel.incomeHistory.append(History(id: viewModel.index, category: viewModel.selectedOption?.incomeCategory ?? "", amount: Int(viewModel.amount) ?? 0, date: viewModel.date, type: viewModel.type, name: viewModel.name))
+                                        let encoder = JSONEncoder()
+                                        if let encodedData = try? encoder.encode(viewModel.incomeHistory) {
+                                            UserDefaults.standard.set(encodedData, forKey: "incomeHistory")
+                                        }
+                                        
+                                        viewModel.appendIncome = true
+                                        viewModel.showFailMessage = false
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                            viewModel.shouldNavigate = true
+                                        }
+                                        viewModel.index += 1
+                                    }
+                                }
+                            }
+                        }
+                        
+                        .padding()
+                        .frame(width: geometry.size.width * 0.9)
+                        .font(.system(size: 22, weight: .bold))
+                        .foregroundColor(.white)
+                        .background(Color(hex: 0x6DA3FF))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .fontWeight(.bold)
+//                        .padding(.bottom, 90)
+                        .padding(.top, 10)
+                        .offset(y: -10)
+                        .disabled(!viewModel.check) // the button for saving the data will be disabled if it doesnt fullfil the requirement
+                        .overlay(
+                            NavigationLink(
+                                destination: AllIncomeViewMac(),
+                                label: {
+                                    EmptyView()
+                                })
+                            .hidden()
+                        )
                     }
-                    .padding()
+                    // to call the functions when the view screen shows up
+                    .onAppear {
+                        viewModel.loadIncomeData()
+                    }
                 }
-                .padding(.top, 80)
-                .padding(.horizontal, 20)
-                .frame(width: geometry.size.width, height: geometry.size.height * 0.85)
-                .background(Color(hex: 0x6DA3FF).opacity(0.8))
-                .clipShape(BottomRoundedRectangle(radius:55))
-                .shadow(color: Color.black.opacity(0.3), radius: 18, x: 0, y: 5)
-                
-                Text("Data successfully saved!")
-                    .padding()
-                    .multilineTextAlignment(.center)
-                    .opacity(viewModel.appendIncome == true ? 1.0 : 0.0)
-                    .opacity(viewModel.showFailMessage == false ? 1:0)
-                
-                Text("Please select an option")
-                    .multilineTextAlignment(.center)
-                    .opacity(viewModel.appendIncome == false ? 1:0)
-                    .opacity(viewModel.showFailMessage == true ? 1.0 : 0.0)
-                
-                Button("Save") {
-                    viewModel.saveIncome()
+                // will be called when the value of amount is changed, to pass the new value
+                .onChange(of: viewModel.amount) { newValue in
+                    viewModel.check = ((Int(newValue) ?? 0) >= 1)
                 }
-                .padding()
-                .frame(width: geometry.size.width * 0.9)
-                .font(.system(size: 22, weight: .bold))
-                .foregroundColor(.white)
-                .background(Color(hex: 0x6DA3FF))
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .fontWeight(.bold)
-                .padding(.top, 10)
-                .disabled(!viewModel.check)
-                .overlay(
-                    NavigationLink(
-                        destination: AllIncomeViewMac(),
-                        label: {
-                            EmptyView()
-                        })
-                    .hidden()
-                )
-            }
-            .onAppear {
-                viewModel.loadIncomeData()
-                viewModel.loadIncomeHistory()
+                .ignoresSafeArea(.all)
             }
         }
-        .frame(minWidth: 800, minHeight: 600) // Set the minimum size for the window
     }
-}
-
-struct BottomRoundedRectangle: Shape {
-    var radius: CGFloat
     
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
+    struct BottomRoundedRectangle: Shape {
+        var radius: CGFloat
         
-        let width = rect.size.width
-        let height = rect.size.height
-        
-        let cornerRadius = min(min(radius, height/2), width/2)
-        
-        path.move(to: CGPoint(x: rect.minX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY - cornerRadius))
-        path.addArc(center: CGPoint(x: rect.maxX - cornerRadius, y: rect.maxY - cornerRadius),
-                    radius: cornerRadius,
-                    startAngle: Angle(degrees: 0),
-                    endAngle: Angle(degrees: 90),
-                    clockwise: false)
-        path.addLine(to: CGPoint(x: rect.minX + cornerRadius, y: rect.maxY))
-        path.addArc(center: CGPoint(x: rect.minX + cornerRadius, y: rect.maxY - cornerRadius),
-                    radius: cornerRadius,
-                    startAngle: Angle(degrees: 90),
-                    endAngle: Angle(degrees: 180),
-                    clockwise: false)
-        path.closeSubpath()
-        
-        return path
+        func path(in rect: CGRect) -> Path {
+            var path = Path()
+            
+            let width = rect.size.width
+            let height = rect.size.height
+            
+            // Determine the corner radius
+            let cornerRadius = min(min(radius, height/2), width/2)
+            
+            // Create a rectangle with the bottom corners rounded
+            path.move(to: CGPoint(x: rect.minX, y: rect.minY))
+            path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
+            path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY - cornerRadius))
+            path.addArc(center: CGPoint(x: rect.maxX - cornerRadius, y: rect.maxY - cornerRadius),
+                        radius: cornerRadius,
+                        startAngle: Angle(degrees: 0),
+                        endAngle: Angle(degrees: 90),
+                        clockwise: false)
+            path.addLine(to: CGPoint(x: rect.minX + cornerRadius, y: rect.maxY))
+            path.addArc(center: CGPoint(x: rect.minX + cornerRadius, y: rect.maxY - cornerRadius),
+                        radius: cornerRadius,
+                        startAngle: Angle(degrees: 90),
+                        endAngle: Angle(degrees: 180),
+                        clockwise: false)
+            path.closeSubpath()
+            
+            return path
+        }
     }
+    
+    // to make the format of the date picker, using the long date style, and not recording the time
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .none
+        return formatter
+    }()
 }
-
-let dateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .long
-    formatter.timeStyle = .none
-    return formatter
-}()
 
 struct InputIncomeMac_Previews: PreviewProvider {
     static var previews: some View {
-        InputIncomeMac()
-            .frame(minWidth: 800, minHeight: 600) // Set the minimum size for the preview
+        let isPresented = Binding.constant(false)
+        InputIncomeMac(isPresented: isPresented)
     }
 }

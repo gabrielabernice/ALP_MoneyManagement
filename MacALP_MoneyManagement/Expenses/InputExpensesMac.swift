@@ -10,7 +10,7 @@ import Dispatch
 
 struct InputExpensesMac: View {
     @StateObject private var viewModel = InputExpensesViewModel()
-    
+    @Binding var isPresented: Bool
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
@@ -279,6 +279,7 @@ struct InputExpensesMac: View {
 
 struct InputExpensesMac_Previews: PreviewProvider {
     static var previews: some View {
-        InputExpensesMac()
+        let isPresented = Binding.constant(false)
+        InputExpensesMac(isPresented: isPresented)
     }
 }

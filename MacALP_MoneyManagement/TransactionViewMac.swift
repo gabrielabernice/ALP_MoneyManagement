@@ -109,9 +109,11 @@ struct TransactionViewMac: View {
                 }
             }
 
-            .sheet(isPresented: $historyView) {
-                            HistoryViewMac()
-            }
+            .sheet(isPresented: $historyView, onDismiss: {
+                        historyView = false
+                    }) {
+                        HistoryViewMac()
+                    }
         }
     }
     

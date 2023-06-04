@@ -75,7 +75,6 @@
 		043BD37E2A035A4B00BDF376 /* InputSavings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSavings.swift; sourceTree = "<group>"; };
 		043BD3802A038A5200BDF376 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		043BD38A2A03F9E700BDF376 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
-		04AE61882A2A5F890088A9AC /* ALP_MoneyManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = ALP_MoneyManagement.app; path = "/Users/salsahemat/Desktop/ALP_MoneyManagement/build/Debug-iphoneos/ALP_MoneyManagement.app"; sourceTree = "<absolute>"; };
 		04DC8D9A2A24F69F002D0489 /* ArticlesRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesRow.swift; sourceTree = "<group>"; };
 		04E53B222A1F4948002DB572 /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
 		04E53B242A1F4C03002DB572 /* IncomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeView.swift; sourceTree = "<group>"; };
@@ -87,7 +86,6 @@
 		3A01ED912A284262009ADD99 /* AllExpensesViewMac.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllExpensesViewMac.swift; sourceTree = "<group>"; };
 		3A01ED932A284341009ADD99 /* InputIncomeMac.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputIncomeMac.swift; sourceTree = "<group>"; };
 		3A01ED972A28E5E5009ADD99 /* InputExpensesMac.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputExpensesMac.swift; sourceTree = "<group>"; };
-		3A1931582A2AEDCD00E755B2 /* MacALP_MoneyManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = MacALP_MoneyManagement.app; path = /Users/salsahemat/Desktop/ALP_MoneyManagement/build/Debug/MacALP_MoneyManagement.app; sourceTree = "<absolute>"; };
 		3A1931592A2AF6A800E755B2 /* MainViewMac.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewMac.swift; sourceTree = "<group>"; };
 		3A19315B2A2AF7DB00E755B2 /* ArticleViewMac.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewMac.swift; sourceTree = "<group>"; };
 		3A1931632A2B9F3900E755B2 /* HistoryViewMac.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewMac.swift; sourceTree = "<group>"; };
@@ -97,6 +95,8 @@
 		3A60A8612A23062000A3E2EF /* MacALP_MoneyManagement.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacALP_MoneyManagement.entitlements; sourceTree = "<group>"; };
 		3A8E1EED2A218CFF004CBE6C /* InputIncomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputIncomeViewModel.swift; sourceTree = "<group>"; };
 		3A8E1EEF2A21DD6F004CBE6C /* InputExpensesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputExpensesViewModel.swift; sourceTree = "<group>"; };
+		3AC3C2302A2C04A700F9351A /* ALP_MoneyManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = ALP_MoneyManagement.app; path = "/Users/salsahemat/Desktop/ALP_MoneyManagement/build/Debug-iphoneos/ALP_MoneyManagement.app"; sourceTree = "<absolute>"; };
+		3AC3C2312A2C04A700F9351A /* MacALP_MoneyManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = MacALP_MoneyManagement.app; path = /Users/salsahemat/Desktop/ALP_MoneyManagement/build/Debug/MacALP_MoneyManagement.app; sourceTree = "<absolute>"; };
 		3AE55B502A256EA30091912E /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		3AE55B5C2A258DE40091912E /* HomeViewMac.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewMac.swift; sourceTree = "<group>"; };
 		3AFF7B2F2A298BA900ADF304 /* InputSavingsMac.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSavingsMac.swift; sourceTree = "<group>"; };
@@ -266,7 +266,7 @@
 				3A8E1EEA2A2120F8004CBE6C /* SwiftUICharts */,
 			);
 			productName = ALP_MoneyManagement;
-			productReference = 04AE61882A2A5F890088A9AC /* ALP_MoneyManagement.app */;
+			productReference = 3AC3C2302A2C04A700F9351A /* ALP_MoneyManagement.app */;
 			productType = "com.apple.product-type.application";
 		};
 		3A60A8552A23061D00A3E2EF /* MacALP_MoneyManagement */ = {
@@ -286,7 +286,7 @@
 				3AE55B532A2578030091912E /* SwiftUICharts */,
 			);
 			productName = MacALP_MoneyManagement;
-			productReference = 3A1931582A2AEDCD00E755B2 /* MacALP_MoneyManagement.app */;
+			productReference = 3AC3C2312A2C04A700F9351A /* MacALP_MoneyManagement.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */

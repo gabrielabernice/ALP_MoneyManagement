@@ -10,6 +10,8 @@ import SwiftUI
 import Charts
 
 struct HistoryViewMac: View {
+    @Environment(\.dismiss) var dismiss
+    
     // Create an instance of the HistoryViewModel as a state object
     @StateObject private var viewModel = HistoryViewModel()
     
@@ -69,6 +71,13 @@ struct HistoryViewMac: View {
                 }
             }
             .listStyle(SidebarListStyle())
+            
+            Button(action: {
+                dismiss()
+            }) {
+                Text("Close")
+            }
+            .padding()
         }
         .frame(minWidth: 500, idealWidth: 600, maxWidth: .infinity, minHeight: 400, idealHeight: 500, maxHeight: .infinity)
         .navigationTitle("History")
@@ -115,8 +124,15 @@ struct HistoryRow: View {
         }
         .padding()
     }
+  
 }
-
+// to make the format of the date picker, using the long date style, and not recording the time
+private let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .long
+    formatter.timeStyle = .none
+    return formatter
+}()
 
 struct HistoryViewMac_Previews: PreviewProvider {
     static var previews: some View {
