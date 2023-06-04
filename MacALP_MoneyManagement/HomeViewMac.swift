@@ -31,8 +31,8 @@ struct HomeViewMac: View {
         return expensesViewModel.expensesHistory.map { Double($0.amount) }
     }
     
-
-
+    
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -47,11 +47,47 @@ struct HomeViewMac: View {
                         HStack{
                             // to check if there are data (income and expenses) has been inputed, the chart will be shown
                             if !incomeViewModel.incomeHistory.isEmpty &&  !expensesViewModel.expensesHistory.isEmpty {
-                                MultiLineChartView(data: [(incomeData, GradientColors.blue), (expensesData, GradientColors.orange)], title: "Data", style: Styles.lineChartStyleOne, form: ChartForm.large).padding(.horizontal)
+                                MultiLineChartView(data: [(incomeData, GradientColors.blue), (expensesData, GradientColors.orange)], title: "Data", style: Styles.lineChartStyleOne, form: ChartForm.extraLarge).padding(.horizontal)
                                     .foregroundColor(colorScheme == .dark ? .white : .black)
-                                    .background(colorScheme == .dark ? Color.black : Color.white)
+                                //                                    .background(colorScheme == .dark ? Color.black : Color.white)
                                     .frame(height: 240)
                                     .padding()
+                            }
+                            VStack{
+                                // income section
+                                RoundedRectangle(cornerRadius: 10)
+                                    .foregroundColor(Color(hex: 0x6DA3FF).opacity(0.3))
+                                    .padding(.leading, 10)
+                                    .padding()
+                                    .overlay(
+                                        // income data
+                                        VStack(alignment: .leading) {
+                                            Text("Income")
+                                                .padding(.bottom, 1)
+                                                .bold()
+                                            Text("Rp \(totalIncomeAmount)")
+                                        }
+                                            .padding(.leading, -120)
+                                    )
+                                    .frame(width: 320, height: 100)
+                                
+                                // expenses section
+                                RoundedRectangle(cornerRadius: 10)
+                                    .foregroundColor(Color(hex: 0xF89385).opacity(0.3))
+                                    .padding(.leading, 10)
+                                    .padding()
+                                    .overlay(
+                                        // income data
+                                        VStack(alignment: .leading) {
+                                            Text("Expenses")
+                                                .padding(.bottom, 1)
+                                                .bold()
+                                            Text("Rp \(totalExpensesAmount)")
+                                        }
+                                            .padding(.leading, -120)
+                                    )
+                                    .frame(width: 320, height: 100)
+                                
                             }
                         }
                     }
@@ -60,39 +96,8 @@ struct HomeViewMac: View {
                 // to show the total amount of income and expenses that has been saved by the user
                 HStack(alignment: .top, spacing: -15) {
                     
-                    // income section
-                    RoundedRectangle(cornerRadius: 10)
-                        .foregroundColor(Color(hex: 0x6DA3FF).opacity(0.3))
-                        .padding(.leading, 10)
-                        .padding()
-                        .overlay(
-                            // income data
-                            VStack(alignment: .leading) {
-                                Text("Income")
-                                    .padding(.bottom, 1)
-                                Text("Rp \(totalIncomeAmount)")
-                            }
-                            .padding(.leading, -50)
-                        )
-                        .frame(width: 220, height: 100)
-    
-                    // expenses section
-                    RoundedRectangle(cornerRadius: 10)
-                        .foregroundColor(Color(hex: 0x6DA3FF).opacity(0.3))
-                        .padding(.leading, 10)
-                        .padding()
-                        .overlay(
-                            // income data
-                            VStack(alignment: .leading) {
-                                Text("Expenses")
-                                    .padding(.bottom, 1)
-                                Text("Rp \(totalExpensesAmount)")
-                            }
-                            .padding(.leading, -50)
-                        )
-                        .frame(width: 220, height: 100)
                 }
-                .padding(.vertical, 60)
+                .padding(.vertical, 30)
                 
                 // for the articles section
                 ArticleViewMac()
@@ -119,5 +124,6 @@ extension Color {
 struct HomeViewMac_Previews: PreviewProvider {
     static var previews: some View {
         HomeViewMac()
+            .frame(width: 800)
     }
 }
