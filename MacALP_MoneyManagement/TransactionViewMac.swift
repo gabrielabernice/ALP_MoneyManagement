@@ -11,7 +11,7 @@ struct TransactionViewMac: View {
     @State private var historyView = false
     
     var body: some View {
-        NavigationView{
+//        NavigationView{
             VStack{
                 
                 // making the income section
@@ -114,7 +114,7 @@ struct TransactionViewMac: View {
                     }) {
                         HistoryViewMac()
                     }
-        }
+//        }
     }
     
 }
