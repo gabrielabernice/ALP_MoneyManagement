@@ -7,34 +7,45 @@
 
 import SwiftUI
 struct MainViewMac: View {
-    var body: some View {
-        NavigationView {
-            List {
-                NavigationLink(destination: HomeViewMac()) {
-                    Label("Home", systemImage: "house")
-                }
-                .tag(1)
-                
-                NavigationLink(destination: TransactionViewMac()) {
-                    Label("Transaction", systemImage: "list.bullet.clipboard")
-                }
-                .tag(2)
-                
-                NavigationLink(destination: InputSavingsMac()) {
-                    Label("Savings", systemImage: "creditcard")
-                }
-                .tag(3)
-            }
-            .listStyle(SidebarListStyle())
-            .padding(.top, 20) // Move the list slightly downward
-            
-            Text("Select menu from the sidebar")
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+    @State private var isSidebarVisible = true
+    
+    @State var selection: NavigationItem = .home
+        
+        enum NavigationItem {
+            case home
+            case transaction
+            case savings
         }
-        .frame(minWidth: 800, idealWidth: 1000, minHeight: 600) // Set the initial size of the window
-        .navigationTitle("MoneyFest")
+    
+    var body: some View {
+        NavigationSplitView {
+                    List(selection: $selection) {
+                        NavigationLink(value: NavigationItem.home) {
+                            Label("Home", systemImage: "house.fill")
+                        }
+                        NavigationLink(value: NavigationItem.transaction) {
+                            Label("Transaction", systemImage: "dollarsign.circle.fill")
+                        }
+                        NavigationLink(value: NavigationItem.savings) {
+                            Label("Savings", systemImage: "creditcard.fill")
+                        }
+                    }
+                    .frame(minWidth: 200)
+                } detail: {
+                    switch selection {
+                    case .home:
+                        HomeViewMac()
+                    case .transaction:
+                        TransactionViewMac()
+                    case .savings:
+                        InputSavingsMac()
+                    }
+                }
+        
+
     }
 }
+
 
 struct MainViewMac_Previews: PreviewProvider {
     static var previews: some View {
