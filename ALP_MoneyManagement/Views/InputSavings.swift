@@ -32,7 +32,7 @@ struct InputSavings: View {
                             .font(.system(size: 22, weight: .bold))
                         
                         // textfield to allow the user to input their target amount of money
-                        TextField("Rp", text: $amount)
+                        TextField("Rp", text: formatAmount(amount))
                             .padding()
                             .font(.system(size: 16, weight: .bold))
                             .background(Color(.white))
@@ -94,22 +94,22 @@ struct InputSavings: View {
                 }
                 .bold()
                 
-                HStack{}.frame(height: 150)
+                HStack{}.frame(height: 100)
                 
                 // to check the user's input, will only allow if the target amount of money will be bigger than the target of day(s), and will show a message of error
                 if (Int(amount) ?? 0 < Int(days) ?? 0){
                     Text("Please set your target amount higher than your target day")
                         .padding(.horizontal, 50)
                         .multilineTextAlignment(.center)
-                        .offset(y:-80)
+                        .offset(y:-50)
                         .font(.system(size: 20, weight: .bold))
                         .foregroundColor(.red)
                     
                 }else{
                     // if the user's input already meet the requirement, the text of savings goal per day will be shown
-                    Text("You need to save \nRp. \(perDay) per day")
+                    Text("You need to save \nRp \(perDay) per day")
                         .multilineTextAlignment(.center)
-                        .offset(y:-80)
+                        .offset(y:-50)
                         .font(.system(size: 20, weight: .bold))
                         .opacity(perDay > 0 ? 1.0 : 0.0)
                 }
@@ -136,6 +136,26 @@ struct InputSavings: View {
         // allows view to extend content to entire screen
         .ignoresSafeArea(.all)
     }
+    
+    //func to display comma separator in textfield
+    private func formatAmount(_ value: String) -> Binding<String> {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.groupingSeparator = ","
+            formatter.usesGroupingSeparator = true
+
+            let formattedValue = formatter.string(from: NSNumber(value: Int(value) ?? 0)) ?? ""
+
+        return Binding<String>(
+                    get: { "Rp " + (value.isEmpty ? "" : formattedValue) },
+                    set: { newValue in
+                        let cleanValue = newValue
+                            .replacingOccurrences(of: "Rp ", with: "")
+                            .replacingOccurrences(of: formatter.groupingSeparator, with: "")
+                        amount = cleanValue
+                    }
+                )
+        }
     
     struct BottomRoundedRectangle: Shape {
         var radius: CGFloat

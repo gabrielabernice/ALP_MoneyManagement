@@ -62,12 +62,12 @@ struct AllExpensesView: View {
                 Text("Add New Expenses")
                     .font(.title)
                     .padding(10)
-                    .padding(.horizontal, 45)
+                    .padding(.horizontal, 55)
                     .background(Color(hex: 0xF89385))
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
-            .padding(.bottom, 65)
+            .padding(.bottom, 25)
         }
         .navigationTitle("Expenses")
         // to call the functions when the view screen shows up

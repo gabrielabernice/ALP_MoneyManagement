@@ -103,6 +103,19 @@ struct Article1: View {
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
         ScrollView{
+            Button(action: {
+                presentationMode.wrappedValue.dismiss()
+            }) {
+                Image(systemName: "xmark.circle")
+                    .font(.title)
+                    .foregroundColor(.red)
+            }
+            .padding()
+            .padding(.bottom, -20)
+            .buttonStyle(BorderlessButtonStyle())
+            .foregroundColor(.primary)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
             VStack {
                 Text("Mastering Budget Management")
                     .font(.title)
@@ -146,15 +159,7 @@ struct Article1: View {
                  Mastering budget management is a transformative skill that empowers individuals to take control of their finances and achieve their financial aspirations. By creating a comprehensive budget, making informed spending decisions, tracking and adjusting your budget regularly, building an emergency fund, and seeking professional guidance when needed, you can pave the way for financial success. Embrace budget management as a key pillar of your financial journey and enjoy the rewards of financial control, stability, and the ability to turn your dreams into reality.
                  """)
                 .padding(.horizontal)
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    Image(systemName: "xmark.circle")
-                        .font(.title)
-                }
-                .padding()
-                .foregroundColor(.primary)
-                .frame(maxWidth: .infinity, alignment: .trailing)
+               
             }
         }
     }
@@ -164,6 +169,19 @@ struct Article2: View {
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
         ScrollView{
+            Button(action: {
+                presentationMode.wrappedValue.dismiss()
+            }) {
+                Image(systemName: "xmark.circle")
+                    .font(.title)
+                    .foregroundColor(.red)
+            }
+            .padding()
+            .padding(.bottom, -20)
+            .buttonStyle(BorderlessButtonStyle())
+            .foregroundColor(.primary)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
             VStack {
                 // title for article 2
                 Text("The Art of Saving Money: Nurturing Financial Wellness and Building a Bright Future")
@@ -209,15 +227,6 @@ struct Article2: View {
                  """)
                 .padding(.horizontal)
                 
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    Image(systemName: "xmark.circle")
-                        .font(.title)
-                }
-                .padding()
-                .foregroundColor(.primary)
-                .frame(maxWidth: .infinity, alignment: .trailing)
             }
         }
     }
@@ -235,6 +244,7 @@ extension Color {
 
 struct ArticleViewMac_Previews: PreviewProvider {
     static var previews: some View {
-        ArticleViewMac()
+//        ArticleViewMac()
+        Article1()
     }
 }

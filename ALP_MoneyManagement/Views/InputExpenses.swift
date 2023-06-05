@@ -15,6 +15,12 @@ struct InputExpenses: View {
     // State property to control the visibility of the alert
     @State private var isShowingAlert = false
     @State private var alertMessage = ""
+    @State private var isShowingInputExpenses = true
+    @Environment(\.presentationMode) var presentationMode
+    
+    var isDateInFuture: Bool {
+        return viewModel.date > Date()
+    }
     
     var body: some View {
         NavigationView {
@@ -39,28 +45,34 @@ struct InputExpenses: View {
                                         .offset(x:12)
                                     
                                     if UIDevice.current.userInterfaceIdiom == .pad {
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .foregroundColor(Color.white)
-                                        .frame(width: geometry.size.width - 40, height: 50) // Adjusted the width here
-                                        .padding()
-                                        .overlay(
-                                            HStack{
-                                                // to show the date that is being picked
-                                                Text("\(viewModel.date, formatter: dateFormatter)")
-                                                
-                                                Spacer().frame(width: geometry.size.width/1.6)
-                                                
-                                                // to make the button for the date picker
-                                                Button(action: {
-                                                    viewModel.isExpanded.toggle()
-                                                }, label: {
-                                                    Text("Select a date")
-                                                        .padding()
-                                                        .foregroundColor(Color(hex: 0xF89385))
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .foregroundColor(Color.white)
+                                            .frame(width: geometry.size.width - 40, height: 50) // Adjusted the width here
+                                            .padding()
+                                            .overlay(
+                                                HStack{
+                                                    // to show the date that is being picked
+                                                    Text("\(viewModel.date, formatter: dateFormatter)")
                                                     
-                                                })
-                                            }
-                                        )
+                                                    Spacer().frame(width: geometry.size.width/1.6)
+                                                    
+                                                    // to make the button for the date picker
+                                                    Button(action: {
+                                                        if viewModel.date > Date() {
+                                                            viewModel.showInvalidDateMessage = true
+                                                        } else {
+                                                            viewModel.isExpanded.toggle()
+                                                            viewModel.showInvalidDateMessage = false
+                                                        }
+                                                    }, label: {
+                                                        Text("Select a date")
+                                                            .padding()
+                                                            .foregroundColor(Color(hex: 0xF89385))
+                                                        
+                                                    })
+                                                    .disabled(viewModel.date > Date() && !viewModel.isExpanded)
+                                                }
+                                            )
                                     }else{
                                         RoundedRectangle(cornerRadius: 10)
                                             .foregroundColor(Color.white)
@@ -75,17 +87,23 @@ struct InputExpenses: View {
                                                     
                                                     // to make the button for the date picker
                                                     Button(action: {
-                                                        viewModel.isExpanded.toggle()
+                                                        if viewModel.date > Date() {
+                                                            viewModel.showInvalidDateMessage = true
+                                                        } else {
+                                                            viewModel.isExpanded.toggle()
+                                                            viewModel.showInvalidDateMessage = false
+                                                        }
                                                     }, label: {
                                                         Text("Select a date")
                                                             .padding()
                                                             .foregroundColor(Color(hex: 0xF89385))
                                                         
                                                     })
+                                                    .disabled(viewModel.date > Date() && !viewModel.isExpanded)
                                                 }
                                             )
                                     }
-                                
+                                    
                                     
                                     // if the button is being expanded, the date picker with a wheel style will be expanded, showing the dates
                                     if viewModel.isExpanded {
@@ -96,6 +114,19 @@ struct InputExpenses: View {
                                         )
                                         .datePickerStyle(WheelDatePickerStyle())
                                     }
+                                    
+                                    if viewModel.date > Date() {
+                                        // Show an error message if the selected date is in the future
+                                        Text("Please select a valid date")
+                                            .font(.system(size: 20))
+                                            .foregroundColor(.red)
+                                            .font(.caption)
+                                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                            .padding(.top,10)
+                                            .padding(.horizontal, 10)
+                                            .font(.title)
+                                    }
+                                    
                                 }
                                 .padding(.bottom, -20)
                                 
@@ -108,32 +139,32 @@ struct InputExpenses: View {
                                         .offset(x: 12)
                                     
                                     if UIDevice.current.userInterfaceIdiom == .pad {
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .foregroundColor(Color.white)
-                                        .frame(width: geometry.size.width - 40, height: 50) // Adjusted the width here
-                                        .padding()
-                                        .overlay(
-                                            HStack{
-                                                // to show the selected expenses category
-                                                Text("\(viewModel.selectedOption?.expensesCategory ?? "")")
-                                                Spacer().frame(width: geometry.size.width/1.5)
-                                                
-                                                // showing all the expenses category by looping, making it in the form of dropdownn list
-                                                Menu {
-                                                    ForEach(viewModel.expenses, id: \.self) { expense in
-                                                        Button(action: {
-                                                            viewModel.selectedOption = expense
-                                                        }) {
-                                                            Text(expense.expensesCategory)
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .foregroundColor(Color.white)
+                                            .frame(width: geometry.size.width - 40, height: 50) // Adjusted the width here
+                                            .padding()
+                                            .overlay(
+                                                HStack{
+                                                    // to show the selected expenses category
+                                                    Text("\(viewModel.selectedOption?.expensesCategory ?? "")")
+                                                    Spacer().frame(width: geometry.size.width/1.5)
+                                                    
+                                                    // showing all the expenses category by looping, making it in the form of dropdownn list
+                                                    Menu {
+                                                        ForEach(viewModel.expenses, id: \.self) { expense in
+                                                            Button(action: {
+                                                                viewModel.selectedOption = expense
+                                                            }) {
+                                                                Text(expense.expensesCategory)
+                                                            }
                                                         }
+                                                    } label: {
+                                                        Label("Select an option", systemImage: "arrowtriangle.down.fill")
+                                                            .foregroundColor(Color(hex: 0xF89385))
                                                     }
-                                                } label: {
-                                                    Label("Select an option", systemImage: "arrowtriangle.down.fill")
-                                                        .foregroundColor(Color(hex: 0xF89385))
                                                 }
-                                            }
-                                        )
-                                    
+                                            )
+                                        
                                     }else{
                                         RoundedRectangle(cornerRadius: 10)
                                             .foregroundColor(Color.white)
@@ -161,7 +192,7 @@ struct InputExpenses: View {
                                                 }
                                             )
                                     }
-                                
+                                    
                                 }
                                 .padding(.bottom, -33)
                                 
@@ -225,11 +256,11 @@ struct InputExpenses: View {
                         .shadow(color: Color.black.opacity(0.3), radius: 18, x: 0, y: 5)
                         
                         // a text to show when a data is successfully saved, if the user already input the expenses category and amount, the text will be seen (opacity set to 1)
-//                        Text("Data successfully saved!")
-//                            .padding()
-//                            .multilineTextAlignment(.center)
-//                            .opacity(viewModel.appendExpenses == true ? 1.0 : 0.0)
-//                            .opacity(viewModel.showFailMessage == false ? 1:0)
+                        //                        Text("Data successfully saved!")
+                        //                            .padding()
+                        //                            .multilineTextAlignment(.center)
+                        //                            .opacity(viewModel.appendExpenses == true ? 1.0 : 0.0)
+                        //                            .opacity(viewModel.showFailMessage == false ? 1:0)
                         
                         // a text to show when a data is not completed yet, if the user havent input the expenses category and amount, the text will be seen (opacity set to 1)
                         Text("Please select an option")
@@ -239,10 +270,14 @@ struct InputExpenses: View {
                         
                         // button to let the user to save the data when they already meet the requirements
                         Button("Save") {
+                            
                             if viewModel.selectedOption == nil {
                                 // Show failed message
                                 alertMessage = "Failed to save data. Please select an option."
-                            } else {
+                            } else if viewModel.date > Date(){
+                                viewModel.showInvalidDateMessage = true
+                            }
+                            else {
                                 if viewModel.check {
                                     // Save data
                                     withAnimation(.easeInOut) {
@@ -262,6 +297,7 @@ struct InputExpenses: View {
                                     
                                     // Show success message
                                     alertMessage = "Data saved successfully!"
+                                    
                                 } else {
                                     // Show failed message
                                     alertMessage = "Failed to save data. Please enter a valid amount."
@@ -278,10 +314,9 @@ struct InputExpenses: View {
                         .background(Color(hex: 0xF89385))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .fontWeight(.bold)
-//                        .padding(.bottom, 90)
-                        .padding(.top, 10)
-                        .offset(y: -10)
-                        .disabled(!viewModel.check) // the button for saving the data will be disabled if it doesnt fullfil the requirement
+                        //                        .padding(.bottom, 90)
+                        .padding(.top, 50)
+                        .disabled(!viewModel.check || viewModel.showInvalidDateMessage || isDateInFuture)// the button for saving the data will be disabled if it doesnt fullfil the requirement
                         .overlay(
                             NavigationLink(
                                 destination: AllExpensesView(),
@@ -292,11 +327,18 @@ struct InputExpenses: View {
                         )
                     }
                     .alert(isPresented: $isShowingAlert) {
-                                Alert(
-                                    title: Text(alertMessage),
-                                    dismissButton: .default(Text("OK"))
-                                )
-                            }
+                        Alert(
+                            title: Text(alertMessage),
+                            dismissButton: .default(Text("OK"), action: {
+                                // Setelah tombol OK ditekan, atur `isShowingInputExpenses` menjadi `false` setelah 2 detik
+                                DispatchQueue.main.asyncAfter(deadline: .now() ) {
+                                    isShowingInputExpenses = false
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                            })
+                        )
+                    }
+                    .opacity(isShowingInputExpenses ? 1 : 0)
                     // to call the functions when the view screen shows up
                     .onAppear {
                         viewModel.loadExpensesData()

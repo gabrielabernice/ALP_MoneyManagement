@@ -14,6 +14,14 @@ struct InputIncome: View {
     
     // State property to control the visibility of the alert
     @State private var showAlert = false
+    @State private var isShowingAlert = false
+    @State private var alertMessage = ""
+    @State private var isShowingInputIncome = true
+    @Environment(\.presentationMode) var presentationMode
+    
+    var isDateInFuture: Bool {
+        return viewModel.date > Date()
+    }
     
     var body: some View {
         NavigationView {
@@ -50,11 +58,17 @@ struct InputIncome: View {
                                                 
                                                 // to make the button for the date picker
                                                 Button(action: {
-                                                    viewModel.isExpanded.toggle()
+                                                    if viewModel.date > Date() {
+                                                           viewModel.showInvalidDateMessage = true
+                                                       } else {
+                                                           viewModel.isExpanded.toggle()
+                                                           viewModel.showInvalidDateMessage = false
+                                                       }
                                                 }, label: {
                                                     Text("Select a date")
                                                         .padding()
                                                 })
+                                                .disabled(viewModel.date > Date() && !viewModel.isExpanded) 
                                             }
                                         )
                                     }else{
@@ -71,11 +85,17 @@ struct InputIncome: View {
                                                     
                                                     // to make the button for the date picker
                                                     Button(action: {
-                                                        viewModel.isExpanded.toggle()
+                                                        if viewModel.date > Date() {
+                                                               viewModel.showInvalidDateMessage = true
+                                                           } else {
+                                                               viewModel.isExpanded.toggle()
+                                                               viewModel.showInvalidDateMessage = false
+                                                           }
                                                     }, label: {
                                                         Text("Select a date")
                                                             .padding()
                                                     })
+                                                    .disabled(viewModel.date > Date() && !viewModel.isExpanded)
                                                 }
                                             )
                                     }
@@ -89,6 +109,19 @@ struct InputIncome: View {
                                         )
                                         .datePickerStyle(WheelDatePickerStyle())
                                     }
+                                    
+                                    if viewModel.date > Date() {
+                                           // Show an error message if the selected date is in the future
+                                           Text("Please select a valid date")
+                                               .font(.system(size: 20))
+                                               .foregroundColor(.red)
+                                               .font(.caption)
+                                               .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                               .padding(.top,10)
+                                               .padding(.horizontal, 10)
+                                               .font(.title)
+                                       }
+                                    
                                 }
                                 .padding(.bottom, -20)
                                 
@@ -222,11 +255,52 @@ struct InputIncome: View {
                             .opacity(viewModel.showFailMessage == true ? 1.0 : 0.0)
                         
                         Button("Save") {
-                            viewModel.saveIncome()
-                            showAlert = true
+                            
+                            if viewModel.selectedOption == nil {
+                                // Show failed message
+                                alertMessage = "Failed to save data. Please select an option."
+                            } else if viewModel.date > Date(){
+                                viewModel.showInvalidDateMessage = true
+                            }
+                            else {
+                                if viewModel.check {
+                                    // Save data
+                                    withAnimation(.easeInOut) {
+                                        viewModel.incomeHistory.append(History(id: viewModel.index, category: viewModel.selectedOption?.incomeCategory ?? "", amount: Int(viewModel.amount) ?? 0, date: viewModel.date, type: viewModel.type, name: viewModel.name))
+                                        let encoder = JSONEncoder()
+                                        if let encodedData = try? encoder.encode(viewModel.incomeHistory) {
+                                            UserDefaults.standard.set(encodedData, forKey: "incomeHistory")
+                                        }
+                                        
+                                        viewModel.appendIncome = true
+                                        viewModel.showFailMessage = false
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                            viewModel.shouldNavigate = true
+                                        }
+                                        viewModel.index += 1
+                                    }
+                                    
+                                    // Show success message
+                                    alertMessage = "Data saved successfully!"
+                                    
+                                } else {
+                                    // Show failed message
+                                    alertMessage = "Failed to save data. Please enter a valid amount."
+                                }
+                            }
+                            
+                            isShowingAlert = true
                         }
-                        .alert(isPresented: $showAlert) {
-                            Alert(title: Text("Data successfully saved"), dismissButton: .default(Text("OK")))
+                        .alert(isPresented: $isShowingAlert) {
+                            Alert(title: Text(alertMessage),
+                                  dismissButton: .default(Text("OK"), action: {
+                                      // Setelah tombol OK ditekan, atur `isShowingInputExpenses` menjadi `false` setelah 2 detik
+                                      DispatchQueue.main.asyncAfter(deadline: .now() ) {
+                                          isShowingInputIncome = false
+                                          presentationMode.wrappedValue.dismiss()
+                                      }
+                                  })
+                            )
                         }
                         .padding()
                         .frame(width: geometry.size.width * 0.9)
@@ -235,8 +309,8 @@ struct InputIncome: View {
                         .background(Color(hex: 0x6DA3FF))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .fontWeight(.bold)
-                        .padding(.top, 10) // Adjusted the top padding here
-                        .disabled(!viewModel.check) // the button for saving the data will be disabled if it doesnt fullfil the requirement
+                        .padding(.top, 50) // Adjusted the top padding here
+                        .disabled(!viewModel.check || viewModel.showInvalidDateMessage || isDateInFuture)// the button for saving the data will be disabled if it doesnt fullfil the requirement
                         .overlay(
                             NavigationLink(
                                 destination: AllIncomeView(),
