@@ -8,7 +8,7 @@
 import SwiftUI
 struct MainViewMac: View {
     @State private var isSidebarVisible = true
-    
+    @State private var isDarkModeOn = false
     @State var selection: NavigationItem = .home
         
         enum NavigationItem {
@@ -41,7 +41,7 @@ struct MainViewMac: View {
                         InputSavingsMac()
                     }
                 }
-        
+                .preferredColorScheme(isDarkModeOn ? .dark : .light)
 
     }
 }

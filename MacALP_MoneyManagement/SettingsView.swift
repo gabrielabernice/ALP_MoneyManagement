@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    @Binding var isDarkModeOn: Bool
     
     var body: some View {
         VStack {
@@ -16,20 +16,18 @@ struct SettingsView: View {
                 .font(.largeTitle)
                 .padding()
             
-            // Add your app settings here
-            
-            Toggle("Dark Mode", isOn: .constant(colorScheme == .dark))
-                .padding()
-            
-            Spacer()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(colorScheme == .dark ? Color.black : Color.white)
+        
+            Toggle("Dark Mode", isOn: $isDarkModeOn)
+                           .padding()
+                       
+                       Spacer()
+                   }
+                   .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        SettingsView(isDarkModeOn: .constant(false))
     }
 }
