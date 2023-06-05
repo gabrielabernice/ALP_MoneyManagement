@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct InputSavings: View {
+    // amount represents the input amount as a string.
     @State var amount: String = ""
+    // days represents the input number of days as a string.
     @State var days: String = ""
     
+    // checkAmount and checkDays is a boolean flag indicating whether the amount input is valid or not.
     @State var checkAmount: Bool = false
     @State var checkDays: Bool = false
     
+    // variable used to calculate the result, initialized to 0.
     @State var perDay = 0
     
     var body: some View {

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TransactionView: View {
+    // historyView is a boolean flag used to control the visibility of the history view.
     @State private var historyView = false
     
     var body: some View {

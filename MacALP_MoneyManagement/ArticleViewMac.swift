@@ -100,10 +100,12 @@ struct ArticleViewMac: View {
 }
 
 struct Article1: View {
+    //  property to control the presentation mode of the view
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
         ScrollView{
             Button(action: {
+                //  allows the view to directly manipulate the presentation mode
                 presentationMode.wrappedValue.dismiss()
             }) {
                 Image(systemName: "xmark.circle")
@@ -159,17 +161,19 @@ struct Article1: View {
                  Mastering budget management is a transformative skill that empowers individuals to take control of their finances and achieve their financial aspirations. By creating a comprehensive budget, making informed spending decisions, tracking and adjusting your budget regularly, building an emergency fund, and seeking professional guidance when needed, you can pave the way for financial success. Embrace budget management as a key pillar of your financial journey and enjoy the rewards of financial control, stability, and the ability to turn your dreams into reality.
                  """)
                 .padding(.horizontal)
-               
+                
             }
         }
     }
 }
 
 struct Article2: View {
+    // //  property to control the presentation mode of the view
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
         ScrollView{
             Button(action: {
+                // allows the view to directly manipulate the presentation mode
                 presentationMode.wrappedValue.dismiss()
             }) {
                 Image(systemName: "xmark.circle")
@@ -244,7 +248,7 @@ extension Color {
 
 struct ArticleViewMac_Previews: PreviewProvider {
     static var previews: some View {
-//        ArticleViewMac()
+        //        ArticleViewMac()
         Article1()
     }
 }

@@ -12,6 +12,7 @@ import SwiftUICharts
 
 struct ContentView: View {
     var body: some View {
+        // The code snippet defines the main content view of the app, which displays the MainViewMac.
         MainViewMac()
     }
 }

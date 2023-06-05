@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
+    // Displays various options, including a toggle for dark mode
     @Binding var isDarkModeOn: Bool
     
     var body: some View {
@@ -16,13 +17,13 @@ struct SettingsView: View {
                 .font(.largeTitle)
                 .padding()
             
-        
+            
             Toggle("Dark Mode", isOn: $isDarkModeOn)
-                           .padding()
-                       
-                       Spacer()
-                   }
-                   .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding()
+            
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 

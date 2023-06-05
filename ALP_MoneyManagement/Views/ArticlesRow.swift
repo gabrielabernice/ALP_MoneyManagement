@@ -19,7 +19,7 @@ struct ArticlesRow: View {
 #if os(macOS)
                 .frame(maxWidth: .infinity, alignment: .center)
 #endif
-               
+            
             // the articles in horizontal scroll view
             ScrollView(.horizontal, showsIndicators: false) {
                 ScrollViewReader { proxy in
@@ -56,9 +56,9 @@ struct ArticlesRow: View {
                                                         .padding(.trailing)
                                                 }
                                                 .padding()
-                                                #if os(macOS)
+#if os(macOS)
                                                 .frame(width:200)
-                                                #endif
+#endif
                                             }
                                         }
                                     )
@@ -100,9 +100,9 @@ struct ArticlesRow: View {
                                                     .padding(.trailing)
                                             }
                                             .padding()
-                                            #if os(macOS)
+#if os(macOS)
                                             .frame(width: 200)
-                                            #endif
+#endif
                                         }
                                     }
                                 )

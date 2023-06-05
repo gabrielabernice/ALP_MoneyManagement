@@ -31,7 +31,7 @@ struct AllIncomeViewMac: View {
                         presentationMode.wrappedValue.dismiss()
                     }) {
                         //Button Content
-                        Image(systemName: "chevron.left")
+                        Image(systemName: "xmark.circle")
                             .foregroundColor(.black)
                             .font(.title2)
                     }

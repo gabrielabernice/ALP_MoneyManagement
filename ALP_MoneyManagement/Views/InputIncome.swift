@@ -44,6 +44,8 @@ struct InputIncome: View {
                                         .font(.system(size: 22, weight: .bold))
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .offset(x:12)
+                                    
+                                    // If the device's user interface idiom is iPad:
                                     if UIDevice.current.userInterfaceIdiom == .pad {
                                         RoundedRectangle(cornerRadius: 10)
                                             .foregroundColor(Color.white)
@@ -133,6 +135,7 @@ struct InputIncome: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .offset(x: 12)
                                     
+                                    // If the device's user interface idiom is iPad:
                                     if UIDevice.current.userInterfaceIdiom == .pad {
                                         RoundedRectangle(cornerRadius: 10)
                                             .foregroundColor(Color.white)

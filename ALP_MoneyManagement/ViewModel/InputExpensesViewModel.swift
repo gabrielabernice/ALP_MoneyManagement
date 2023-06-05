@@ -32,7 +32,7 @@ class InputExpensesViewModel: ObservableObject {
     @Published var showInvalidDateMessage = false
     
     // to initialize the expenses data and expenses history data
-
+    
     init() {
         loadExpensesData()
         loadExpensesHistory()

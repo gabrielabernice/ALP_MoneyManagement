@@ -46,6 +46,8 @@ struct HomeView: View {
                             HStack{
                                 // to check if there are data (income and expenses) has been inputed, the chart will be shown
                                 if !incomeViewModel.incomeHistory.isEmpty && !expensesViewModel.expensesHistory.isEmpty {
+                                    
+                                    // If the device's user interface idiom is iPad:
                                     if UIDevice.current.userInterfaceIdiom == .pad {
                                         MultiLineChartView(data: [(incomeData, GradientColors.blue), (expensesData, GradientColors.orange)], title: "Income & Expenses", style: Styles.lineChartStyleOne, form: ChartForm.extraLarge)
                                             .offset(x: 200)
@@ -124,8 +126,10 @@ struct HomeView: View {
     }
 }
 
+// indicating that the current device is an iPad with a sufficiently large screen
 struct DeviceTypes {
     static var isPad: Bool {
+        //This property checks whether the current device is an iPad
         return UIDevice.current.userInterfaceIdiom == .pad && UIScreen.main.nativeBounds.height >= 2048
     }
 }

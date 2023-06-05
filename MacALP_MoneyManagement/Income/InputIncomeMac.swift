@@ -55,11 +55,11 @@ struct InputIncomeMac: View {
                                             // to make the button for the date picker
                                             Button(action: {
                                                 if viewModel.date > Date() {
-                                                       viewModel.showInvalidDateMessage = true
-                                                   } else {
-                                                       viewModel.isExpanded.toggle()
-                                                       viewModel.showInvalidDateMessage = false
-                                                   }
+                                                    viewModel.showInvalidDateMessage = true
+                                                } else {
+                                                    viewModel.isExpanded.toggle()
+                                                    viewModel.showInvalidDateMessage = false
+                                                }
                                             }, label: {
                                                 Text("Select a date")
                                                     .padding()
@@ -80,16 +80,16 @@ struct InputIncomeMac: View {
                                     //                                        .datePickerStyle(WheelDatePickerStyle())
                                 }
                                 if viewModel.date > Date() {
-                                       // Show an error message if the selected date is in the future
-                                       Text("Please select a valid date")
-                                           .font(.system(size: geometry.size.width/44))
-                                           .foregroundColor(.red)
-                                           .font(.caption)
-                                           .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                                           .padding(.top,10)
-                                           .padding(.horizontal, 10)
-                                           .font(.title)
-                                   }
+                                    // Show an error message if the selected date is in the future
+                                    Text("Please select a valid date")
+                                        .font(.system(size: geometry.size.width/44))
+                                        .foregroundColor(.red)
+                                        .font(.caption)
+                                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                        .padding(.top,10)
+                                        .padding(.horizontal, 10)
+                                        .font(.title)
+                                }
                             }
                             .padding(.bottom, -20)
                             
@@ -327,7 +327,7 @@ struct InputIncomeMac: View {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         formatter.timeStyle = .none
-    // Make the output date 
+        // Make the output date 
         formatter.dateFormat = "MMMM d, yyyy"
         return formatter
     }()

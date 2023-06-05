@@ -10,14 +10,20 @@ import Dispatch
 import UIKit
 
 struct InputExpenses: View {
+    // This is for initializing the view model used for managing input expenses.
     @StateObject private var viewModel = InputExpensesViewModel()
     
     // State property to control the visibility of the alert
     @State private var isShowingAlert = false
     @State private var alertMessage = ""
+    
+    // State property to control the visibility of the input expenses view.
     @State private var isShowingInputExpenses = true
+    
+    // Environment property to access the presentation mode of the view.
     @Environment(\.presentationMode) var presentationMode
     
+    // // Computed property that checks if the selected date is in the future.
     var isDateInFuture: Bool {
         return viewModel.date > Date()
     }
@@ -44,12 +50,15 @@ struct InputExpenses: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .offset(x:12)
                                     
+                                    
+                                    // If the device's user interface idiom is iPad:
                                     if UIDevice.current.userInterfaceIdiom == .pad {
                                         RoundedRectangle(cornerRadius: 10)
                                             .foregroundColor(Color.white)
                                             .frame(width: geometry.size.width - 40, height: 50) // Adjusted the width here
                                             .padding()
                                             .overlay(
+                                                // Display the selected date using the dateFormatter
                                                 HStack{
                                                     // to show the date that is being picked
                                                     Text("\(viewModel.date, formatter: dateFormatter)")
@@ -138,6 +147,7 @@ struct InputExpenses: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .offset(x: 12)
                                     
+                                    // If the device's user interface idiom is iPad:
                                     if UIDevice.current.userInterfaceIdiom == .pad {
                                         RoundedRectangle(cornerRadius: 10)
                                             .foregroundColor(Color.white)
@@ -303,7 +313,7 @@ struct InputExpenses: View {
                                     alertMessage = "Failed to save data. Please enter a valid amount."
                                 }
                             }
-                            
+                            // indicator boolean alert
                             isShowingAlert = true
                         }
                         
@@ -356,8 +366,10 @@ struct InputExpenses: View {
         .navigationViewStyle(StackNavigationViewStyle())
     }
     
+    //// indicating that the current device is an iPad with a sufficiently large screen
     struct DeviceTypes {
         static var isPad: Bool {
+            // This property checks whether the current device is an iPad
             return UIDevice.current.userInterfaceIdiom == .pad && UIScreen.main.nativeBounds.height >= 2048
         }
     }

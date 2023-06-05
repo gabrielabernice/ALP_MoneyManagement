@@ -10,10 +10,14 @@ import SwiftUI
 import Dispatch
 
 class InputIncomeViewModel: ObservableObject {
+    // published which means any changes to this array will notify the subscribe
     @Published var income: [Income] = []
+    // object that represents the currently selected option.
     @Published var selectedOption: Income?
     
+    // A string representing the amount of income.
     @Published var amount: String = ""
+    // A boolean flag used for some check operation.
     @Published var check: Bool = false
     
     @Published var date = Date()
@@ -27,6 +31,7 @@ class InputIncomeViewModel: ObservableObject {
     
     @Published var name : String = ""
     
+    // A boolean flag indicating whether to show a fail message.
     @Published var showFailMessage = false
     @Published var shouldNavigate = false
     @Published var showInvalidDateMessage = false
@@ -71,7 +76,7 @@ class InputIncomeViewModel: ObservableObject {
     // function to delete the income history
     func deleteHistory(at offsets: IndexSet, type: String) {
         if type == "Income" {
-           incomeHistory.remove(atOffsets: offsets)
+            incomeHistory.remove(atOffsets: offsets)
         }
         // update the changes of the history data for income after a data is being deleted
         saveIncomeHistory()

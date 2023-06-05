@@ -9,8 +9,10 @@ import SwiftUI
 import Dispatch
 
 struct InputExpensesMac: View {
+    
     @StateObject private var viewModel = InputExpensesViewModel()
     @Binding var isPresented: Bool
+    
     var body: some View {
         GeometryReader { geometry in
             ScrollView{
@@ -51,18 +53,18 @@ struct InputExpensesMac: View {
                                             // to make the button for the date picker
                                             Button(action: {
                                                 if viewModel.date > Date() {
-                                                       viewModel.showInvalidDateMessage = true
-                                                   } else {
-                                                       viewModel.isExpanded.toggle()
-                                                       viewModel.showInvalidDateMessage = false
-                                                   }
+                                                    viewModel.showInvalidDateMessage = true
+                                                } else {
+                                                    viewModel.isExpanded.toggle()
+                                                    viewModel.showInvalidDateMessage = false
+                                                }
                                             }, label: {
                                                 Text("Select a date")
                                                     .padding()
                                                     .foregroundColor(Color(hex: 0xF89385))
                                                 
                                             })
-                                            .disabled(viewModel.date > Date() && !viewModel.isExpanded) 
+                                            .disabled(viewModel.date > Date() && !viewModel.isExpanded)
                                         }
                                     )
                                 
@@ -76,16 +78,16 @@ struct InputExpensesMac: View {
                                     //                                        .datePickerStyle(WheelDatePickerStyle())
                                 }
                                 if viewModel.date > Date() {
-                                       // Show an error message if the selected date is in the future
-                                       Text("Please select a valid date")
-                                           .font(.system(size: geometry.size.width/44))
-                                           .foregroundColor(.red)
-                                           .font(.caption)
-                                           .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                                           .padding(.top,10)
-                                           .padding(.horizontal, 10)
-                                           .font(.title)
-                                   }
+                                    // Show an error message if the selected date is in the future
+                                    Text("Please select a valid date")
+                                        .font(.system(size: geometry.size.width/44))
+                                        .foregroundColor(.red)
+                                        .font(.caption)
+                                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                        .padding(.top,10)
+                                        .padding(.horizontal, 10)
+                                        .font(.title)
+                                }
                             }
                             .padding(.bottom, -20)
                             
