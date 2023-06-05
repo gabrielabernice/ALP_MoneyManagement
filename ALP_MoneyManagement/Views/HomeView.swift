@@ -45,15 +45,29 @@ struct HomeView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack{
                                 // to check if there are data (income and expenses) has been inputed, the chart will be shown
-                                if !incomeViewModel.incomeHistory.isEmpty &&  !expensesViewModel.expensesHistory.isEmpty {
-                                    MultiLineChartView(data: [(incomeData, GradientColors.blue), (expensesData, GradientColors.orange)], title: "Income & Expenses", style: Styles.lineChartStyleOne, form: ChartForm.large)
-                                        .padding(.horizontal)
-                                        .foregroundColor(colorScheme == .dark ? .white : .black)
-                                        .background(colorScheme == .dark ? Color.black : Color.white)
-                                        .frame(height: 240)
-                                        .padding()
+                                if !incomeViewModel.incomeHistory.isEmpty && !expensesViewModel.expensesHistory.isEmpty {
+                                    if UIDevice.current.userInterfaceIdiom == .pad {
+                                        MultiLineChartView(data: [(incomeData, GradientColors.blue), (expensesData, GradientColors.orange)], title: "Income & Expenses", style: Styles.lineChartStyleOne, form: ChartForm.extraLarge)
+                                            .offset(x: 200)
+                                            .padding(.horizontal)
+                                            .foregroundColor(colorScheme == .dark ? .white : .black)
+                                            .background(colorScheme == .dark ? Color.black : Color.white)
+                                            .frame(height: 240, alignment: .center)
+                                            .padding()
+                                    } else {
+                                        MultiLineChartView(data: [(incomeData, GradientColors.blue), (expensesData, GradientColors.orange)], title: "Income & Expenses", style: Styles.lineChartStyleOne, form: ChartForm.large)
+                                            .padding(.horizontal)
+                                            .foregroundColor(colorScheme == .dark ? .white : .black)
+                                            .background(colorScheme == .dark ? Color.black : Color.white)
+                                            .frame(height: 240, alignment: .center)
+                                            .padding()
+                                    }
+                                    // Additional modifiers can be added here
+                                    
                                 }
+                                
                             }
+                            .frame(alignment: .center)
                         }
                     }
                     
@@ -107,6 +121,12 @@ struct HomeView: View {
             }
         }
         .navigationViewStyle(StackNavigationViewStyle()) // Set navigation view style to remove sidebar on iPad
+    }
+}
+
+struct DeviceTypes {
+    static var isPad: Bool {
+        return UIDevice.current.userInterfaceIdiom == .pad && UIScreen.main.nativeBounds.height >= 2048
     }
 }
 

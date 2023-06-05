@@ -38,7 +38,7 @@ struct InputExpenses: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .offset(x:12)
                                     
-                                    
+                                    if UIDevice.current.userInterfaceIdiom == .pad {
                                     RoundedRectangle(cornerRadius: 10)
                                         .foregroundColor(Color.white)
                                         .frame(width: geometry.size.width - 40, height: 50) // Adjusted the width here
@@ -48,7 +48,7 @@ struct InputExpenses: View {
                                                 // to show the date that is being picked
                                                 Text("\(viewModel.date, formatter: dateFormatter)")
                                                 
-                                                Spacer().frame(width: 85)
+                                                Spacer().frame(width: geometry.size.width/1.6)
                                                 
                                                 // to make the button for the date picker
                                                 Button(action: {
@@ -56,10 +56,36 @@ struct InputExpenses: View {
                                                 }, label: {
                                                     Text("Select a date")
                                                         .padding()
+                                                        .foregroundColor(Color(hex: 0xF89385))
                                                     
                                                 })
                                             }
                                         )
+                                    }else{
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .foregroundColor(Color.white)
+                                            .frame(width: geometry.size.width - 40, height: 50) // Adjusted the width here
+                                            .padding()
+                                            .overlay(
+                                                HStack{
+                                                    // to show the date that is being picked
+                                                    Text("\(viewModel.date, formatter: dateFormatter)")
+                                                    
+                                                    Spacer().frame(width:85)
+                                                    
+                                                    // to make the button for the date picker
+                                                    Button(action: {
+                                                        viewModel.isExpanded.toggle()
+                                                    }, label: {
+                                                        Text("Select a date")
+                                                            .padding()
+                                                            .foregroundColor(Color(hex: 0xF89385))
+                                                        
+                                                    })
+                                                }
+                                            )
+                                    }
+                                
                                     
                                     // if the button is being expanded, the date picker with a wheel style will be expanded, showing the dates
                                     if viewModel.isExpanded {
@@ -81,6 +107,7 @@ struct InputExpenses: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .offset(x: 12)
                                     
+                                    if UIDevice.current.userInterfaceIdiom == .pad {
                                     RoundedRectangle(cornerRadius: 10)
                                         .foregroundColor(Color.white)
                                         .frame(width: geometry.size.width - 40, height: 50) // Adjusted the width here
@@ -89,7 +116,7 @@ struct InputExpenses: View {
                                             HStack{
                                                 // to show the selected expenses category
                                                 Text("\(viewModel.selectedOption?.expensesCategory ?? "")")
-                                                Spacer().frame(width: 85)
+                                                Spacer().frame(width: geometry.size.width/1.5)
                                                 
                                                 // showing all the expenses category by looping, making it in the form of dropdownn list
                                                 Menu {
@@ -106,6 +133,35 @@ struct InputExpenses: View {
                                                 }
                                             }
                                         )
+                                    
+                                    }else{
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .foregroundColor(Color.white)
+                                            .frame(width: geometry.size.width - 40, height: 50) // Adjusted the width here
+                                            .padding()
+                                            .overlay(
+                                                HStack{
+                                                    // to show the selected expenses category
+                                                    Text("\(viewModel.selectedOption?.expensesCategory ?? "")")
+                                                    Spacer().frame(width: 135)
+                                                    
+                                                    // showing all the expenses category by looping, making it in the form of dropdownn list
+                                                    Menu {
+                                                        ForEach(viewModel.expenses, id: \.self) { expense in
+                                                            Button(action: {
+                                                                viewModel.selectedOption = expense
+                                                            }) {
+                                                                Text(expense.expensesCategory)
+                                                            }
+                                                        }
+                                                    } label: {
+                                                        Label("Select an option", systemImage: "arrowtriangle.down.fill")
+                                                            .foregroundColor(Color(hex: 0xF89385))
+                                                    }
+                                                }
+                                            )
+                                    }
+                                
                                 }
                                 .padding(.bottom, -33)
                                 
@@ -255,6 +311,12 @@ struct InputExpenses: View {
         }
         // Apply stack navigation view style to display the navigation hierarchy
         .navigationViewStyle(StackNavigationViewStyle())
+    }
+    
+    struct DeviceTypes {
+        static var isPad: Bool {
+            return UIDevice.current.userInterfaceIdiom == .pad && UIScreen.main.nativeBounds.height >= 2048
+        }
     }
     
     struct BottomRoundedRectangle: Shape {

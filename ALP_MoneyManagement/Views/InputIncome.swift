@@ -36,7 +36,7 @@ struct InputIncome: View {
                                         .font(.system(size: 22, weight: .bold))
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .offset(x:12)
-                                    
+                                    if UIDevice.current.userInterfaceIdiom == .pad {
                                     RoundedRectangle(cornerRadius: 10)
                                         .foregroundColor(Color.white)
                                         .frame(width: geometry.size.width - 40, height: 50) // Adjusted the width here
@@ -46,7 +46,7 @@ struct InputIncome: View {
                                                 // to show the date that is being picked
                                                 Text("\(viewModel.date, formatter: dateFormatter)")
                                                 
-                                                Spacer().frame(width: 85)
+                                                Spacer().frame(width: geometry.size.width/1.6)
                                                 
                                                 // to make the button for the date picker
                                                 Button(action: {
@@ -57,6 +57,28 @@ struct InputIncome: View {
                                                 })
                                             }
                                         )
+                                    }else{
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .foregroundColor(Color.white)
+                                            .frame(width: geometry.size.width - 40, height: 50) // Adjusted the width here
+                                            .padding()
+                                            .overlay(
+                                                HStack{
+                                                    // to show the date that is being picked
+                                                    Text("\(viewModel.date, formatter: dateFormatter)")
+                                                    
+                                                    Spacer().frame(width: 85)
+                                                    
+                                                    // to make the button for the date picker
+                                                    Button(action: {
+                                                        viewModel.isExpanded.toggle()
+                                                    }, label: {
+                                                        Text("Select a date")
+                                                            .padding()
+                                                    })
+                                                }
+                                            )
+                                    }
                                     
                                     // if the button is being expanded, the date picker with a wheel style will be expanded, showing the dates
                                     if viewModel.isExpanded {
@@ -78,31 +100,59 @@ struct InputIncome: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .offset(x: 12)
                                     
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .foregroundColor(Color.white)
-                                        .frame(width: geometry.size.width - 40, height: 50) // Adjusted the width here
-                                        .padding()
-                                        .overlay(
-                                            HStack{
-                                                // to show the selected income category
-                                                Text("\(viewModel.selectedOption?.incomeCategory ?? "")")
-                                                Spacer().frame(width: 85)
-                                                
-                                                // showing all the income category by looping, making it in the form of dropdownn list
-                                                Menu {
-                                                    ForEach(viewModel.income, id: \.self) { incomes in
-                                                        Button(action: {
-                                                            viewModel.selectedOption = incomes
-                                                        }) {
-                                                            Text(incomes.incomeCategory)
+                                    if UIDevice.current.userInterfaceIdiom == .pad {
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .foregroundColor(Color.white)
+                                            .frame(width: geometry.size.width - 40, height: 50) // Adjusted the width here
+                                            .padding()
+                                            .overlay(
+                                                HStack{
+                                                    // to show the selected income category
+                                                    Text("\(viewModel.selectedOption?.incomeCategory ?? "")")
+                                                    Spacer().frame(width: geometry.size.width/1.5)
+                                                    
+                                                    // showing all the income category by looping, making it in the form of dropdownn list
+                                                    Menu {
+                                                        ForEach(viewModel.income, id: \.self) { incomes in
+                                                            Button(action: {
+                                                                viewModel.selectedOption = incomes
+                                                            }) {
+                                                                Text(incomes.incomeCategory)
+                                                            }
                                                         }
+                                                    } label: {
+                                                        Label("Select an option", systemImage: "arrowtriangle.down.fill")
+                                                            .foregroundColor(Color(red: 0.4, green: 0.6, blue: 1.0))
                                                     }
-                                                } label: {
-                                                    Label("Select an option", systemImage: "arrowtriangle.down.fill")
-                                                        .foregroundColor(Color(red: 0.4, green: 0.6, blue: 1.0))
                                                 }
-                                            }
-                                        )
+                                            )
+                                    }else{
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .foregroundColor(Color.white)
+                                            .frame(width: geometry.size.width - 40, height: 50) // Adjusted the width here
+                                            .padding()
+                                            .overlay(
+                                                HStack{
+                                                    // to show the selected income category
+                                                    Text("\(viewModel.selectedOption?.incomeCategory ?? "")")
+                                                    Spacer().frame(width: 135)
+                                                    
+                                                    // showing all the income category by looping, making it in the form of dropdownn list
+                                                    Menu {
+                                                        ForEach(viewModel.income, id: \.self) { incomes in
+                                                            Button(action: {
+                                                                viewModel.selectedOption = incomes
+                                                            }) {
+                                                                Text(incomes.incomeCategory)
+                                                            }
+                                                        }
+                                                    } label: {
+                                                        Label("Select an option", systemImage: "arrowtriangle.down.fill")
+                                                            .foregroundColor(Color(red: 0.4, green: 0.6, blue: 1.0))
+                                                    }
+                                                }
+                                            )
+                                    }
                                 }
                                 .padding(.bottom, -33)
                                 
