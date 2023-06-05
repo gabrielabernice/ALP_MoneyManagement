@@ -157,6 +157,7 @@ struct InputSavings: View {
                 )
         }
     
+    // a custom shape in SwiftUI that creates a rectangular shape with rounded corners at the bottom
     struct BottomRoundedRectangle: Shape {
         var radius: CGFloat
         

@@ -348,6 +348,7 @@ struct InputExpenses: View {
                 .onChange(of: viewModel.amount) { newValue in
                     viewModel.check = ((Int(newValue) ?? 0) >= 1)
                 }
+                //  scroll view will extend to the edges of the screen, disregarding the safe area insets
                 .ignoresSafeArea(.all)
             }
         }
@@ -361,6 +362,7 @@ struct InputExpenses: View {
         }
     }
     
+    // a custom shape in SwiftUI that creates a rectangular shape with rounded corners at the bottom
     struct BottomRoundedRectangle: Shape {
         var radius: CGFloat
         

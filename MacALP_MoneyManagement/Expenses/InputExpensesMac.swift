@@ -266,6 +266,7 @@ struct InputExpensesMac: View {
             .onChange(of: viewModel.amount) { newValue in
                 viewModel.check = ((Int(newValue) ?? 0) >= 1)
             }
+            //  scroll view will extend to the edges of the screen, disregarding the safe area insets
             .ignoresSafeArea(.all)
         }
         .frame(width: 600, height: 800.0)

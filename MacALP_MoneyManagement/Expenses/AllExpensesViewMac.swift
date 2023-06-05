@@ -75,6 +75,7 @@ struct AllExpensesViewMac: View {
                 .padding(.horizontal, -3)
                 
             }
+            // displays the content of each row within a visually distinct inset area
             .listStyle(.inset)
             
             Spacer()

@@ -45,32 +45,32 @@ struct InputIncome: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .offset(x:12)
                                     if UIDevice.current.userInterfaceIdiom == .pad {
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .foregroundColor(Color.white)
-                                        .frame(width: geometry.size.width - 40, height: 50) // Adjusted the width here
-                                        .padding()
-                                        .overlay(
-                                            HStack{
-                                                // to show the date that is being picked
-                                                Text("\(viewModel.date, formatter: dateFormatter)")
-                                                
-                                                Spacer().frame(width: geometry.size.width/1.6)
-                                                
-                                                // to make the button for the date picker
-                                                Button(action: {
-                                                    if viewModel.date > Date() {
-                                                           viewModel.showInvalidDateMessage = true
-                                                       } else {
-                                                           viewModel.isExpanded.toggle()
-                                                           viewModel.showInvalidDateMessage = false
-                                                       }
-                                                }, label: {
-                                                    Text("Select a date")
-                                                        .padding()
-                                                })
-                                                .disabled(viewModel.date > Date() && !viewModel.isExpanded) 
-                                            }
-                                        )
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .foregroundColor(Color.white)
+                                            .frame(width: geometry.size.width - 40, height: 50) // Adjusted the width here
+                                            .padding()
+                                            .overlay(
+                                                HStack{
+                                                    // to show the date that is being picked
+                                                    Text("\(viewModel.date, formatter: dateFormatter)")
+                                                    
+                                                    Spacer().frame(width: geometry.size.width/1.6)
+                                                    
+                                                    // to make the button for the date picker
+                                                    Button(action: {
+                                                        if viewModel.date > Date() {
+                                                            viewModel.showInvalidDateMessage = true
+                                                        } else {
+                                                            viewModel.isExpanded.toggle()
+                                                            viewModel.showInvalidDateMessage = false
+                                                        }
+                                                    }, label: {
+                                                        Text("Select a date")
+                                                            .padding()
+                                                    })
+                                                    .disabled(viewModel.date > Date() && !viewModel.isExpanded)
+                                                }
+                                            )
                                     }else{
                                         RoundedRectangle(cornerRadius: 10)
                                             .foregroundColor(Color.white)
@@ -86,11 +86,11 @@ struct InputIncome: View {
                                                     // to make the button for the date picker
                                                     Button(action: {
                                                         if viewModel.date > Date() {
-                                                               viewModel.showInvalidDateMessage = true
-                                                           } else {
-                                                               viewModel.isExpanded.toggle()
-                                                               viewModel.showInvalidDateMessage = false
-                                                           }
+                                                            viewModel.showInvalidDateMessage = true
+                                                        } else {
+                                                            viewModel.isExpanded.toggle()
+                                                            viewModel.showInvalidDateMessage = false
+                                                        }
                                                     }, label: {
                                                         Text("Select a date")
                                                             .padding()
@@ -111,16 +111,16 @@ struct InputIncome: View {
                                     }
                                     
                                     if viewModel.date > Date() {
-                                           // Show an error message if the selected date is in the future
-                                           Text("Please select a valid date")
-                                               .font(.system(size: 20))
-                                               .foregroundColor(.red)
-                                               .font(.caption)
-                                               .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                                               .padding(.top,10)
-                                               .padding(.horizontal, 10)
-                                               .font(.title)
-                                       }
+                                        // Show an error message if the selected date is in the future
+                                        Text("Please select a valid date")
+                                            .font(.system(size: 20))
+                                            .foregroundColor(.red)
+                                            .font(.caption)
+                                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                            .padding(.top,10)
+                                            .padding(.horizontal, 10)
+                                            .font(.title)
+                                    }
                                     
                                 }
                                 .padding(.bottom, -20)
@@ -294,12 +294,12 @@ struct InputIncome: View {
                         .alert(isPresented: $isShowingAlert) {
                             Alert(title: Text(alertMessage),
                                   dismissButton: .default(Text("OK"), action: {
-                                      // Setelah tombol OK ditekan, atur `isShowingInputExpenses` menjadi `false` setelah 2 detik
-                                      DispatchQueue.main.asyncAfter(deadline: .now() ) {
-                                          isShowingInputIncome = false
-                                          presentationMode.wrappedValue.dismiss()
-                                      }
-                                  })
+                                // Setelah tombol OK ditekan, atur `isShowingInputExpenses` menjadi `false` setelah 2 detik
+                                DispatchQueue.main.asyncAfter(deadline: .now() ) {
+                                    isShowingInputIncome = false
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                            })
                             )
                         }
                         .padding()
@@ -317,7 +317,7 @@ struct InputIncome: View {
                                 label: {
                                     EmptyView()
                                 })
-                                .hidden()
+                            .hidden()
                         )
                     }
                     
@@ -331,6 +331,7 @@ struct InputIncome: View {
                 .onChange(of: viewModel.amount) { newValue in
                     viewModel.validateAmount()
                 }
+                //  scroll view will extend to the edges of the screen, disregarding the safe area insets
                 .ignoresSafeArea(.all)
             }
         }
@@ -338,6 +339,7 @@ struct InputIncome: View {
         .navigationViewStyle(StackNavigationViewStyle())
     }
     
+    // a custom shape in SwiftUI that creates a rectangular shape with rounded corners at the bottom
     struct BottomRoundedRectangle: Shape {
         var radius: CGFloat
         
@@ -370,6 +372,7 @@ struct InputIncome: View {
             return path
         }
     }
+    
     
     // to make the format of the date picker, using the long date style, and not recording the time
     let dateFormatter: DateFormatter = {

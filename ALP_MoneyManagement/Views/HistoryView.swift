@@ -67,11 +67,13 @@ struct HistoryView: View {
                     }
                 }
             }
+            //displays the content of each row within a visually distinct Group List area
             .listStyle(GroupedListStyle())
         }
         .navigationTitle("History")
         // to call the functions when the view screen shows up
         .onAppear {
+            //  Loading data from UserDefaults in the viewModel
             viewModel.loadDataFromUserDefaults()
         }
         // Show an alert when showAlert is true

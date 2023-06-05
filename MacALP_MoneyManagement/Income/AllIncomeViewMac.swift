@@ -67,13 +67,14 @@ struct AllIncomeViewMac: View {
                         }
                         // allow the user to delete the data of income that has been saved
                         .onDelete { offsets in
-                            deleteHistory(at: offsets, type: "Income")
+                            deleteHistory(at: offsets, type: "Income", viewModel: viewModel)
                         }
                     }
                     .padding(.top, -15)
                     .padding(.bottom, -15)
                     .padding(.horizontal, -3)
                 }
+                // displays the content of each row within a visually distinct inset area
                 .listStyle(.inset)
                 
                 Spacer()
@@ -110,11 +111,12 @@ struct AllIncomeViewMac: View {
                 viewModel.loadIncomeData()
                 viewModel.loadIncomeHistory()
             }
+            .environmentObject(viewModel) // Inject InputIncomeViewModel as an environment object
+                }
         
-    }
     
     // function to delete the income history
-    func deleteHistory(at offsets: IndexSet, type: String) {
+    func deleteHistory(at offsets: IndexSet, type: String, viewModel: InputIncomeViewModel) {
         if type == "Income" {
             viewModel.incomeHistory.remove(atOffsets: offsets)
         }
@@ -171,6 +173,8 @@ struct EditIncomeHistoryView: View {
 // to show the detailed history data of income
 struct HistoryIncomeRow: View {
     var history: History
+    @State private var showAlert = false
+    @EnvironmentObject private var viewModel: InputIncomeViewModel
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -182,8 +186,36 @@ struct HistoryIncomeRow: View {
                 .font(.subheadline)
         }
         .padding()
-    }
-}
+                .contextMenu {
+                    Button(action: {
+                        showAlert = true
+                    }) {
+                        Label("Delete", systemImage: "trash")
+                    }
+                }
+                .alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text("Delete Income"),
+                        message: Text("Are you sure you want to delete this income?"),
+                        primaryButton: .destructive(Text("Delete")) {
+                            deleteHistory(history)
+                        },
+                        secondaryButton: .cancel()
+                    )
+                }
+            }
+
+            func deleteHistory(_ history: History) {
+                if let index = getIndex(for: history, in: viewModel.incomeHistory) {
+                    viewModel.incomeHistory.remove(at: index)
+                    viewModel.saveIncomeHistory()
+                }
+            }
+
+            func getIndex(for history: History, in array: [History]) -> Int? {
+                return array.firstIndex(where: { $0.id == history.id })
+            }
+        }
 
 // to make the format of the date picker, using the long date style, and not recording the time
 private let dateFormatter: DateFormatter = {

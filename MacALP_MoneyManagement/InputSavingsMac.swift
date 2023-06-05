@@ -8,12 +8,17 @@
 import SwiftUI
 
 struct InputSavingsMac: View {
+    // Stores the input amount as a string
     @State var amount: String = ""
+    // Stores the input number of days as a string
     @State var days: String = ""
     
+    // Tracks if the amount field has been filled
     @State var checkAmount: Bool = false
+    // Tracks if the days field has been filled
     @State var checkDays: Bool = false
     
+    // Represents the calculated savings per day, initialized to 0
     @State var perDay = 0
     
     var body: some View {
@@ -21,6 +26,7 @@ struct InputSavingsMac: View {
             VStack {
                 ScrollView{
                     VStack(alignment: .leading, spacing: 30) {
+                        //Content goes here
                         Text("Add your Goal")
                             .foregroundColor(.white)
                             .font(.system(size: geometry.size.width/24 , weight: .bold))
@@ -77,6 +83,7 @@ struct InputSavingsMac: View {
                                 .opacity(!checkDays ? 1 : 0)
                         }
                     }
+                    // Add Spacer to make spacing
                     Spacer()
                     
                 }
@@ -136,29 +143,34 @@ struct InputSavingsMac: View {
                 .disabled(!checkAmount || !checkDays) // the button will be disabled if the target amount and days are not meeting the requirement
             }
         }
+        // modifier to ignore the safe area insets provided by the device's operating system.
         .ignoresSafeArea(.all)
     }
     
     //func to display comma separator in textfield
     private func formatAmount(_ value: String) -> Binding<String> {
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .decimal
-            formatter.groupingSeparator = ","
-            formatter.usesGroupingSeparator = true
-
-            let formattedValue = formatter.string(from: NSNumber(value: Int(value) ?? 0)) ?? ""
-
+        // configured to format the number as a decimal with grouping separator
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        formatter.usesGroupingSeparator = true
+        
+        let formattedValue = formatter.string(from: NSNumber(value: Int(value) ?? 0)) ?? ""
+        
+        // a getter and a setter to formatted amount
         return Binding<String>(
-                    get: { "Rp " + (value.isEmpty ? "" : formattedValue) },
-                    set: { newValue in
-                        let cleanValue = newValue
-                            .replacingOccurrences(of: "Rp ", with: "")
-                            .replacingOccurrences(of: formatter.groupingSeparator, with: "")
-                        amount = cleanValue
-                    }
-                )
-        }
+            // Make the format can be rupiah
+            get: { "Rp " + (value.isEmpty ? "" : formattedValue) },
+            set: { newValue in
+                let cleanValue = newValue
+                    .replacingOccurrences(of: "Rp ", with: "")
+                    .replacingOccurrences(of: formatter.groupingSeparator, with: "")
+                amount = cleanValue
+            }
+        )
+    }
     
+    // a custom shape in SwiftUI that creates a rectangular shape with rounded corners at the bottom
     struct BottomRoundedRectangle: Shape {
         var radius: CGFloat
         

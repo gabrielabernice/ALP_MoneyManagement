@@ -56,6 +56,7 @@ struct AllIncomeView: View {
                 .padding(.bottom, -15)
                 .padding(.horizontal, -3)
             }
+            // displays the content of each row within a visually distinct inset area
             .listStyle(.inset)
             
             Spacer()

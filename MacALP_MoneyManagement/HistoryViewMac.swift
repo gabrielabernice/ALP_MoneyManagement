@@ -70,6 +70,7 @@ struct HistoryViewMac: View {
                     }
                 }
             }
+            // displays the content of each row within a visually distinct inset area
             .listStyle(SidebarListStyle())
             
             Button(action: {
@@ -79,10 +80,12 @@ struct HistoryViewMac: View {
             }
             .padding()
         }
+        // Setting the spacing of the history view frame
         .frame(minWidth: 500, idealWidth: 600, maxWidth: .infinity, minHeight: 400, idealHeight: 500, maxHeight: .infinity)
         .navigationTitle("History")
         // to call the functions when the view screen shows up
         .onAppear {
+            //  Loading data from UserDefaults in the viewModel
             viewModel.loadDataFromUserDefaults()
         }
         // Show an alert when showAlert is true

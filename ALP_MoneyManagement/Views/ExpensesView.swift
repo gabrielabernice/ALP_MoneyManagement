@@ -16,6 +16,7 @@ struct AllExpensesView: View {
     @State private var showAlert = false
     
     var expensesData: [Double] {
+        // It maps each expense history item in viewModel.expensesHistory to its amount as a Double.
         return viewModel.expensesHistory.map { Double($0.amount) }
     }
     
@@ -53,6 +54,7 @@ struct AllExpensesView: View {
                 .padding(.horizontal, -3)
                 
             }
+            //displays the content of each row within a visually distinct inset area
             .listStyle(.inset)
             
             Spacer()
