@@ -16,6 +16,7 @@ struct AllIncomeView: View {
     @State private var showAlert = false
     
     var incomeData: [Double] {
+        // It maps each expense history item in viewModel.incomeHistory to its amount as a Double.
         return viewModel.incomeHistory.map { Double($0.amount) }
     }
     

@@ -326,6 +326,8 @@ struct InputIncomeMac: View {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         formatter.timeStyle = .none
+    // Make the output date 
+        formatter.dateFormat = "MMMM d, yyyy"
         return formatter
     }()
 }

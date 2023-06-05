@@ -12,13 +12,36 @@ import SwiftUICharts
 struct AllExpensesViewMac: View {
     @StateObject private var viewModel = InputExpensesViewModel()
     @State private var isShowingInputExpensesSheet = false
+    
+    //It represents the mode in which a view is presented
+    @Environment(\.presentationMode) private var presentationMode
 
     var expensesData: [Double] {
+        // It maps each expense history item in viewModel.expensesHistory to its amount as a Double.
         return viewModel.expensesHistory.map { Double($0.amount) }
     }
     
+    
     var body: some View {
         VStack {
+            // Add a back button
+            HStack {
+                Button(action: {
+                    //accesses the wrapped value of the presentationMode environment property
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    //Button Content
+                    Image(systemName: "chevron.left")
+                        .foregroundColor(.black)
+                        .font(.title2)
+                }
+                .padding(.leading, 20)
+                .padding(.top, 20)
+                .padding(.bottom, -20)
+                // Add top padding to align with the top of the view
+                Spacer()
+            }
+            
             // displaying the piechart to show the chart for expenses from each inputs
             PieChartView(data:expensesData, title: "Expenses")
                 .frame(height: 300)
@@ -30,6 +53,7 @@ struct AllExpensesViewMac: View {
                 .padding(.horizontal,30)
                 .padding(.top)
                 .padding(.bottom, -1)
+            
             
             // to make a list for the data of expenses that have been saved by the user
             List {
@@ -108,15 +132,37 @@ struct AllExpensesViewMac: View {
 // to edit the history
 struct EditExpensesHistoryView: View {
     @Binding var history: History
+    // It represents the mode in which a view is presented
+        @Environment(\.presentationMode) private var presentationMode
     
     var body: some View {
-        VStack {
-            Text("Name: \(history.name)")
-            Text("Amount: \(history.amount)")
-            Text("Date: \(history.date, formatter: dateFormatter)")
+            VStack {
+                HStack {
+                    Button(action: {
+                        //accesses the wrapped value of the presentationMode environment property
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        //Button Content
+                        Image(systemName: "chevron.left")
+                            .foregroundColor(.black)
+                            .font(.title2)
+                    }
+                    .padding(.leading, 20)
+                    .padding(.top, 20)
+                    .padding(.bottom, -20)
+                    
+                    Spacer()
+                }
+                //Detail output text that wanted to show
+                Text("Name: \(history.name)")
+                Text("Amount: \(history.amount)")
+                Text("Date: \(history.date, formatter: dateFormatter)")
+            }
+        // Add top padding to align with the top of the view
+            .padding(.top, 20)
         }
     }
-}
+
 
 // to show the detailed history data of expenses
 struct HistoryExpensesRow: View {
@@ -140,6 +186,8 @@ private let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .long
     formatter.timeStyle = .none
+    // Make the format output date
+    formatter.dateFormat = "MMMM d, yyyy"
     return formatter
 }()
 

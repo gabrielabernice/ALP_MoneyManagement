@@ -317,6 +317,8 @@ struct InputExpensesMac: View {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         formatter.timeStyle = .none
+        // Make the format output date
+        formatter.dateFormat = "MMMM d, yyyy"
         return formatter
     }()
 }
