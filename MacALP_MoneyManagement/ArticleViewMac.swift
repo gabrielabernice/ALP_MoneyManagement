@@ -16,7 +16,7 @@ struct ArticleViewMac: View {
                 .padding(.leading, 18)
                 .padding(.top, 10)
                 .padding(.bottom, -10)
-
+            
             ScrollView(.horizontal, showsIndicators: false) {
                 ScrollViewReader { proxy in
                     HStack(alignment: .top, spacing: 0) {
@@ -100,6 +100,7 @@ struct ArticleViewMac: View {
 }
 
 struct Article1: View {
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         ScrollView{
             VStack {
@@ -145,12 +146,22 @@ struct Article1: View {
                  Mastering budget management is a transformative skill that empowers individuals to take control of their finances and achieve their financial aspirations. By creating a comprehensive budget, making informed spending decisions, tracking and adjusting your budget regularly, building an emergency fund, and seeking professional guidance when needed, you can pave the way for financial success. Embrace budget management as a key pillar of your financial journey and enjoy the rewards of financial control, stability, and the ability to turn your dreams into reality.
                  """)
                 .padding(.horizontal)
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "xmark.circle")
+                        .font(.title)
+                }
+                .padding()
+                .foregroundColor(.primary)
+                .frame(maxWidth: .infinity, alignment: .trailing)
             }
         }
     }
 }
 
 struct Article2: View {
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         ScrollView{
             VStack {
@@ -197,6 +208,16 @@ struct Article2: View {
                  The art of saving money is a transformative skill that nurtures financial wellness, builds resilience, and sets the stage for a brighter future. By setting clear saving goals, crafting a realistic budget, automating savings, embracing frugality and mindful spending, and seeking professional guidance when needed, you can embark on a successful saving journey. Cultivate effective saving habits, and unlock the power of financial freedom and abundance in your life.
                  """)
                 .padding(.horizontal)
+                
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "xmark.circle")
+                        .font(.title)
+                }
+                .padding()
+                .foregroundColor(.primary)
+                .frame(maxWidth: .infinity, alignment: .trailing)
             }
         }
     }

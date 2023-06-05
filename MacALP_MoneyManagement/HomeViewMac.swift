@@ -47,7 +47,7 @@ struct HomeViewMac: View {
                         HStack{
                             // to check if there are data (income and expenses) has been inputed, the chart will be shown
                             if !incomeViewModel.incomeHistory.isEmpty &&  !expensesViewModel.expensesHistory.isEmpty {
-                                MultiLineChartView(data: [(incomeData, GradientColors.blue), (expensesData, GradientColors.orange)], title: "Data", style: Styles.lineChartStyleOne, form: ChartForm.extraLarge).padding(.horizontal)
+                                MultiLineChartView(data: [(incomeData, GradientColors.blue), (expensesData, GradientColors.orange)], title: "Income & Expenses", style: Styles.lineChartStyleOne, form: ChartForm.extraLarge).padding(.horizontal)
                                     .foregroundColor(colorScheme == .dark ? .white : .black)
                                 //                                    .background(colorScheme == .dark ? Color.black : Color.white)
                                     .frame(height: 240)
