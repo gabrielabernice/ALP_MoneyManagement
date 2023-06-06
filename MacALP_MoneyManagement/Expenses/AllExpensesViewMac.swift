@@ -30,9 +30,11 @@ struct AllExpensesViewMac: View {
                 }) {
                     // Button Content
                     Image(systemName: "xmark.circle")
-                        .foregroundColor(.black)
+                        .foregroundColor(.red)
                         .font(.title2)
                 }
+                .buttonStyle(BorderlessButtonStyle())
+                .foregroundColor(.primary)
                 .padding(.leading, 20)
                 .padding(.top, 20)
                 .padding(.bottom, -20)

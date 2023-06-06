@@ -24,96 +24,99 @@ struct AllIncomeViewMac: View {
     
     var body: some View {
         
-            VStack {
-                HStack {
-                    Button(action: {
-                        //accesses the wrapped value of the presentationMode environment property
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        //Button Content
-                        Image(systemName: "xmark.circle")
-                            .foregroundColor(.black)
-                            .font(.title2)
-                    }
-                    .padding(.leading, 20)
-                    .padding(.top, 20)
-                    .padding(.bottom, -20)
-                    // Add top padding to align with the top of the view
-                    Spacer()
-                }
+        VStack {
+            HStack {
                 
-                // displaying the piechart to show the chart for income from each inputs
-                PieChartView(data:incomeData, title: "Income",style: Styles.barChartStyleNeonBlueLight, form: ChartForm.large).padding(.horizontal)
-                    .frame(height: 300)
-                    .padding(.vertical, 20)
-                
-                
-                Text("Income History")
-                    .font(.system(size: 25))
-                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal,30)
-                    .padding(.top)
-                    .padding(.bottom, -1)
-                
-                // to make a list for the data of incomes that have been saved by the user
-                List {
-                    Section() {
-                        // loop the data of income that has been saved by the user
-                        ForEach(viewModel.incomeHistory) { history in
-                            // allow the user to see the detail of the income data
-                            NavigationLink(destination: EditIncomeHistoryView(history: $viewModel.incomeHistory[getIndex(for: history, in: viewModel.incomeHistory)])) {
-                                HistoryIncomeRow(history: history)
-                            }
-                        }
-                        // allow the user to delete the data of income that has been saved
-                        .onDelete { offsets in
-                            deleteHistory(at: offsets, type: "Income", viewModel: viewModel)
-                        }
-                    }
-                    .padding(.top, -15)
-                    .padding(.bottom, -15)
-                    .padding(.horizontal, -3)
-                }
-                // displays the content of each row within a visually distinct inset area
-                .listStyle(.inset)
-                
-                Spacer()
-                
-                // button that will navigate the user to the inputincome view
                 Button(action: {
-                    isShowingInputIncomeSheet = true // Set state untuk menampilkan InputIncomeMac
+                    //accesses the wrapped value of the presentationMode environment property
+                    presentationMode.wrappedValue.dismiss()
                 }) {
-                    Text("Add New Income")
-                        .font(.title)
-                        .padding(10)
-                        .padding(.horizontal, 55)
-                        .background(Color(hex: 0x6DA3FF))
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                    //Button Content
+                    Image(systemName: "xmark.circle")
+                        .foregroundColor(.red)
+                        .font(.title2)
                 }
-                .padding(.bottom, 25)
-                .frame(maxWidth: .infinity)
-                .padding()
                 .buttonStyle(BorderlessButtonStyle())
+                .foregroundColor(.primary)
+                .padding(.leading, 20)
+                .padding(.top, 20)
+                .padding(.bottom, -20)
+                // Add top padding to align with the top of the view
+                Spacer()
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity) // Set the view's frame to fill the available space
-            .navigationTitle("Income")
-            .sheet(isPresented: $isShowingInputIncomeSheet) {
-                InputIncomeMac(isPresented: $isShowingInputIncomeSheet) // Tampilkan InputIncomeMac ketika state isShowingInputIncome bernilai true
-                    .onDisappear {
-                        // to reload data when the sheet disapear
-                        viewModel.loadIncomeData()
-                        viewModel.loadIncomeHistory()
+            
+            // displaying the piechart to show the chart for income from each inputs
+            PieChartView(data:incomeData, title: "Income",style: Styles.barChartStyleNeonBlueLight, form: ChartForm.large).padding(.horizontal)
+                .frame(height: 300)
+                .padding(.vertical, 20)
+            
+            
+            Text("Income History")
+                .font(.system(size: 25))
+                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal,30)
+                .padding(.top)
+                .padding(.bottom, -1)
+            
+            // to make a list for the data of incomes that have been saved by the user
+            List {
+                Section() {
+                    // loop the data of income that has been saved by the user
+                    ForEach(viewModel.incomeHistory) { history in
+                        // allow the user to see the detail of the income data
+                        NavigationLink(destination: EditIncomeHistoryView(history: $viewModel.incomeHistory[getIndex(for: history, in: viewModel.incomeHistory)])) {
+                            HistoryIncomeRow(history: history)
+                        }
                     }
-            }
-            // to call the functions when the view screen shows up
-            .onAppear {
-                viewModel.loadIncomeData()
-                viewModel.loadIncomeHistory()
-            }
-            .environmentObject(viewModel) // Inject InputIncomeViewModel as an environment object
+                    // allow the user to delete the data of income that has been saved
+                    .onDelete { offsets in
+                        deleteHistory(at: offsets, type: "Income", viewModel: viewModel)
+                    }
                 }
-        
+                .padding(.top, -15)
+                .padding(.bottom, -15)
+                .padding(.horizontal, -3)
+            }
+            // displays the content of each row within a visually distinct inset area
+            .listStyle(.inset)
+            
+            Spacer()
+            
+            // button that will navigate the user to the inputincome view
+            Button(action: {
+                isShowingInputIncomeSheet = true // Set state untuk menampilkan InputIncomeMac
+            }) {
+                Text("Add New Income")
+                    .font(.title)
+                    .padding(10)
+                    .padding(.horizontal, 55)
+                    .background(Color(hex: 0x6DA3FF))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+            .padding(.bottom, 25)
+            .frame(maxWidth: .infinity)
+            .padding()
+            .buttonStyle(BorderlessButtonStyle())
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity) // Set the view's frame to fill the available space
+        .navigationTitle("Income")
+        .sheet(isPresented: $isShowingInputIncomeSheet) {
+            InputIncomeMac(isPresented: $isShowingInputIncomeSheet) // Tampilkan InputIncomeMac ketika state isShowingInputIncome bernilai true
+                .onDisappear {
+                    // to reload data when the sheet disapear
+                    viewModel.loadIncomeData()
+                    viewModel.loadIncomeHistory()
+                }
+        }
+        // to call the functions when the view screen shows up
+        .onAppear {
+            viewModel.loadIncomeData()
+            viewModel.loadIncomeHistory()
+        }
+        .environmentObject(viewModel) // Inject InputIncomeViewModel as an environment object
+    }
+    
     
     // function to delete the income history
     func deleteHistory(at offsets: IndexSet, type: String, viewModel: InputIncomeViewModel) {
@@ -143,32 +146,32 @@ struct EditIncomeHistoryView: View {
     @Environment(\.presentationMode) private var presentationMode
     
     var body: some View {
-            VStack {
-                HStack {
-                    Button(action: {
-                        //accesses the wrapped value of the presentationMode environment property
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        //Button Content
-                        Image(systemName: "chevron.left")
-                            .foregroundColor(.black)
-                            .font(.title2)
-                    }
-                    .padding(.leading, 20)
-                    .padding(.top, 20)
-                    .padding(.bottom, -20)
-                    
-                    Spacer()
+        VStack {
+            HStack {
+                Button(action: {
+                    //accesses the wrapped value of the presentationMode environment property
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    //Button Content
+                    Image(systemName: "chevron.left")
+                        .foregroundColor(.black)
+                        .font(.title2)
                 }
-                //Detail output text that wanted to show
-                Text("Name: \(history.name)")
-                Text("Amount: \(history.amount)")
-                Text("Date: \(history.date, formatter: dateFormatter)")
+                .padding(.leading, 20)
+                .padding(.top, 20)
+                .padding(.bottom, -20)
+                
+                Spacer()
             }
-        // Add top padding to align with the top of the view
-            .padding(.top, 20)
+            //Detail output text that wanted to show
+            Text("Name: \(history.name)")
+            Text("Amount: \(history.amount)")
+            Text("Date: \(history.date, formatter: dateFormatter)")
         }
+        // Add top padding to align with the top of the view
+        .padding(.top, 20)
     }
+}
 
 // to show the detailed history data of income
 struct HistoryIncomeRow: View {
@@ -186,36 +189,36 @@ struct HistoryIncomeRow: View {
                 .font(.subheadline)
         }
         .padding()
-                .contextMenu {
-                    Button(action: {
-                        showAlert = true
-                    }) {
-                        Label("Delete", systemImage: "trash")
-                    }
-                }
-                .alert(isPresented: $showAlert) {
-                    Alert(
-                        title: Text("Delete Income"),
-                        message: Text("Are you sure you want to delete this income?"),
-                        primaryButton: .destructive(Text("Delete")) {
-                            deleteHistory(history)
-                        },
-                        secondaryButton: .cancel()
-                    )
-                }
-            }
-
-            func deleteHistory(_ history: History) {
-                if let index = getIndex(for: history, in: viewModel.incomeHistory) {
-                    viewModel.incomeHistory.remove(at: index)
-                    viewModel.saveIncomeHistory()
-                }
-            }
-
-            func getIndex(for history: History, in array: [History]) -> Int? {
-                return array.firstIndex(where: { $0.id == history.id })
+        .contextMenu {
+            Button(action: {
+                showAlert = true
+            }) {
+                Label("Delete", systemImage: "trash")
             }
         }
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Delete Income"),
+                message: Text("Are you sure you want to delete this income?"),
+                primaryButton: .destructive(Text("Delete")) {
+                    deleteHistory(history)
+                },
+                secondaryButton: .cancel()
+            )
+        }
+    }
+    
+    func deleteHistory(_ history: History) {
+        if let index = getIndex(for: history, in: viewModel.incomeHistory) {
+            viewModel.incomeHistory.remove(at: index)
+            viewModel.saveIncomeHistory()
+        }
+    }
+    
+    func getIndex(for history: History, in array: [History]) -> Int? {
+        return array.firstIndex(where: { $0.id == history.id })
+    }
+}
 
 // to make the format of the date picker, using the long date style, and not recording the time
 private let dateFormatter: DateFormatter = {
